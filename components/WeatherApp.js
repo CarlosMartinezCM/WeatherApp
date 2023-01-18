@@ -47,7 +47,7 @@ toggleUnits = () => {
     }
     render() {
         return (
-            <div>
+            <div class="card" style={{background: "lightblue"}} >
                 <h4>Current conditions at </h4> 
                 <h2> {this.state.place}</h2>
                 <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>           
@@ -60,8 +60,8 @@ toggleUnits = () => {
                 <h6>Visibility {this.state.visibility + " " + this.state.visibilityUnits}</h6>
                 <h6>Wind Chill </h6>
                 <h6><i>Last Updated on {this.state.retrieved}</i></h6>
-                <div className="refresh button">
-                    <input id="refresh" type="button" value="refresh" onClick={this.updateWeather} />
+                <div class="button" >
+                    <input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} />
                 </div>
             </div>
         );
@@ -92,8 +92,8 @@ class CurrentWeather extends React.Component {
     render() {
         if(this.state.station != null) {
             return (
-            <div id="main">
-                <div align="center" className="jumbotron">
+            <div id="main" >
+                <div align="center" className="jumbotron" style={{background: "aqua"}}>
                     <WeatherForecast
                      latitude={this.state.station.lat}
                      longitude={this.state.station.long} />
