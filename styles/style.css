@@ -1,11 +1,12 @@
 body {
-    background-color:black;
+    background-color:rgb(140, 167, 165);
 }
 
 .card {
     font-family: 'Times New Roman', Times, serif;
+    background-color:rgb(140, 167, 165);
 }
 
 .button {
-    color: rgb(32, 28, 33);
+    color: rgb(21, 20, 22);
 }
