@@ -1,5 +1,4 @@
 
-
 class WeatherForecast extends React.Component {
     constructor(props) {
         super(props);
@@ -48,6 +47,7 @@ class WeatherForecast extends React.Component {
     }
     //Udate the current weather conditions
     updateWeather = () => {
+        
         this.getCurrentWeather();
     }
     render() {
@@ -92,8 +92,7 @@ class CurrentWeather extends React.Component {
         this.citySearch = React.createRef();
         this.state = {
             searchButton: "Seach",
-            stationCount: 0,
-            station: []
+            station: null
         };
     }
     componentDidMount = () => {
@@ -102,60 +101,38 @@ class CurrentWeather extends React.Component {
     }
     //If the user allows to get location, the weather is set to the users current GeoLocation position. 
     getLocSuccess = (position) => {
-        this.setState({
-            station: [{ lat: position.coords.latitude, lon: position.coords.longitude, stationID: this.state.stationCount + 1 }],
-            stationCount: this.state.stationCount + 1
-        });
+        
+        this.setState({station: {lat: position.coords.latitude, lon: position.coords.longitude}});
     }
     //This fucntion is called if the user denies to give their current Geolocation and initializes the default location. 
     getLocError = (err) => {
-        this.setState({
-            station: [{ lat: 46.26955, lon: -119.11813, stationID: this.state.stationCount + 1 }],
-            stationCount: this.state.stationCount + 1
-        });
+       
+        
+        this.setState({station: {lat: 46.26955, lon: -119.11813}});
     }
-
     //Called when user searches for a city 
     searchLocation = async () => {
-        let data = this.citySearch.current.value;
-        
-        if (newStation != null) {
-            const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=' +
-                data + '&appid=26a5f25cabf9b11d8b970976611bc138');
+        var data = this.citySearch.current.value;
+        if (data != null) {
+            this.setState({station: null});
+            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=' + 
+              data +  '&appid=26a5f25cabf9b11d8b970976611bc138');
             const currentStation = await response.json();
-            alert("Inside Search for " +data+ "");
-            if (currentStation != null && currentStation.hasOwnProperty('coords')) {
-                let newData = [...this.state.station];
-                newData.push({
-                    lat: currentStation.coords.lat,
-                    lon: currentStation.coords.lon,
-                    stationID: this.state.stationCount + 1
-                });
-                this.setState({
-                    station: newData,
-                    stationCount: this.state.stationCount + 1
-                });
+            if (currentStation != null && currentStation.hasOwnProperty('coord')) {
+                this.setState({ station:{ lat: currentStation.coord.lat, lon: currentStation.coord.lon}});
             } else { alert("no station for this loation"); }
         }
     }
     //Instantiating WeatherForecast components in CurrentWeather to pass in functions as props
     render() {
-        let rows = [];
-        for (let i = 0; i < this.state.station.length; ++i) {
-            rows.push(
-                <WeatherForecast key={this.state.station[i].stationID}
-                    latitude={this.state.station[i].lat}
-                    longitude={this.state.station[i].lon}
-                    stationID={this.state.station[i].stationID} />);
-        }
-        return (
-            <div id="main" >
-                <div id="weatherForecast">
-                    {rows}
-                </div>
-                <div align="center" className="card" style={{ background: "grey" }} class="button" >
-                    <form onSubmit={this.searchLocation} >
-                        <label htmlFor="searchInput" style={{ padding: 0, fontSize: 24 }} method="get" />
+            if (this.state.station != null) {
+                return (
+                    <div id="main">
+                        <div align="center" className="jumbotron">
+                        <WeatherForecast latitude={this.state.station.lat} longitude={this.state.station.lon} />
+                        </div>
+                        <div align="center" className="floatButton" id="floatBtnDiv" >
+                    <form >
                         <input
                             ref={this.citySearch}
                             type="text"
@@ -164,13 +141,19 @@ class CurrentWeather extends React.Component {
                             placeholder="Enter City name" />
                         <button
                             type="submit"
-                            className="btn-color-theme">
+                            className="btn-color-theme" onClick={this.searchLocation} >
                             <span id="login-btn-icon" className={this.state.searchButton} />&nbsp;{this.state.searchButton}
                         </button>
                     </form>
                 </div>
-            </div>
-        );
+                    </div>
+                    
+                );
+            } else {
+                return null;
+            }        
+                
+        
 
     }
 }
@@ -178,4 +161,4 @@ class CurrentWeather extends React.Component {
 ReactDOM.render(
     <CurrentWeather />,
     document.getElementById('root')
-);
+);p13235
