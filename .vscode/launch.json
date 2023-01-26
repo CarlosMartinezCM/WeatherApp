@@ -1,0 +1,12 @@
+{
+    "version": "1.0",
+    "configurations": [
+        {
+            "name": "Debug Windows",
+            "cwd": "${/c/Users/carlos.martinez/Coding/Lunchbreak/WeatherApp}",
+            "type": "reactnative",
+            "request": "launch",
+            "platform": "windows"
+        }
+    ]
+}
