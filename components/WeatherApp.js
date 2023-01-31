@@ -9,6 +9,7 @@ class WeatherForecast extends React.Component {
     }
     componentDidMount = () => {
         this.getCurrentWeather();
+        this.getFiveDayForecast();
     }
 
     getCurrentWeather = async () => {
@@ -33,6 +34,15 @@ class WeatherForecast extends React.Component {
             timeZone: currentWea.timezone
         });
     }
+    
+    getFiveDayForecast = async () => {
+        const response = await fetch('api.openweathermap.org/data/2.5/forecast?lat=' +
+            this.state.latitude + '&lon=' +
+            this.state.longitude + '&appid=26a5f25cabf9b11d8b970976611bc138');
+        const fiveDay = await response.json();
+        this.setState({ tTemp: fiveDay.main.temp
+        });
+    }
 
     toggleUnits = () => {
         if (this.state.tempUnit == "F") {
@@ -47,7 +57,7 @@ class WeatherForecast extends React.Component {
     }
     //Udate the current weather conditions
     updateWeather = () => {
-        
+
         this.getCurrentWeather();
     }
     render() {
@@ -71,13 +81,19 @@ class WeatherForecast extends React.Component {
                         <h6>Barometer {this.state.barometer} </h6>
                         <h6>Visibility {this.state.visibility + " " + this.state.visibilityUnits}</h6>
                         <h6>Wind Chill </h6>
+                        <h6>City Population {this.state.population} </h6>
                         <h6><i>Last Updated on {this.state.retrieved}</i></h6>
                         <div><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
+                    </div>
+                    <div align="center" className="jumbotron" style={{ background: "rgb(21, 20, 22)" }}>
+                    <div class="card" style={{ background: "lightgrey" }} >
+                        <h6>Temp: {this.state.tTemp} </h6>
                     </div>
                     <div>
                         <p>version 1.0</p>
                     </div>
                 </div>
+            </div>
             </div>
         );
     }
@@ -101,64 +117,60 @@ class CurrentWeather extends React.Component {
     }
     //If the user allows to get location, the weather is set to the users current GeoLocation position. 
     getLocSuccess = (position) => {
-        
-        this.setState({station: {lat: position.coords.latitude, lon: position.coords.longitude}});
+
+        this.setState({ station: { lat: position.coords.latitude, lon: position.coords.longitude } });
     }
     //This fucntion is called if the user denies to give their current Geolocation and initializes the default location. 
     getLocError = (err) => {
-       
-        
-        this.setState({station: {lat: 46.26955, lon: -119.11813}});
+
+
+        this.setState({ station: { lat: 46.26955, lon: -119.11813 } });
     }
     //Called when user searches for a city 
     searchLocation = async () => {
         var data = this.citySearch.current.value;
         if (data != null) {
-            this.setState({station: null});
-            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=' + 
-              data +  '&appid=26a5f25cabf9b11d8b970976611bc138');
+            this.setState({ station: null });
+            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=' +
+                data + '&appid=26a5f25cabf9b11d8b970976611bc138');
             const currentStation = await response.json();
             if (currentStation != null && currentStation.hasOwnProperty('coord')) {
-                this.setState({ station:{ lat: currentStation.coord.lat, lon: currentStation.coord.lon}});
+                this.setState({ station: { lat: currentStation.coord.lat, lon: currentStation.coord.lon } });
             } else { alert("no station for this loation"); }
         }
     }
     //Instantiating WeatherForecast components in CurrentWeather to pass in functions as props
     render() {
-            if (this.state.station != null) {
-                return (
-                    <div id="main">
-                        <div align="center" className="jumbotron">
-                        <WeatherForecast latitude={this.state.station.lat} longitude={this.state.station.lon} />
-                        </div>
-                        <div align="center" className="floatButton" id="floatBtnDiv" >
-                    <form >
-                        <input
-                            ref={this.citySearch}
-                            type="text"
-                            id="cName"
-                            name="cName"
-                            placeholder="Enter City name" />
-                        <button
-                            type="submit"
-                            className="btn-color-theme" onClick={this.searchLocation} >
-                            <span id="login-btn-icon" className={this.state.searchButton} />&nbsp;{this.state.searchButton}
-                        </button>
-                    </form>
-                </div>
+        if (this.state.station != null) {
+            return (
+                <div id="main">
+                    <div align="center" className="floatButton" id="floatBtnDiv" >
+                        <form >
+                            <input
+                                ref={this.citySearch}
+                                type="text"
+                                id="cName"
+                                name="cName"
+                                placeholder="Enter City name" />
+                            <button
+                                type="submit"
+                                className="btn-color-theme" onClick={this.searchLocation} >
+                                <span id="login-btn-icon" className={this.state.searchButton} />&nbsp;{this.state.searchButton}
+                            </button>
+                        </form>
                     </div>
-                    
-                );
-            } else {
-                return null;
-            }        
-                
-        
-
+                    <div align="center" className="jumbotron">
+                        <WeatherForecast latitude={this.state.station.lat} longitude={this.state.station.lon} />
+                    </div>
+                </div>
+            );
+        } else {
+            return null;
+        }
     }
 }
 
 ReactDOM.render(
     <CurrentWeather />,
     document.getElementById('root')
-);p13235
+);
