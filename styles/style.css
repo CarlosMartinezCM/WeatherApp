@@ -5,8 +5,26 @@ body {
 .card {
     font-family: 'Times New Roman', Times, serif;
     background-color:rgb(140, 167, 165);
+    width: auto;
 }
 
 .button {
     color: rgb(21, 20, 22);
+}
+
+.tCity {
+    text-align: left;
+    margin: 20px;
+
+}
+
+.currWeatherLeft {
+    text-align: left;
+    margin: 20px;
+}
+.currWeatherCenter {
+    
+    text-align: "right";
+    background-color: "rgb(21, 20, 22)";
+
 }

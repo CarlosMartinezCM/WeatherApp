@@ -9,7 +9,7 @@ class WeatherForecast extends React.Component {
     }
     componentDidMount = () => {
         this.getCurrentWeather();
-        this.getFiveDayForecast();
+        //this.getFiveDayForecast();
     }
 
     getCurrentWeather = async () => {
@@ -34,15 +34,17 @@ class WeatherForecast extends React.Component {
             timeZone: currentWea.timezone
         });
     }
-    
-    getFiveDayForecast = async () => {
-        const response = await fetch('api.openweathermap.org/data/2.5/forecast?lat=' +
-            this.state.latitude + '&lon=' +
-            this.state.longitude + '&appid=26a5f25cabf9b11d8b970976611bc138');
-        const fiveDay = await response.json();
-        this.setState({ tTemp: fiveDay.main.temp
-        });
-    }
+
+    // getFiveDayForecast = async () => {
+    //     const response2 = await fetch('api.openweathermap.org/data/2.5/forecast?lat=' +
+    //         this.state.latitude + '&lon=' +
+    //         this.state.longitude + '&appid=c6b4a0626b859963ec9947ed4d9d3934');
+    //     const fiveDay = await response2.json();
+    //     this.setState({ city: fiveDay.list.city.name,
+    //                 tTemp: fiveDay.list[0].main.temp, 
+    //                     wWind: fiveDay.main.wind.speed
+    //     });
+    // }
 
     toggleUnits = () => {
         if (this.state.tempUnit == "F") {
@@ -57,43 +59,36 @@ class WeatherForecast extends React.Component {
     }
     //Udate the current weather conditions
     updateWeather = () => {
-
         this.getCurrentWeather();
     }
     render() {
         return (
             <div>
-                <div class="card" style={{ background: "black" }} >
-                    <div>
-                        <p>Home    about</p>
-                    </div>
-                </div>
-                <div align="center" className="jumbotron" style={{ background: "rgb(21, 20, 22)" }}>
-                    <div class="card" style={{ background: "lightgrey" }} >
-                        <h4>Current conditions at </h4>
+                <div class="card" >
+                    <div class="tCity" >
+                        <b>Current conditions at </b>
                         <h2> {this.state.place}</h2>
                         <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
+                    </div>
+                </div>
+                <div class="card" >
+                    <div class="currWeatherLeft" >
                         <h5>{this.state.conditions}</h5>
                         <h3>{(this.state.temp * 9 / 5) + 32}&deg;&nbsp; F</h3>
                         <h5>{this.state.temp}&deg;&nbsp; C</h5>
-                        <h6>Humidity {this.state.humidity}%</h6>
-                        <h6>Wind Speed {this.state.wind} MPH</h6>
-                        <h6>Barometer {this.state.barometer} </h6>
-                        <h6>Visibility {this.state.visibility + " " + this.state.visibilityUnits}</h6>
-                        <h6>Wind Chill </h6>
-                        <h6>City Population {this.state.population} </h6>
-                        <h6><i>Last Updated on {this.state.retrieved}</i></h6>
-                        <div><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
-                    </div>
-                    <div align="center" className="jumbotron" style={{ background: "rgb(21, 20, 22)" }}>
-                    <div class="card" style={{ background: "lightgrey" }} >
-                        <h6>Temp: {this.state.tTemp} </h6>
-                    </div>
-                    <div>
-                        <p>version 1.0</p>
+                        <div class="currWeatherCenter">
+                            <h6>Humidity {this.state.humidity}%</h6>
+                            <h6>Wind Speed {this.state.wind} MPH</h6>
+                            <h6>Barometer {this.state.barometer} </h6>
+                            <h6>Visibility {this.state.visibility + " " + this.state.visibilityUnits}</h6>
+                            <h6>Wind Chill </h6>
+                            <h6>City Population {this.state.population} </h6>
+                            <h6><i>Last Updated on {this.state.retrieved}</i></h6>
+                            <div><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
+                            <p>version 1.0</p>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         );
     }
