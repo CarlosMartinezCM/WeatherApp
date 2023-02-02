@@ -1,3 +1,10 @@
+/*
+The numbers values for timezoneShift is in seconds from UTC calculate that to get teh time zones
+
+Add more of the json responce to the webpage. The ones that dont match with NOAA add to the bottom
+Look into pagation, changing pages to se emore content. 
+
+*/
 
 class WeatherForecast extends React.Component {
     constructor(props) {
@@ -19,32 +26,21 @@ class WeatherForecast extends React.Component {
         const currentWea = await response.json();
         this.setState({
             place: currentWea.name,
+            country: currentWea.sys.country,
             retrieved: (new Date()).toLocaleDateString() + " at " + (new Date().toLocaleTimeString()),
             conditions: currentWea.weather[0].description,
             //Celsius is given from subtracting Kelvins from retrieved data
             temp: Math.round(currentWea.main.temp - 273.15),
+            windChill: Math.round(currentWea.main.feels_like - 273.15),
             humidity: currentWea.main.humidity,
             wind: currentWea.wind.speed,
             windUnits: (currentWea.wind * 2.237),
             barometer: currentWea.main.pressure,
-            //dewpoint: currentWea.main.
-            //visibility: currentWea.weather.visibility,
             visibility: currentWea.visibility,
             visibilityUnits: "Meters",
             timeZone: currentWea.timezone
         });
     }
-
-    // getFiveDayForecast = async () => {
-    //     const response2 = await fetch('api.openweathermap.org/data/2.5/forecast?lat=' +
-    //         this.state.latitude + '&lon=' +
-    //         this.state.longitude + '&appid=c6b4a0626b859963ec9947ed4d9d3934');
-    //     const fiveDay = await response2.json();
-    //     this.setState({ city: fiveDay.list.city.name,
-    //                 tTemp: fiveDay.list[0].main.temp, 
-    //                     wWind: fiveDay.main.wind.speed
-    //     });
-    // }
 
     toggleUnits = () => {
         if (this.state.tempUnit == "F") {
@@ -61,13 +57,21 @@ class WeatherForecast extends React.Component {
     updateWeather = () => {
         this.getCurrentWeather();
     }
+
     render() {
+
         return (
+            <div>
+                <div class="card">
+                    <div class="header">
+                        <p>Home</p>
+                    </div>
+                </div>
             <div>
                 <div class="card" >
                     <div class="tCity" >
                         <b>Current conditions at </b>
-                        <h2> {this.state.place}</h2>
+                        <h2> {this.state.place}, {this.state.country}</h2>
                         <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
                     </div>
                 </div>
@@ -81,14 +85,20 @@ class WeatherForecast extends React.Component {
                             <h6>Wind Speed {this.state.wind} MPH</h6>
                             <h6>Barometer {this.state.barometer} </h6>
                             <h6>Visibility {this.state.visibility + " " + this.state.visibilityUnits}</h6>
-                            <h6>Wind Chill </h6>
-                            <h6>City Population {this.state.population} </h6>
+                            <h6>Feels Like {(this.state.windChill * 9 / 5) + 32}&deg;&nbsp; C</h6>
                             <h6><i>Last Updated on {this.state.retrieved}</i></h6>
-                            <div><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
-                            <p>version 1.0</p>
+                            <div class="centered"><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
+
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="footer">
+                        <p>About</p>
+                    </div>
+                    <p class="centered">version 2</p>
+                </div>
+            </div>
             </div>
         );
     }
@@ -139,7 +149,7 @@ class CurrentWeather extends React.Component {
         if (this.state.station != null) {
             return (
                 <div id="main">
-                    <div align="center" className="floatButton" id="floatBtnDiv" >
+                    <div class="cardSearch" align="center" >
                         <form >
                             <input
                                 ref={this.citySearch}
@@ -154,7 +164,7 @@ class CurrentWeather extends React.Component {
                             </button>
                         </form>
                     </div>
-                    <div align="center" className="jumbotron">
+                    <div class="card" >
                         <WeatherForecast latitude={this.state.station.lat} longitude={this.state.station.lon} />
                     </div>
                 </div>
