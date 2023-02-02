@@ -1,0 +1,12 @@
+{
+
+    "version": 1.0,
+
+"routes" : [
+    {
+    "src" : "./index.html",
+    "status": 308,
+    "headers": { "Location": "caecspace.com" } 
+    }
+]
+}
