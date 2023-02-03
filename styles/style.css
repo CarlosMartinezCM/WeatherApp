@@ -2,11 +2,29 @@ body {
     background-color:rgb(140, 167, 165);
 }
 
+.header {
+    margin: auto;
+    width: auto;
+    text-align: left;
+    background-color: "rgb(21, 20, 22)";
+}
+
 .card {
+   /* display: inline-block;    this makes everything in the card display side by side*/
+   color: rgb(21, 20, 22);
+   margin: 20px;
     font-family: 'Times New Roman', Times, serif;
-    background-color:rgb(140, 167, 165);
+    background-color:rgb(131, 150, 158);
     width: auto;
 }
+
+.cardSearch {
+     margin: 30px;
+     width: auto;
+     font-family: 'Times New Roman', Times, serif;
+     background-color:rgb(131, 150, 158);
+     width: auto;
+ }
 
 .button {
     color: rgb(21, 20, 22);
@@ -22,9 +40,26 @@ body {
     text-align: left;
     margin: 20px;
 }
+
 .currWeatherCenter {
     
     text-align: "right";
     background-color: "rgb(21, 20, 22)";
 
+}
+
+.centered {
+    text-align: "center";
+    align-items: "center";
+    background-color: "rgb(21, 20, 22)";
+    display: flex;
+    justify-content: center;  /* tis enabled ABOUT to be centered*/
+}
+
+.footer {
+    text-align: "center";
+    align-items: "center";
+    background-color: "rgb(21, 20, 22)";
+    display: flex;
+    justify-content: center;  /* tis enabled ABOUT to be centered*/
 }
