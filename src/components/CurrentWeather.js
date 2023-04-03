@@ -5,6 +5,7 @@ Add more of the json responce to the webpage. The ones that dont match with NOAA
 Look into pagation, changing pages to se emore content. 
 
 */
+import React from 'react';
 
 class WeatherForecast extends React.Component {
     constructor(props) {
@@ -43,7 +44,7 @@ class WeatherForecast extends React.Component {
     }
 
     toggleUnits = () => {
-        if (this.state.tempUnit == "F") {
+        if (this.state.tempUnit === "F") {
             this.setState({ tempUnit: "C", temp: Math.round((this.state.temp - 32) * 5 / 9) });
         } else {
             this.setState({ tempUnit: "F", temp: Math.round((this.state.temp * 9 / 5) + 32) });
@@ -51,7 +52,7 @@ class WeatherForecast extends React.Component {
     }
     convertUnitsF = () => {
         this.setState({ tempUnit: "F", temp: Math.round((this.state.temp * 9 / 5) + 32) });
-        { this.state.tempUnit };
+       // { this.state.tempUnit };
     }
     //Udate the current weather conditions
     updateWeather = () => {
@@ -175,7 +176,4 @@ class CurrentWeather extends React.Component {
     }
 }
 
-ReactDOM.render(
-    <CurrentWeather />,
-    document.getElementById('root')
-);
+export default CurrentWeather;
