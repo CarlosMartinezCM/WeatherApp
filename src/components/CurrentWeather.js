@@ -65,7 +65,8 @@ class WeatherForecast extends React.Component {
             <div>
                 <div class="card">
                     <div class="header">
-                        <p>Home</p>
+                    <a id="weatherBtn" className="switch-2weather"
+                        onClick={this.props.homePage} >&nbsp;Home</a>
                     </div>
                 </div>
             <div>
@@ -97,7 +98,7 @@ class WeatherForecast extends React.Component {
                     <div class="footer">
                         <p>About</p>
                     </div>
-                    <p class="centered">version 2</p>
+                    <p class="centered">version 2.1</p>
                 </div>
             </div>
             </div>
