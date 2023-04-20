@@ -6,6 +6,7 @@ Look into pagation, changing pages to se emore content.
 
 */
 import React from 'react';
+import AppMode from "./../AppMode";
 
 class WeatherForecast extends React.Component {
     constructor(props) {
@@ -52,55 +53,55 @@ class WeatherForecast extends React.Component {
     }
     convertUnitsF = () => {
         this.setState({ tempUnit: "F", temp: Math.round((this.state.temp * 9 / 5) + 32) });
-       // { this.state.tempUnit };
+        // { this.state.tempUnit };
     }
     //Udate the current weather conditions
     updateWeather = () => {
         this.getCurrentWeather();
     }
 
+    handleChange = (event) => {
+        event.preventDefault();
+        this.props.changeMode(AppMode.HOMEPAGE);
+    }
+
     render() {
 
         return (
             <div>
-                <div class="card">
-                    <div class="header">
-                    <a id="weatherBtn" className="switch-2weather"
-                        onClick={this.props.homePage} >&nbsp;Home</a>
-                    </div>
-                </div>
-            <div>
-                <div class="card" >
-                    <div class="tCity" >
-                        <b>Current conditions at </b>
-                        <h2> {this.state.place}, {this.state.country}</h2>
-                        <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
-                    </div>
-                </div>
-                <div class="card" >
-                    <div class="currWeatherLeft" >
-                        <h5>{this.state.conditions}</h5>
-                        <h3>{(this.state.temp * 9 / 5) + 32}&deg;&nbsp; F</h3>
-                        <h5>{this.state.temp}&deg;&nbsp; C</h5>
-                        <div class="currWeatherCenter">
-                            <h6>Humidity {this.state.humidity}%</h6>
-                            <h6>Wind Speed {this.state.wind} MPH</h6>
-                            <h6>Barometer {this.state.barometer} </h6>
-                            <h6>Visibility {this.state.visibility + " " + this.state.visibilityUnits}</h6>
-                            <h6>Feels Like {(this.state.windChill * 9 / 5) + 32}&deg;&nbsp; C</h6>
-                            <h6><i>Last Updated on {this.state.retrieved}</i></h6>
-                            <div class="centered"><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
 
+                <div>
+                    <div class="card" >
+                        <div class="tCity" >
+                            <b>Current conditions at </b>
+                            <h2> {this.state.place}, {this.state.country}</h2>
+                            <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
                         </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="footer">
-                        <p>About</p>
+                    <div class="card" >
+                        <div class="currWeatherLeft" >
+                            <h5>{this.state.conditions}</h5>
+                            <h3>{(this.state.temp * 9 / 5) + 32}&deg;&nbsp; F</h3>
+                            <h5>{this.state.temp}&deg;&nbsp; C</h5>
+                            <div class="currWeatherCenter">
+                                <h6>Humidity {this.state.humidity}%</h6>
+                                <h6>Wind Speed {this.state.wind} MPH</h6>
+                                <h6>Barometer {this.state.barometer} </h6>
+                                <h6>Visibility {this.state.visibility + " " + this.state.visibilityUnits}</h6>
+                                <h6>Feels Like {(this.state.windChill * 9 / 5) + 32}&deg;&nbsp; C</h6>
+                                <h6><i>Last Updated on {this.state.retrieved}</i></h6>
+                                <div class="centered"><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
+
+                            </div>
+                        </div>
                     </div>
-                    <p class="centered">version 2.1</p>
+                    <div class="card">
+                        <div class="footer">
+                            <p>About</p>
+                        </div>
+                        <p class="centered">version 2.1</p>
+                    </div>
                 </div>
-            </div>
             </div>
         );
     }
@@ -165,6 +166,14 @@ class CurrentWeather extends React.Component {
                                 <span id="login-btn-icon" className={this.state.searchButton} />&nbsp;{this.state.searchButton}
                             </button>
                         </form>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <button>
+                                <span role="button" className="button"
+                                    onClick={this.props.homePage} >&nbsp;Home</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="card" >
                         <WeatherForecast latitude={this.state.station.lat} longitude={this.state.station.lon} />

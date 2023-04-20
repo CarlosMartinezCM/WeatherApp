@@ -5,7 +5,27 @@ body {
 .header {
     margin: auto;
     width: auto;
+    text-align: center;
+    background-color: "rgb(21, 20, 22)";
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navMenu {
+    margin: auto;
+    width: auto;
+    text-align: center;
+    font-size: 36px;
+    background-color: "rgb(21, 20, 22)";
+    text-decoration: underline;
+    color: rgb(21, 20, 22);
+    background-color:rgb(131, 150, 158);
+}
+
+.home_pagetitle {
+    margin: auto;
+    width: auto;
     text-align: left;
+    font-size: 50px;
     background-color: "rgb(21, 20, 22)";
 }
 
@@ -30,14 +50,19 @@ body {
     color: rgb(21, 20, 22);
 }
 
+.login-btn {
+    width: 70%;
+    font-size: 36px;
+    }
+
 .tCity {
-    text-align: left;
+    text-align: center;
     margin: 20px;
 
 }
 
 .currWeatherLeft {
-    text-align: left;
+    text-align: center;
     margin: 20px;
 }
 

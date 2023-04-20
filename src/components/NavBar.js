@@ -3,10 +3,11 @@ import AppMode from "./../AppMode";
 
 class NavBar extends React.Component {
     render() {
-        return(
-        <div>
-            <h1>Hello Nav</h1>
-        </div>
+        return (
+            <div class="navMenu">
+                <h1>Welcome to my Website</h1>
+            </div>
+
         )
     }
 }
