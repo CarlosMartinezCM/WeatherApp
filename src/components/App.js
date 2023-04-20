@@ -46,6 +46,7 @@ class App extends React.Component {
                  changeMode={this.handleChangeMode}
                  weatherPage={() => this.handleChangeMode(AppMode.WEATHER)}
                  homePage={() => this.handleChangeMode(AppMode.HOMEPAGE)}
+                 loginPage={() => this.handleChangeMode(AppMode.LOGIN)}
                  />
             
             
