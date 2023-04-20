@@ -20,7 +20,14 @@ body {
     color: rgb(21, 20, 22);
     background-color:rgb(131, 150, 158);
 }
-
+.navHome {
+    margin: auto;
+    width: auto;
+    text-align: end;
+    font-size: 20px;
+    background-color: "rgb(21, 20, 22)";
+    color: rgb(21, 20, 22);
+}
 .home_pagetitle {
     margin: auto;
     width: auto;
