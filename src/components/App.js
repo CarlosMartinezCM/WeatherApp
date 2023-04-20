@@ -41,6 +41,7 @@ class App extends React.Component {
             <NavBar
                 title={modeTitle[this.state.mode]}
                 mode={this.state.mode}
+                homePage={() => this.handleChangeMode(AppMode.HOMEPAGE)}
                 />
             <ModePage 
                  changeMode={this.handleChangeMode}
