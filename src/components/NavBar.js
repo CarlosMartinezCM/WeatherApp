@@ -1,5 +1,5 @@
 import React from "react";
-import AppMode from "./../AppMode";
+import AppMode from "./../AppMode.js";
 
 class NavBar extends React.Component {
 
@@ -24,10 +24,10 @@ class NavBar extends React.Component {
                 <h1>Welcome to my Website</h1>
             </div>
             <div class="navHome">
-                        <button>
-                            <span role="button" className="button"
-                                onClick={this.props.homePage} >&nbsp;Home</span>
-                        </button>
+            <a className="navHome"
+            onClick={()=>this.props.changeMode(AppMode.HOMEPAGE)}>
+          <span className="modebar-text">home</span>
+        </a>
                     </div>
             </div>
         )
