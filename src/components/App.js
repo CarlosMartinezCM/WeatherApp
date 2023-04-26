@@ -6,16 +6,22 @@ import LoginPage from './LoginPage.js';
 import homePage from './homePage.js';
 import AppMode from './../AppMode.js';
 import AboutPopUp from './AboutPopUp.js';
+import Football from './Football.js';
+import SiteMap from './SiteMap.js';
 
 const modeTitle = {};
 modeTitle[AppMode.HOMEPAGE] = "Welcome!!";
 modeTitle[AppMode.LOGIN] = "Login Page";
 modeTitle[AppMode.WEATHER] = "Current Weather!!";
+modeTitle[AppMode.FOOTBALL] = "Football!!!";
+modeTitle[AppMode.SITEMAP] = "Site Map!!!";
 
 const modeToPage = {};
 modeToPage[AppMode.HOMEPAGE] = homePage;
 modeToPage[AppMode.WEATHER] = CurrentWeather;
 modeToPage[AppMode.LOGIN] = LoginPage;
+modeToPage[AppMode.FOOTBALL] = Football;
+modeToPage[AppMode.SITEMAP] = SiteMap;
 
 class App extends React.Component {
 
@@ -55,7 +61,11 @@ class App extends React.Component {
                     changeMode={this.handleChangeMode}
                     mode={this.state.mode}
                     menuOpen={this.state.menuOpen}
+                    weatherPage={() => this.handleChangeMode(AppMode.WEATHER)}
                     homePage={() => this.handleChangeMode(AppMode.HOMEPAGE)}
+                    loginPage={() => this.handleChangeMode(AppMode.LOGIN)}
+                    FootballMode={() => this.handleChangeMode(AppMode.FOOTBALL)}
+                    SiteMode={() => this.handleChangeMode(AppMode.SITEMAP)}
                 />
                 <ModeBar
                     mode={this.state.mode}
@@ -68,6 +78,8 @@ class App extends React.Component {
                     weatherPage={() => this.handleChangeMode(AppMode.WEATHER)}
                     homePage={() => this.handleChangeMode(AppMode.HOMEPAGE)}
                     loginPage={() => this.handleChangeMode(AppMode.LOGIN)}
+                    FootballMode={() => this.handleChangeMode(AppMode.FOOTBALL)}
+                    SiteMode={() => this.handleChangeMode(AppMode.SITEMAP)}
                 />
 
 

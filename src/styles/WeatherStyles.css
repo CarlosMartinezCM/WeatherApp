@@ -32,8 +32,8 @@ body {
 .navHome {
     margin: auto;
     width: auto;
-    text-align: end;
-    font-size: 20px;
+    text-align: center;
+    font-size: 15px;
     background-color: "rgb(21, 20, 22)";
     color: rgb(21, 20, 22);
 }
@@ -273,7 +273,8 @@ display:none;
 cursor: pointer;
 }
 
-/* Styling for mode bar at the bottom of the page */
+/* Styling for mode bar at the bottom of the page,
+position fixed along with bottom places the mode bar at the bottom of the page */
 .modebar {
 background-color: #8b8c8e;
 overflow: hidden;
@@ -284,16 +285,19 @@ width: 100%;
 z-index: 100;
 }
 
-/* Style the links inside the bottom nav bar */
+/* Style the links inside the bottom nav bar
+   I can split the bottom of the mode bar by changing the width. 
+      ex. 32% would give me 3 sections. 
+*/
 .modebar a {
 display: block;
 float: left;
-width: 32%;
+width: 25%;
 color: white;
 text-align: center;
 padding: 2px 2px;
 text-decoration: none;
-font-size: 17px;
+font-size: 20px;
 }
 
 /* Add a gray background color to the button when it is selected */

@@ -4,7 +4,8 @@ const AppMode = {
   HOMEPAGE: "HomePageMode",
   WEATHER: "WeatherMode",
   LOGIN: "LoginMode",
-  PICKS: "PicksMode",
+  FOOTBALL: "FootballMode",
+  SITEMAP: "SiteMode",
 };
 
 Object.freeze(AppMode);  // Ensuring the object is immutable

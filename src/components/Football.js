@@ -1,7 +1,7 @@
 import React from "react";
 import AppMode from "./../AppMode";
 
-class homePage extends React.Component {
+class Football extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -13,9 +13,8 @@ class homePage extends React.Component {
         return (
             <div classname="home_pagetitle">
                 <center>
-                    <h2>My Home is Under Construction!!!!!</h2>
-                    <p>Starting to add more pages then more functionality!!</p>
-                                        <br />
+                    <h1>Football Picks under constructions</h1>
+                    <br />
                     <br />
                     
                 </center>
@@ -27,4 +26,4 @@ class homePage extends React.Component {
 
 
 
-export default homePage;
+export default Football;
