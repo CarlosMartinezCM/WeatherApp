@@ -13,7 +13,8 @@ class WeatherForecast extends React.Component {
         super(props);
         this.state = {
             latitude: this.props.latitude,
-            longitude: this.props.longitude
+            longitude: this.props.longitude,
+            now: new Date()
         };
     }
     componentDidMount = () => {
@@ -22,28 +23,31 @@ class WeatherForecast extends React.Component {
     }
 
     getCurrentWeather = async () => {
-        const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=' +
-            this.state.latitude + '&lon=' +
-            this.state.longitude + '&appid=26a5f25cabf9b11d8b970976611bc138');
-        const currentWea = await response.json();
-        this.setState({
-            place: currentWea.name,
-            country: currentWea.sys.country,
-            retrieved: (new Date()).toLocaleDateString() + " at " + (new Date().toLocaleTimeString()),
-            conditions: currentWea.weather[0].description,
-            //Celsius is given from subtracting Kelvins from retrieved data
-            temp: Math.round(currentWea.main.temp - 273.15),
-            windChill: Math.round(currentWea.main.feels_like - 273.15),
-            humidity: currentWea.main.humidity,
-            wind: currentWea.wind.speed,
-            windUnits: (currentWea.wind * 2.237),
-            barometer: currentWea.main.pressure,
-            visibility: currentWea.visibility,
-            visibilityUnits: "Meters",
-            timeZone: currentWea.timezone
-        });
-    }
+        const response = await fetch(`https://api.weather.gov/points/${this.state.latitude},${this.state.longitude}`);
+        const data = await response.json();
+        const forecastLink = data.properties.forecast;
+        const forecastResponce = await fetch(forecastLink);
+        const forecastData = await forecastResponce.json();
 
+        this.setState({
+            city: data.properties.relativeLocation.properties.city,
+            state: data.properties.relativeLocation.properties.state,
+            forecast: forecastData.properties.periods[0],
+            forecastPeriods: forecastData.properties.periods
+        })
+
+        const stationLink = data.properties.forecast;
+        const currentResponce = await fetch(stationLink);
+        const temperaturedata = await currentResponce.json();
+        
+        this.setState({
+            temperature: temperaturedata.properties.periods[0].temperature,
+            windDirection: temperaturedata.properties.periods[0].windDirection,
+            windSpeed: temperaturedata.properties.periods[0].windSpeed,
+            shortForecast: temperaturedata.properties.periods[0].shortForecast
+            
+        });
+        }
     toggleUnits = () => {
         if (this.state.tempUnit === "F") {
             this.setState({ tempUnit: "C", temp: Math.round((this.state.temp - 32) * 5 / 9) });
@@ -58,6 +62,7 @@ class WeatherForecast extends React.Component {
     //Udate the current weather conditions
     updateWeather = () => {
         this.getCurrentWeather();
+        //alert("updating weather");
     }
 
     handleChange = (event) => {
@@ -66,34 +71,39 @@ class WeatherForecast extends React.Component {
     }
 
     render() {
-
+        
+        const { forecast  } = this.state;
+        if (!forecast) {
+            return <div>No data available.....</div>
+        }
         return (
             <div>
-
                 <div>
                     <div class="card" >
                         <div class="tCity" >
                             <b>Current conditions at </b>
-                            <h2> {this.state.place}, {this.state.country}</h2>
+                            <h1> {this.state.city}, {this.state.state}</h1>
                             <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
+                            <h2>{this.state.temperature} °F</h2>
+                            <h4> {this.state.shortForecast} </h4>
+                            <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
+                            <h4> {this.state.timestamp} </h4>
                         </div>
-                    </div>
-                    <div class="card" >
-                        <div class="currWeatherLeft" >
-                            <h5>{this.state.conditions}</h5>
-                            <h3>{(this.state.temp * 9 / 5) + 32}&deg;&nbsp; F</h3>
-                            <h5>{this.state.temp}&deg;&nbsp; C</h5>
-                            <div class="currWeatherCenter">
-                                <h6>Humidity {this.state.humidity}%</h6>
-                                <h6>Wind Speed {this.state.wind} MPH</h6>
-                                <h6>Barometer {this.state.barometer} </h6>
-                                <h6>Visibility {this.state.visibility + " " + this.state.visibilityUnits}</h6>
-                                <h6>Feels Like {(this.state.windChill * 9 / 5) + 32}&deg;&nbsp; C</h6>
-                                <h6><i>Last Updated on {this.state.retrieved}</i></h6>
+                        <h6><i>Last Updated on </i></h6>
+                       <p>{this.state.now.toString()}</p>
                                 <div class="centered"><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
-
-                            </div>
+                    </div>
+                    
+                    <div class="card.container">
+                        <div class="forecast-card">
+                            {this.state.forecastPeriods.map((period) => (
+                                <div key={period.number}>
+                                    <h2>{period.name}</h2>
+                                    <p>{period.detailedForecast}</p>
+                                </div>
+                            ))}
                         </div>
+                        
                     </div>
                     <div class="card">
                         <div class="footer">
@@ -106,6 +116,7 @@ class WeatherForecast extends React.Component {
         );
     }
 }
+
 //Weather App, note if trying to run react-dom.development.js:82 
 //Warning: The tag <currentWeather> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
 //in currentWeather
@@ -130,8 +141,6 @@ class CurrentWeather extends React.Component {
     }
     //This fucntion is called if the user denies to give their current Geolocation and initializes the default location. 
     getLocError = (err) => {
-
-
         this.setState({ station: { lat: 46.26955, lon: -119.11813 } });
     }
     //Called when user searches for a city 
@@ -148,6 +157,8 @@ class CurrentWeather extends React.Component {
         }
     }
     //Instantiating WeatherForecast components in CurrentWeather to pass in functions as props
+    //To implement the hourly I should create another page using an api to retrieve that info and display the hourly info
+    //or try doing what weather channel does and 
     render() {
         if (this.state.station != null) {
             return (
@@ -187,3 +198,64 @@ class CurrentWeather extends React.Component {
 }
 
 export default CurrentWeather;
+
+/* 
+
+
+const HourlyLink = data.properties.forecastHourly;
+        const hourlyResponce = await fetch(HourlyLink);
+        const hourlyData = await hourlyResponce.json();
+
+        this.setState({
+            forecastHourly: hourlyData.properties.periods[0],
+            hourlyPeriods: hourlyData.properties.periods
+        })
+
+<div>
+                <div>
+                    <div class="card" >
+                        <div class="tCity" >
+                            <b>Current conditions at </b>
+                            <h2> {this.state.city}, {this.state.state}</h2>
+                            <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
+                        </div>
+                    </div>
+                    <div class="card.container">
+                        <div class="Fcard">
+                            {this.state.forecastPeriods.map((period) => (
+                                <div key={period.number}>
+                                    <h2>{period.name}</h2>
+                                    <p>{period.detailedForecast}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div class="Fcard">
+                            <h2>Hourly Forecast</h2>
+                            {this.state.hourlyPeriods.map((period) => (
+                                <div key={period.number}>
+                                    <h6>Humidity {period.relativeHumidity.value}</h6>
+                                    <h4>{period.temperature}</h4>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="footer">
+                            <p>About</p>
+                        </div>
+                        <p class="centered">version 2.1</p>
+                    </div>
+                </div>
+            </div>
+    /**
+      <div class="currWeatherCenter">
+                                    <h6>Humidity {this.state.humidity}%</h6>
+                                    <h6>Wind Speed {this.state.wind} MPH</h6>
+                                    <h6>Barometer {this.state.barometer} </h6>
+                                    <h6>Visibility {this.state.visibility + " " + this.state.visibilityUnits}</h6>
+                                    <h6>Feels Like {(this.state.windChill * 9 / 5) + 32}&deg;&nbsp; C</h6>
+                                    <h6><i>Last Updated on {this.state.retrieved}</i></h6>
+                                    <div class="centered"><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
+    
+                                </div> 
+    **/

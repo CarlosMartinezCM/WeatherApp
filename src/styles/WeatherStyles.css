@@ -53,6 +53,33 @@ body {
     background-color:rgb(131, 150, 158);
     width: auto;
 }
+.card.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.forecast-card {
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 500px; /* set the desired width of the card */
+  margin: 10px; /* set the desired margin between the cards */
+}
+
+
+.HFcard {
+  /* display: inline-block;    this makes everything in the card display side by side*/
+  color: rgb(21, 20, 22);
+  margin: 20px;
+   font-family: 'Times New Roman', Times, serif;
+   background-color:rgb(108, 117, 121);
+   width: 1000px;
+   padding: 10px;
+   top: 50%;
+   right: 20px; /* set the desired distance from the left side of the page */
+}
 
 .cardSearch {
      margin: 30px;
