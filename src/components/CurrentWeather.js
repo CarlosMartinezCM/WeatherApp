@@ -7,6 +7,7 @@ Look into pagation, changing pages to se emore content.
 */
 import React from 'react';
 import AppMode from "./../AppMode";
+import axios from "axios";
 
 class WeatherForecast extends React.Component {
     constructor(props) {
@@ -14,6 +15,9 @@ class WeatherForecast extends React.Component {
         this.state = {
             latitude: this.props.latitude,
             longitude: this.props.longitude,
+            showForecast: "",
+            forecastUrl: "",
+            hourlyUrl: "",
             now: new Date()
         };
     }
@@ -35,19 +39,28 @@ class WeatherForecast extends React.Component {
             forecast: forecastData.properties.periods[0],
             forecastPeriods: forecastData.properties.periods
         })
-
         const stationLink = data.properties.forecast;
         const currentResponce = await fetch(stationLink);
         const temperaturedata = await currentResponce.json();
-        
+
         this.setState({
             temperature: temperaturedata.properties.periods[0].temperature,
             windDirection: temperaturedata.properties.periods[0].windDirection,
             windSpeed: temperaturedata.properties.periods[0].windSpeed,
             shortForecast: temperaturedata.properties.periods[0].shortForecast
-            
+
         });
-        }
+        const HourlyLink = data.properties.forecastHourly;
+        const hourlyResponce = await fetch(HourlyLink);
+        const hourlyData = await hourlyResponce.json();
+
+        this.setState({
+            forecastHourly: hourlyData.properties.periods[0],
+            hourlyPeriods: hourlyData.properties.periods
+        })
+    }
+
+
     toggleUnits = () => {
         if (this.state.tempUnit === "F") {
             this.setState({ tempUnit: "C", temp: Math.round((this.state.temp - 32) * 5 / 9) });
@@ -70,15 +83,40 @@ class WeatherForecast extends React.Component {
         this.props.changeMode(AppMode.HOMEPAGE);
     }
 
+    handleForecastClick = async () => {
+        try {
+            this.setState({ loading: true });
+            const response = await axios.get(this.state.forecastUrl);
+            const forecastData = response.data;
+            this.setState({ forecastData, loading: false });
+        } catch (error) {
+            this.setState({ error, loading: false });
+        }
+    };
+    handlehourlyClick = async () => {
+        try {
+            this.setState({ loading: true });
+            const response = await axios.get(this.state.hourlyUrl);
+            const hourlyData = response.data;
+            this.setState({ hourlyData, loading: false });
+        } catch (error) {
+            this.setState({ error, loading: false });
+        }
+    };
+
     render() {
-        
-        const { forecast  } = this.state;
+
+        const { forecast, forecastData, hourlyData } = this.state;
         if (!forecast) {
             return <div>No data available.....</div>
         }
         return (
             <div>
                 <div>
+                    <div align="center">
+                    <button onClick={this.handleForecastClick}>FORECAST</button>
+                    <button onClick={this.handlehourlyClick}>HOURLY</button>
+                    </div>
                     <div class="card" >
                         <div class="tCity" >
                             <b>Current conditions at </b>
@@ -90,29 +128,46 @@ class WeatherForecast extends React.Component {
                             <h4> {this.state.timestamp} </h4>
                         </div>
                         <h6><i>Last Updated on </i></h6>
-                       <p>{this.state.now.toString()}</p>
-                                <div class="centered"><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
+                        <p>{this.state.now.toString()}</p>
+                        <div class="centered"><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
                     </div>
-                    
-                    <div class="card.container">
-                        <div class="forecast-card">
-                            {this.state.forecastPeriods.map((period) => (
-                                <div key={period.number}>
-                                    <h2>{period.name}</h2>
-                                    <p>{period.detailedForecast}</p>
+                    <div>
+                        {/* Conditionally render the forecast */}
+                        {forecastData && (
+                            <div>
+                                <h3>forecast</h3>
+                                <div class="forecast-card">
+                                    {this.state.forecastPeriods.map((period) => (
+                                        <div key={period.number}>
+                                            <h2>{period.name}</h2>
+                                            <p>{period.detailedForecast}</p>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
-                        
+                            </div>
+                        )}
+                    </div>
+                        {/* Conditionally render the forecast */}
+                        {hourlyData && (
+                           <div class="Fcard">
+                           <h2>Hourly Forecast</h2>
+                           {this.state.hourlyPeriods.map((period) => (
+                               <div key={period.number}>
+                                   <h6>Humidity {period.relativeHumidity.value}</h6>
+                                   <h4>{period.temperature}</h4>
+                               </div>
+                           ))}
+                       </div>
+                        )}
                     </div>
                     <div class="card">
                         <div class="footer">
                             <p>About</p>
                         </div>
-                        <p class="centered">version 2.1</p>
+                        <p class="centered">version 3.0</p>
                     </div>
                 </div>
-            </div>
+           
         );
     }
 }
@@ -178,14 +233,6 @@ class CurrentWeather extends React.Component {
                             </button>
                         </form>
                     </div>
-                    <div class="card">
-                        <div class="header">
-                            <button>
-                                <span role="button" className="button"
-                                    onClick={this.props.homePage} >&nbsp;Home</span>
-                            </button>
-                        </div>
-                    </div>
                     <div class="card" >
                         <WeatherForecast latitude={this.state.station.lat} longitude={this.state.station.lon} />
                     </div>
@@ -247,15 +294,4 @@ const HourlyLink = data.properties.forecastHourly;
                     </div>
                 </div>
             </div>
-    /**
-      <div class="currWeatherCenter">
-                                    <h6>Humidity {this.state.humidity}%</h6>
-                                    <h6>Wind Speed {this.state.wind} MPH</h6>
-                                    <h6>Barometer {this.state.barometer} </h6>
-                                    <h6>Visibility {this.state.visibility + " " + this.state.visibilityUnits}</h6>
-                                    <h6>Feels Like {(this.state.windChill * 9 / 5) + 32}&deg;&nbsp; C</h6>
-                                    <h6><i>Last Updated on {this.state.retrieved}</i></h6>
-                                    <div class="centered"><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
-    
-                                </div> 
-    **/
+**/

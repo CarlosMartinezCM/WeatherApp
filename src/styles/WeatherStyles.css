@@ -1,58 +1,72 @@
 body {
-    background-color:rgb(140, 167, 165);
+  background-color: rgb(140, 167, 165);
 }
 
 .header {
-    margin: auto;
-    width: auto;
-    text-align: center;
-    background-color: #8b8c8e;
-    font-family: Arial, Helvetica, sans-serif;
+  margin: auto;
+  width: auto;
+  text-align: center;
+  background-color: #8b8c8e;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .bottomBar {
-    margin: auto;
-    width: auto;
-    text-align: end;
-    font-size: 20px;
-    background-color: "rgb(21, 20, 22)";
-    color: rgb(21, 20, 22);
-    bottom: 0;
+  margin: auto;
+  width: auto;
+  text-align: end;
+  font-size: 20px;
+  background-color: "rgb(21, 20, 22)";
+  color: rgb(21, 20, 22);
+  bottom: 0;
 }
+
 .navMenu {
-    margin: auto;
-    width: auto;
-    text-align: center;
-    font-size: 36px;
-    background-color: "rgb(21, 20, 22)";
-    text-decoration: underline;
-    color: rgb(21, 20, 22);
-    background-color:rgb(131, 150, 158);
+  margin: auto;
+  width: auto;
+  text-align: center;
+  font-size: 36px;
+  background-color: "rgb(21, 20, 22)";
+  text-decoration: underline;
+  color: rgb(21, 20, 22);
+  background-color: rgb(131, 150, 158);
 }
+
 .navHome {
-    margin: auto;
-    width: auto;
-    text-align: center;
-    font-size: 15px;
-    background-color: "rgb(21, 20, 22)";
-    color: rgb(21, 20, 22);
+  margin: auto;
+  width: auto;
+  text-align: center;
+  font-size: 15px;
+  background-color: "rgb(21, 20, 22)";
+  color: rgb(21, 20, 22);
 }
+
 .home_pagetitle {
-    margin: auto;
-    width: auto;
-    text-align: left;
-    font-size: 50px;
-    background-color: "rgb(21, 20, 22)";
+  margin: auto;
+  width: auto;
+  text-align: left;
+  font-size: 50px;
+  background-color: "rgb(21, 20, 22)";
 }
 
 .card {
-   /* display: inline-block;    this makes everything in the card display side by side*/
-   color: rgb(21, 20, 22);
-   margin: 20px;
-    font-family: 'Times New Roman', Times, serif;
-    background-color:rgb(131, 150, 158);
-    width: auto;
+ /*  display: inline-block;    this makes everything in the card display side by side*/
+  margin: 20px;
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #fff;
+  border-radius: 20px;
+  width: auto;
 }
+
+.Header_card {
+ 
+  margin: 20px;
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #fff;
+  border-radius: 20px;
+  width: auto;
+  justify-content: center;
+}
+
 .card.container {
   display: flex;
   flex-wrap: wrap;
@@ -61,186 +75,206 @@ body {
 
 .forecast-card {
   background-color: #fff;
-  border-radius: 30px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 50px;
+  box-shadow: 0 2px 4px rgba(135, 16, 16, 0.1);
   padding: 20px;
-  width: 500px; /* set the desired width of the card */
-  margin: 10px; /* set the desired margin between the cards */
+  width: auto;
+  /* set the desired width of the card */
+  margin: 10px;
 }
-
 
 .HFcard {
   /* display: inline-block;    this makes everything in the card display side by side*/
   color: rgb(21, 20, 22);
   margin: 20px;
-   font-family: 'Times New Roman', Times, serif;
-   background-color:rgb(108, 117, 121);
-   width: 1000px;
-   padding: 10px;
-   top: 50%;
-   right: 20px; /* set the desired distance from the left side of the page */
+  font-family: 'Times New Roman', Times, serif;
+  background-color: rgb(108, 117, 121);
+  width: auto;
+  padding: 10px;
+  top: 50%;
+  right: 20px;
+  /* set the desired distance from the left side of the page */
 }
 
 .cardSearch {
-     margin: 30px;
-     width: auto;
-     font-family: 'Times New Roman', Times, serif;
-     background-color:rgb(131, 150, 158);
-     width: auto;
- }
+  margin: 20px;
+  width: auto;
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #fff;
+  border-radius: 20px;
+  width: auto;
+}
 
 .button {
-    color: rgb(21, 20, 22);
+  color: rgb(21, 20, 22);
 }
 
 .login-btn {
-    width: 70%;
-    font-size: 36px;
-    }
+  width: 70%;
+  font-size: 36px;
+}
 
 .tCity {
-    text-align: center;
-    margin: 20px;
+  text-align: center;
+  margin: 20px;
 
 }
 
 .currWeatherLeft {
-    text-align: center;
-    margin: 20px;
+  text-align: center;
+  margin: 20px;
 }
 
 .currWeatherCenter {
-    
-    text-align: "right";
-    background-color: "rgb(21, 20, 22)";
+
+  text-align: "right";
+  background-color: "rgb(21, 20, 22)";
 
 }
 
 .centered {
-    text-align: "center";
-    align-items: "center";
-    background-color: "rgb(21, 20, 22)";
-    display: flex;
-    justify-content: center;  /* tis enabled ABOUT to be centered*/
+  text-align: "center";
+  align-items: "center";
+  background-color: "rgb(21, 20, 22)";
+  display: flex;
+  justify-content: center;
+  /* tis enabled ABOUT to be centered*/
 }
 
 .footer {
-    text-align: "center";
-    align-items: "center";
-    background-color: "rgb(21, 20, 22)";
-    display: flex;
-    justify-content: center;  /* tis enabled ABOUT to be centered*/
+  text-align: "center";
+  align-items: "center";
+  background-color: "rgb(21, 20, 22)";
+  display: flex;
+  justify-content: center;
+  /* tis enabled ABOUT to be centered*/
 }
+
 /* Styling for mode bar at the bottom of the page */
 /* INDEX.CSS -- The style definitions for the Speedgolf App. These are imported
   in index.css for the entire app. */
 
 /* Styling of the fixed top bar in the app */
 .navbar {
-  overflow: hidden; /* Don't allow scrolling */
-  display: block; /* Occupies its own horizontal space */
+  overflow: hidden;
+  /* Don't allow scrolling */
+  display: block;
+  /* Occupies its own horizontal space */
   background-color: #13294E;
-  position: fixed; /* Doesn't move */
+  position: fixed;
+  /* Doesn't move */
   top: 0;
-  width: 100%; /* 100% of width of screen */
+  width: 100%;
+  /* 100% of width of screen */
   align-content: center;
   border-radius: 0px;
   padding: 0px;
-  z-index: 100; /* Force it to be on top */
+  z-index: 100;
+  /* Force it to be on top */
 }
 
 .navbar-title {
-color: white;
-font-size: 18px;
+  color: white;
+  font-size: 18px;
 }
 
 /* navbarItems defines styling of items within navbar. They should be centered top-to-bottom
  with a small internal margin */
 .navbar-items {
-display: inline-flex; 
-align-items: center; 
-padding-top: 5px; 
-padding-bottom: 5px;
+  display: inline-flex;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 /* sidemenu -- Styling of the side navigation menu */
 .sidemenu {
-  height: 100%; /* Menu is full height of window */
-  width: 0px; /* Menu hidden -- will be opened on click */
-  position: fixed; /* Menu stays in place regardless of other content */
-  z-index: 150; /* Force the menu to be at front */
-  top: 48px; /* Position menu 48 px from top of screen; accomodates top navbar */
-  left: 0; /* Position the menu on the left hand side */
-  background-color: #13294E; /* Background color is dark blue */
-  overflow-x: hidden; /* Don't allow horizontal scroll */
-  transition: 0.5s; /* Animation transition time is 0.5 sec */
-  padding-top: 12px; /* Place menu content 12 px from top */
+  height: 100%;
+  /* Menu is full height of window */
+  width: 0px;
+  /* Menu hidden -- will be opened on click */
+  position: fixed;
+  /* Menu stays in place regardless of other content */
+  z-index: 150;
+  /* Force the menu to be at front */
+  top: 48px;
+  /* Position menu 48 px from top of screen; accomodates top navbar */
+  left: 0;
+  /* Position the menu on the left hand side */
+  background-color: #13294E;
+  /* Background color is dark blue */
+  overflow-x: hidden;
+  /* Don't allow horizontal scroll */
+  transition: 0.5s;
+  /* Animation transition time is 0.5 sec */
+  padding-top: 12px;
+  /* Place menu content 12 px from top */
 }
 
 /* applies only to an anchor tag that's a child of a sidenav element. */
 .sidemenu a {
-      padding: 16px 8px 16px 32px;
-      text-decoration: none;
-      font-size: 16px;
-      color: white;
-      display: block;
-      transition: 0.3s;
-  }
-  
+  padding: 16px 8px 16px 32px;
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
 
 .sidemenu div {
-      padding: 0px 0px 10px 6px;
-      text-decoration: none;
-      font-size: 16px;
-      color: white;
-      display: block;
-      transition: 0.3s;
-      /* border-bottom: 2px solid white; */
-  }
+  padding: 0px 0px 10px 6px;
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+  /* border-bottom: 2px solid white; */
+}
 
 /* Required ordering of link style definitions: visited, hover, active. If out of this order, they won't work!! */
 
 .sidemenu a:visited {
-background-color:  #13294E !important;
-color: white !important;
+  background-color: #13294E !important;
+  color: white !important;
 }
 
 .sidemenu a:active {
-background-color:  #13294E !important;
-color: white !important;
+  background-color: #13294E !important;
+  color: white !important;
 }
 
 
 /* Cascading style within a style: This definition applies only to sidenavtitle class defined in an 
- element that's a child of sidenav element. */   
+ element that's a child of sidenav element. */
 .sidenmenu .sidemenu-title {
-      position: absolute;
-      width:100%;
-      top: 0px;
-      left: 0px;
-      padding: 0px 0px 0px 6px;
-      font-size: 18px;
-      margin-top: 20px;
-      margin-bottom: 20px !important;
-      border-bottom: 2px solid white;
- }
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  padding: 0px 0px 0px 6px;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 20px !important;
+  border-bottom: 2px solid white;
+}
 
- .sidemenu .sidemenu-userID {
-   font-size: 14px;
- }
+.sidemenu .sidemenu-userID {
+  font-size: 14px;
+}
 
 /* side menu button styling */
 .sidemenu-btn {
-background-color: transparent;
-border-color: #13294E;
-text-align: center;
+  background-color: transparent;
+  border-color: #13294E;
+  text-align: center;
 }
 
 .sidemenu-btn-icon {
-color: white;
-font-size: 30px;
-cursor: pointer;
-text-align: center;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  text-align: center;
 }
 
 
@@ -253,63 +287,62 @@ text-align: center;
 
 /* side menu styling when menu item selected */
 .sidemenu-item-selected {
-       pointer-events: none;
-       cursor: default;
-       text-decoration: none;
-       color: #13294E !important;
-       background-color: #F0F0F0;
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: #13294E !important;
+  background-color: #F0F0F0;
 }
 
-/* The SpeedScore dark blue color theme  */       
+/* The SpeedScore dark blue color theme  */
 .btn-color-theme {
-      background-color: #13294E;
-      color: white;
-  }
-  
+  background-color: #13294E;
+  color: white;
+}
+
 /* The color theme when a bottom bar menu item is selected */
 .btn-alt-color-theme {
-      background-color: #F0F0F0;
-      color: #13294E;
-  }
+  background-color: #F0F0F0;
+  color: #13294E;
+}
 
 /* change items to gray when disabled class is applied  */
 .disabled {
-color: gray;
+  color: gray;
 }
-  
+
 
 .btn-color-theme-outline {
-      border: 2px;
-      border-color: #13294E;
-      color: #13294E;
+  border: 2px;
+  border-color: #13294E;
+  color: #13294E;
 }
 
 /* Styling for the divs in the app. Ensures that the content at top isn't obscured by top bar */
 .padded-page {
-padding: 56px 8px 0px 8px;
+  padding: 56px 8px 0px 8px;
 
 }
 
 .hide {
-display:none;
+  display: none;
 }
 
 
-.clickable-div 
-{
-cursor: pointer;
+.clickable-div {
+  cursor: pointer;
 }
 
 /* Styling for mode bar at the bottom of the page,
 position fixed along with bottom places the mode bar at the bottom of the page */
 .modebar {
-background-color: #8b8c8e;
-overflow: hidden;
-position: fixed;
-text-align: center;
-bottom: 0;
-width: 100%;
-z-index: 100;
+  background-color: #8b8c8e;
+  overflow: hidden;
+  position: fixed;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
 }
 
 /* Style the links inside the bottom nav bar
@@ -317,20 +350,20 @@ z-index: 100;
       ex. 32% would give me 3 sections. 
 */
 .modebar a {
-display: block;
-float: left;
-width: 25%;
-color: white;
-text-align: center;
-padding: 2px 2px;
-text-decoration: none;
-font-size: 20px;
+  display: block;
+  float: left;
+  width: 25%;
+  color: white;
+  text-align: center;
+  padding: 2px 2px;
+  text-decoration: none;
+  font-size: 20px;
 }
 
 /* Add a gray background color to the button when it is selected */
 .modebar a:active {
-background-color: #F0F0F0;
-color: #13294E;
+  background-color: #F0F0F0;
+  color: #13294E;
 }
 
 /* Add a gray background color to button when it is hovered */
@@ -340,80 +373,80 @@ color: #13294E;
 
 /* Hide the link that should open and close the navbar on small screens */
 .modebar .icon {
-display: none;
-} 
+  display: none;
+}
 
 /* Style the icons in the bottom bar */
 .modebar-icon {
-display:block; 
-padding-top:3px;
+  display: block;
+  padding-top: 3px;
 }
 
 /* Style the text in the bottom bar */
 .modebar-text {
-display:block;
-font-size: small;
+  display: block;
+  font-size: small;
 }
 
 /* Style the floating action button, which is fixed in the lower right of the app */
 .floatbtn {
-position:fixed;
-width:60px;
-height:60px;
-bottom:60px;
-right:40px;
-background-color:#13294E;
-color:white;
-border-radius:50px;
-text-align:center;
-box-shadow: 2px 2px 3px #999;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 60px;
+  right: 40px;
+  background-color: #13294E;
+  color: white;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
 }
 
-.floatbtn-icon{
-margin-top:22px;
+.floatbtn-icon {
+  margin-top: 22px;
 }
 
 .floatbtn a:visited {
-color: white !important;
+  color: white !important;
 }
 
 .floatbtn a:active {
-color: white !important;
+  color: white !important;
 }
 
 body {
-margin: 0;
+  margin: 0;
 }
 
 /* This class disables a button */
 .disabled-button {
-pointer-events: none;
-opacity: 0.4;
+  pointer-events: none;
+  opacity: 0.4;
 }
 
 .floatbtn a:visited {
-color: white !important;
+  color: white !important;
 }
 
 .floatbtn a:active {
-color: white !important;
+  color: white !important;
 }
 
 /* Login page styling */
 .login-text {
-text-align: center;
-width: 90%;
-height: 10%;
-font-size: 24px;
+  text-align: center;
+  width: 90%;
+  height: 10%;
+  font-size: 24px;
 }
 
 .login-btn {
-width: 70%;
-font-size: 36px;
+  width: 70%;
+  font-size: 36px;
 }
 
 /* Form styling */
 
 .form-center {
-text-align: center;
+  text-align: center;
 }
