@@ -7,23 +7,22 @@ class ModeBar extends React.Component {
   render() {
     return (
       <div class="modebar">
-        
         <div>
-        <a className="modebarbtn"
-          onClick={() => this.props.changeMode(AppMode.HOMEPAGE)}>
-          <span className="modebar-text">Home</span>
-        </a>
         <a className="modebarbtn"
           onClick={() => this.props.changeMode(AppMode.WEATHER)}>
           <span className="modebar-text">Weather</span>
         </a>
         <a className="modebarbtn"
           onClick={() => this.props.changeMode(AppMode.FOOTBALL)}>
-          <span className="modebar-text">Football</span>
+          <span className="modebar-text"></span>
         </a>
         <a className="modebarbtn"
           onClick={() => this.props.changeMode(AppMode.SITEMAP)}>
           <span className="modebar-text">Site Map</span>
+        </a>
+        <a className="modebarbtn"
+          onClick={this.props.showAbout}>
+          <span className="modebar-text">About</span>
         </a>
         </div>
       </div>

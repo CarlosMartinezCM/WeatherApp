@@ -12,10 +12,19 @@ class SiteMap extends React.Component {
         return (
             <div classname="home_pagetitle">
                 <center>
-                    <h1>Site Map under constructions</h1>
-                    <br />
-                    <br />
-                    
+                    <div>
+                        <button>
+                            <span role="button" className="button"
+                                onClick={this.props.homeweatherPage} >&nbsp;Weather</span>
+                        </button>
+                    </div>
+                    <div>
+                        <button>
+                            <span role="button" className="button"
+                                onClick={this.props.loginPage} >&nbsp;Login</span>
+                        </button>
+                    </div>
+
                 </center>
             </div>
         )

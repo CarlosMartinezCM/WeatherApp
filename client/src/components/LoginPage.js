@@ -58,7 +58,7 @@ class LoginPage extends React.Component {
                     <div class="header">
                         <button>
                             <span role="button" className="button"
-                                onClick={this.props.homePage} >&nbsp;Home</span>
+                                onClick={this.props.homeweatherPage} >&nbsp;Weather</span>
                         </button>
                     </div>
                 </div>
