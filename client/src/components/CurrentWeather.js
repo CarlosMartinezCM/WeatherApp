@@ -3,10 +3,10 @@ The numbers values for timezoneShift is in seconds from UTC calculate that to ge
 
 Add more of the json responce to the webpage. The ones that dont match with NOAA add to the bottom
 Look into pagation, changing pages to se emore content. 
-
 */
 import React from 'react';
 import AppMode from "./../AppMode";
+import App from './App.js'
 import axios from "axios";
 
 class WeatherForecast extends React.Component {
@@ -80,7 +80,7 @@ class WeatherForecast extends React.Component {
 
     handleChange = (event) => {
         event.preventDefault();
-        this.props.changeMode(AppMode.HOMEPAGE);
+        this.props.changeMode(AppMode.WEATHER);
     }
 
     handleForecastClick = async () => {
@@ -104,6 +104,14 @@ class WeatherForecast extends React.Component {
         }
     };
 
+    handleTodayClick = async () => {
+        alert("Alert Today");
+    };
+
+    handleRadarClick = async () => {
+        alert("Alert Radar");
+    };
+
     render() {
 
         const { forecast, forecastData, hourlyData } = this.state;
@@ -114,8 +122,10 @@ class WeatherForecast extends React.Component {
             <div>
                 <div>
                     <div align="center">
-                    <button onClick={this.handleForecastClick}>FORECAST</button>
-                    <button onClick={this.handlehourlyClick}>HOURLY</button>
+                        <button onClick={this.handleTodayClick}>TODAY</button>
+                        <button onClick={this.handlehourlyClick}>HOURLY</button>
+                        <button onClick={this.handleForecastClick}>DAILY</button>
+                        <button onClick={this.handleRadarClick}>RADAR</button>
                     </div>
                     <div class="card" >
                         <div class="tCity" >
@@ -135,7 +145,7 @@ class WeatherForecast extends React.Component {
                         {/* Conditionally render the forecast */}
                         {forecastData && (
                             <div>
-                                <h3>forecast</h3>
+                                <h3>DAILY</h3>
                                 <div class="forecast-card">
                                     {this.state.forecastPeriods.map((period) => (
                                         <div key={period.number}>
@@ -147,27 +157,31 @@ class WeatherForecast extends React.Component {
                             </div>
                         )}
                     </div>
-                        {/* Conditionally render the forecast */}
-                        {hourlyData && (
-                           <div class="Fcard">
-                           <h2>Hourly Forecast</h2>
-                           {this.state.hourlyPeriods.map((period) => (
-                               <div key={period.number}>
-                                   <h6>Humidity {period.relativeHumidity.value}</h6>
-                                   <h4>{period.temperature}</h4>
-                               </div>
-                           ))}
-                       </div>
-                        )}
-                    </div>
-                    <div class="card">
-                        <div class="footer">
-                            <p>About</p>
+                    {/* Conditionally render the forecast */}
+                    {hourlyData && (
+                        <div class="Fcard">
+                            <h2>Hourly Forecast</h2>
+                            {this.state.hourlyPeriods.map((period) => (
+                                <div key={period.number}>
+                                    <h6>Humidity {period.relativeHumidity.value}</h6>
+                                    <h4>{period.temperature}</h4>
+                                </div>
+                            ))}
                         </div>
-                        <p class="centered">version 3.0</p>
-                    </div>
+                    )}
                 </div>
-           
+                <div class="card">
+                    <div class="footer">
+                        <div className='modalFooter'>
+                            <a id="aboutBtn" className="sidemenu-item"
+                                onClick={this.props.showAbout}>
+                                <span className="fa fa-info-circle"></span>&nbsp;About</a>
+                        </div>
+                    </div>
+                    <p class="centered">version 3.0</p>
+                </div>
+            </div>
+
         );
     }
 }
@@ -245,53 +259,3 @@ class CurrentWeather extends React.Component {
 }
 
 export default CurrentWeather;
-
-/* 
-
-
-const HourlyLink = data.properties.forecastHourly;
-        const hourlyResponce = await fetch(HourlyLink);
-        const hourlyData = await hourlyResponce.json();
-
-        this.setState({
-            forecastHourly: hourlyData.properties.periods[0],
-            hourlyPeriods: hourlyData.properties.periods
-        })
-
-<div>
-                <div>
-                    <div class="card" >
-                        <div class="tCity" >
-                            <b>Current conditions at </b>
-                            <h2> {this.state.city}, {this.state.state}</h2>
-                            <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
-                        </div>
-                    </div>
-                    <div class="card.container">
-                        <div class="Fcard">
-                            {this.state.forecastPeriods.map((period) => (
-                                <div key={period.number}>
-                                    <h2>{period.name}</h2>
-                                    <p>{period.detailedForecast}</p>
-                                </div>
-                            ))}
-                        </div>
-                        <div class="Fcard">
-                            <h2>Hourly Forecast</h2>
-                            {this.state.hourlyPeriods.map((period) => (
-                                <div key={period.number}>
-                                    <h6>Humidity {period.relativeHumidity.value}</h6>
-                                    <h4>{period.temperature}</h4>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="footer">
-                            <p>About</p>
-                        </div>
-                        <p class="centered">version 2.1</p>
-                    </div>
-                </div>
-            </div>
-**/

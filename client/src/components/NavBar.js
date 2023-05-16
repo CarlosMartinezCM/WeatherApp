@@ -15,24 +15,15 @@ class NavBar extends React.Component {
         this.props.changeMode(AppMode.HOMEPAGE);
     }
 
-
     render() {
         return (
             <div>
                 <div class="navMenu">
-                    <h1>Welcome to my Website</h1>
+                    <h1>Weather App</h1>
                     <div class="navHome">
                     <button>
                         <span role="button" className="button"
-                            onClick={this.props.homePage} >&nbsp;Home</span>
-                    </button>
-                    <button>
-                        <span role="button" className="button"
-                            onClick={this.props.weatherPage} >&nbsp;Weather</span>
-                    </button>
-                    <button>
-                        <span role="button" className="button"
-                            onClick={this.props.FootballMode} >&nbsp;Football</span>
+                            onClick={this.props.homeweatherPage} >&nbsp;Weather</span>
                     </button>
                     <button>
                         <span role="button" className="button"
@@ -48,5 +39,4 @@ class NavBar extends React.Component {
         )
     }
 }
-
 export default NavBar;

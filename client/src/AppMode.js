@@ -1,10 +1,8 @@
 // AppMode: Enumarated type
 
 const AppMode = {
-  HOMEPAGE: "HomePageMode",
   WEATHER: "WeatherMode",
   LOGIN: "LoginMode",
-  FOOTBALL: "FootballMode",
   SITEMAP: "SiteMode",
 };
 
