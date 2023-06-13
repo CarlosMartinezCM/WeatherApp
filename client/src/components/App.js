@@ -58,6 +58,7 @@ class App extends React.Component {
                     homeweatherPage={() => this.handleChangeMode(AppMode.WEATHER)}
                     loginPage={() => this.handleChangeMode(AppMode.LOGIN)}
                     SiteMode={() => this.handleChangeMode(AppMode.SITEMAP)}
+                    showAbout={this.toggleAbout}
                 />
                 <ModeBar
                     mode={this.state.mode}
@@ -73,6 +74,7 @@ class App extends React.Component {
                     SiteMode={() => this.handleChangeMode(AppMode.SITEMAP)}
                     showAbout={this.toggleAbout}
                 />
+
             </div>
         );
     }

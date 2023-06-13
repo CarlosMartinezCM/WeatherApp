@@ -13,8 +13,8 @@ class AboutPopUp extends React.Component {
                     </div>
                     <div className='modalBody'>
                         <center>
-                            <h1>Weather Application using React.</h1>
-                            <p style={{ fontStyle: "italic" }}>Version 3.1; Weather API project</p>
+                            <h1>Weather Application using ReactJS.</h1>
+                            <p style={{ fontStyle: "italic" }}>Version 3.1; Weather Forecast Project</p>
                         </center>
                         <div className='modalFooter'>
                             <button className='btn btn-two' onClick={this.props.hideAbout}>close</button>

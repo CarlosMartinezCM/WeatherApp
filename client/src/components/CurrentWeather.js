@@ -5,7 +5,7 @@ Add more of the json responce to the webpage. The ones that dont match with NOAA
 Look into pagation, changing pages to se emore content. 
 */
 import React from 'react';
-import AppMode from "./../AppMode";
+import AppMode from "./../AppMode.js";
 import App from './App.js'
 import axios from "axios";
 
@@ -23,7 +23,6 @@ class WeatherForecast extends React.Component {
     }
     componentDidMount = () => {
         this.getCurrentWeather();
-        //this.getFiveDayForecast();
     }
 
     getCurrentWeather = async () => {
@@ -48,6 +47,7 @@ class WeatherForecast extends React.Component {
             windDirection: temperaturedata.properties.periods[0].windDirection,
             windSpeed: temperaturedata.properties.periods[0].windSpeed,
             shortForecast: temperaturedata.properties.periods[0].shortForecast
+            
 
         });
         const HourlyLink = data.properties.forecastHourly;
@@ -59,7 +59,6 @@ class WeatherForecast extends React.Component {
             hourlyPeriods: hourlyData.properties.periods
         })
     }
-
 
     toggleUnits = () => {
         if (this.state.tempUnit === "F") {
@@ -75,7 +74,7 @@ class WeatherForecast extends React.Component {
     //Udate the current weather conditions
     updateWeather = () => {
         this.getCurrentWeather();
-        //alert("updating weather");
+        alert("updating weather");
     }
 
     handleChange = (event) => {
@@ -135,12 +134,11 @@ class WeatherForecast extends React.Component {
                             <h2>{this.state.temperature} °F</h2>
                             <h4> {this.state.shortForecast} </h4>
                             <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
-                            <h4> {this.state.timestamp} </h4>
                         </div>
                         <h6><i>Last Updated on </i></h6>
                         <p>{this.state.now.toString()}</p>
-                        <div class="centered"><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
                     </div>
+                    <div class="centered"><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
                     <div>
                         {/* Conditionally render the forecast */}
                         {forecastData && (
@@ -172,13 +170,8 @@ class WeatherForecast extends React.Component {
                 </div>
                 <div class="card">
                     <div class="footer">
-                        <div className='modalFooter'>
-                            <a id="aboutBtn" className="sidemenu-item"
-                                onClick={this.props.showAbout}>
-                                <span className="fa fa-info-circle"></span>&nbsp;About</a>
-                        </div>
                     </div>
-                    <p class="centered">version 3.0</p>
+                    <p class="centered">version 3.1</p>
                 </div>
             </div>
 
