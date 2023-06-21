@@ -6,8 +6,9 @@ Look into pagation, changing pages to se emore content.
 */
 import React from 'react';
 import AppMode from "./../AppMode.js";
-import App from './App.js'
-import axios from "axios";
+import 'dotenv/config';
+require('dotenv').config();
+
 
 class WeatherForecast extends React.Component {
     constructor(props) {
@@ -18,7 +19,8 @@ class WeatherForecast extends React.Component {
             showForecast: "",
             forecastUrl: "",
             hourlyUrl: "",
-            now: new Date()
+            now: new Date(), 
+            
         };
     }
     componentDidMount = () => {
@@ -26,38 +28,20 @@ class WeatherForecast extends React.Component {
     }
 
     getCurrentWeather = async () => {
-        const response = await fetch(`https://api.weather.gov/points/${this.state.latitude},${this.state.longitude}`);
+        const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=' +
+            this.state.latitude + '&lon=' +
+            this.state.longitude + '&appid=' + process.env.OPENWEATHERMAP_API_KEY);
         const data = await response.json();
-        const forecastLink = data.properties.forecast;
-        const forecastResponce = await fetch(forecastLink);
-        const forecastData = await forecastResponce.json();
+        //const obsLink = data.properties.forecastGridData;
+       // const obsResponce = await fetch(obsLink);
+        //const obsData = await obsResponce.json();
 
         this.setState({
-            city: data.properties.relativeLocation.properties.city,
-            state: data.properties.relativeLocation.properties.state,
-            forecast: forecastData.properties.periods[0],
-            forecastPeriods: forecastData.properties.periods
-        })
-        const stationLink = data.properties.forecast;
-        const currentResponce = await fetch(stationLink);
-        const temperaturedata = await currentResponce.json();
-
-        this.setState({
-            temperature: temperaturedata.properties.periods[0].temperature,
-            windDirection: temperaturedata.properties.periods[0].windDirection,
-            windSpeed: temperaturedata.properties.periods[0].windSpeed,
-            shortForecast: temperaturedata.properties.periods[0].shortForecast
+            location: data.name,
+            temp: Math.round( data.main.temp - 273.15),
             
-
-        });
-        const HourlyLink = data.properties.forecastHourly;
-        const hourlyResponce = await fetch(HourlyLink);
-        const hourlyData = await hourlyResponce.json();
-
-        this.setState({
-            forecastHourly: hourlyData.properties.periods[0],
-            hourlyPeriods: hourlyData.properties.periods
         })
+       
     }
 
     toggleUnits = () => {
@@ -113,8 +97,8 @@ class WeatherForecast extends React.Component {
 
     render() {
 
-        const { forecast, forecastData, hourlyData } = this.state;
-        if (!forecast) {
+        const { forecast, forecastData, hourlyData,  } = this.state;
+        if (forecast) {
             return <div>No data available.....</div>
         }
         return (
@@ -129,9 +113,10 @@ class WeatherForecast extends React.Component {
                     <div class="card" >
                         <div class="tCity" >
                             <b>Current conditions at </b>
-                            <h1> {this.state.city}, {this.state.state}</h1>
+                            <h1> {this.state.location}, {this.state.state}</h1>
                             <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
-                            <h2>{this.state.temperature} °F</h2>
+                            <h2>timestamp: {this.state.timestamp}</h2>
+                            <h2>{this.state.temp} °F</h2>
                             <h4> {this.state.shortForecast} </h4>
                             <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
                         </div>
@@ -208,10 +193,11 @@ class CurrentWeather extends React.Component {
     //Called when user searches for a city 
     searchLocation = async () => {
         var data = this.citySearch.current.value;
+        const apiKey = process.env.OPENWEATHERMAP_API_KEY;
         if (data != null) {
             this.setState({ station: null });
             const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=' +
-                data + '&appid=26a5f25cabf9b11d8b970976611bc138');
+                data + process.env.OPENWEATHERMAP_API_KEY);
             const currentStation = await response.json();
             if (currentStation != null && currentStation.hasOwnProperty('coord')) {
                 this.setState({ station: { lat: currentStation.coord.lat, lon: currentStation.coord.lon } });
@@ -252,3 +238,23 @@ class CurrentWeather extends React.Component {
 }
 
 export default CurrentWeather;
+
+
+ /* const forecastLink = data.properties.forecast;
+        const forecastResponce = await fetch(forecastLink);
+        const forecastData = await forecastResponce.json();
+
+        this.setState({
+            city: data.properties.relativeLocation.properties.city,
+            state: data.properties.relativeLocation.properties.state,
+            stationName: data.properties.gridId,
+            timestamp: data.properties.observationStations.timestamp,
+            forecast: forecastData.properties.periods[0],
+            forecastPeriods: forecastData.properties.periods,
+            temperature: forecastData.properties.periods[0].temperature,
+            windDirection: forecastData.properties.periods[0].windDirection,
+            windSpeed: forecastData.properties.periods[0].windSpeed,
+            shortForecast: forecastData.properties.periods[0].shortForecast,
+            forecastHourly: forecastData.properties.periods[0],
+            hourlyPeriods: forecastData.properties.periods,
+        }) */

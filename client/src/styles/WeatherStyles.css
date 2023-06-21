@@ -1,12 +1,12 @@
 body {
-  background-color: rgb(140, 167, 165);
+  background-color: rgb(0, 11, 75);
 }
 
 .header {
   margin: auto;
   width: auto;
   text-align: center;
-  background-color: #8b8c8e;
+  background-color: #35393f;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -28,7 +28,7 @@ body {
   background-color: "rgb(21, 20, 22)";
   text-decoration: underline;
   color: rgb(21, 20, 22);
-  background-color: rgb(131, 150, 158);
+  background-color: #1a2431;
 }
 
 .navHome {
