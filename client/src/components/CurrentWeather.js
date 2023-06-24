@@ -218,7 +218,7 @@ class CurrentWeather extends React.Component {
         if (data != null) {
             this.setState({ station: null });
             const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=' +
-                data + '&appid=26a5f25cabf9b11d8b970976611bc138');
+                data + '&appid=efac9c071bf33433694d3860d9d1b6f1');
             const currentStation = await response.json();
             if (currentStation != null && currentStation.hasOwnProperty('coord')) {
                 this.setState({ station: { lat: currentStation.coord.lat, lon: currentStation.coord.lon } });
