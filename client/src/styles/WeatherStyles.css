@@ -73,9 +73,15 @@ body {
   justify-content: center;
 }
 
+.forecast-card-container {
+  display: flex;
+}
+
 .forecast-card {
   background-color: #fff;
   border-radius: 50px;
+  flex: 1;
+  margin: o 5px;
   box-shadow: 0 2px 4px rgba(135, 16, 16, 0.1);
   padding: 20px;
   width: auto;

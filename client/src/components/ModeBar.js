@@ -13,10 +13,6 @@ class ModeBar extends React.Component {
           <span className="modebar-text">Weather</span>
         </a>
         <a className="modebarbtn"
-          onClick={() => this.props.changeMode(AppMode.FOOTBALL)}>
-          <span className="modebar-text"></span>
-        </a>
-        <a className="modebarbtn"
           onClick={() => this.props.changeMode(AppMode.SITEMAP)}>
           <span className="modebar-text">Site Map</span>
         </a>

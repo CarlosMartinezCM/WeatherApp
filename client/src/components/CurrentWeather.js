@@ -1,14 +1,16 @@
 /*
-The numbers values for timezoneShift is in seconds from UTC calculate that to get teh time zones
+The numbers values for timezoneShift is in seconds from UTC calculate that to get the time zones
 
 Add more of the json responce to the webpage. The ones that dont match with NOAA add to the bottom
 Look into pagation, changing pages to se emore content. 
+
+I am still working out the dotenv to hide my API key for the implementation of search by city. 
+
 */
 import React from 'react';
-import AppMode from "./../AppMode.js";
-import 'dotenv/config';
-require('dotenv').config();
-
+import AppMode from "./../AppMode";
+import App from './App.js'
+import axios from "axios";
 
 class WeatherForecast extends React.Component {
     constructor(props) {
@@ -19,29 +21,36 @@ class WeatherForecast extends React.Component {
             showForecast: "",
             forecastUrl: "",
             hourlyUrl: "",
-            now: new Date(), 
-            
+            now: new Date()
         };
     }
     componentDidMount = () => {
         this.getCurrentWeather();
+        //this.getFiveDayForecast();
     }
 
     getCurrentWeather = async () => {
-        const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=' +
-            this.state.latitude + '&lon=' +
-            this.state.longitude + '&appid=' + process.env.OPENWEATHERMAP_API_KEY);
+        const response = await fetch(`https://api.weather.gov/points/${this.state.latitude},${this.state.longitude}`);
         const data = await response.json();
-        //const obsLink = data.properties.forecastGridData;
-       // const obsResponce = await fetch(obsLink);
-        //const obsData = await obsResponce.json();
+        const forecastLink = data.properties.forecast;
+        const forecastResponce = await fetch(forecastLink);
+        const forecastData = await forecastResponce.json();
 
         this.setState({
-            location: data.name,
-            temp: Math.round( data.main.temp - 273.15),
-            
+            city: data.properties.relativeLocation.properties.city,
+            state: data.properties.relativeLocation.properties.state,
+            forecast: forecastData.properties.periods[0],
+            forecastPeriods: forecastData.properties.periods,
+            temperature: forecastData.properties.periods[0].temperature,
+            windDirection: forecastData.properties.periods[0].windDirection,
+            windSpeed: forecastData.properties.periods[0].windSpeed,
+            shortForecast: forecastData.properties.periods[0].shortForecast,
+            forecastHourly: forecastData.properties.periods[0],
+            hourlyPeriods: forecastData.properties.periods,
+            units: forecastData.properties.units,
+            updated: forecastData.properties.updated,
         })
-       
+
     }
 
     toggleUnits = () => {
@@ -56,9 +65,9 @@ class WeatherForecast extends React.Component {
         // { this.state.tempUnit };
     }
     //Udate the current weather conditions
-    updateWeather = () => {
+    updateWeather = async () => {
         this.getCurrentWeather();
-        alert("updating weather");
+        //alert("updating weather");
     }
 
     handleChange = (event) => {
@@ -94,69 +103,73 @@ class WeatherForecast extends React.Component {
     handleRadarClick = async () => {
         alert("Alert Radar");
     };
-
+  
     render() {
 
-        const { forecast, forecastData, hourlyData,  } = this.state;
-        if (forecast) {
+        const { forecast, forecastData, hourlyData } = this.state;
+        if (!forecast) {
             return <div>No data available.....</div>
         }
         return (
             <div>
                 <div>
-                    <div align="center">
-                        <button onClick={this.handleTodayClick}>TODAY</button>
-                        <button onClick={this.handlehourlyClick}>HOURLY</button>
-                        <button onClick={this.handleForecastClick}>DAILY</button>
-                        <button onClick={this.handleRadarClick}>RADAR</button>
-                    </div>
                     <div class="card" >
+                    <div align="right">
+                        {/* Conditionally render the forecast and hourly when selected make sure to load new page */}
+                        <button type="submit" className="btn-color-theme" onClick={this.handleTodayClick}>TODAY</button>
+                        <button type="submit" className="btn-color-theme" onClick={this.handlehourlyClick}>HOURLY</button>
+                        <button type="submit" className="btn-color-theme" onClick={this.handleForecastClick}>DAILY</button>
+                        <button type="submit" className="btn-color-theme"n onClick={this.handleRadarClick}>RADAR</button>
+                    </div>
                         <div class="tCity" >
+                            {/*add the current weather ICON and curr temp*/}
                             <b>Current conditions at </b>
-                            <h1> {this.state.location}, {this.state.state}</h1>
-                            <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
-                            <h2>timestamp: {this.state.timestamp}</h2>
-                            <h2>{this.state.temp} °F</h2>
+                            <h1> {this.state.city}, {this.state.state}</h1>
+                            <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>                            
+                            <h2>{this.state.temperature} °F</h2>
+                            <p>add Celcius units and move the short forecast above temp</p>
                             <h4> {this.state.shortForecast} </h4>
                             <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
+                            <h5>units: {this.state.units}  </h5>
+                            <h5>Updated: {this.state.updated}  </h5>
+                            <h4> {this.state.timestamp} </h4>
                         </div>
                         <h6><i>Last Updated on </i></h6>
                         <p>{this.state.now.toString()}</p>
-                    </div>
-                    <div class="centered"><input class="button" id="refresh" type="button" value="refresh" onClick={this.updateWeather} /></div>
-                    <div>
-                        {/* Conditionally render the forecast */}
-                        {forecastData && (
-                            <div>
-                                <h3>DAILY</h3>
-                                <div class="forecast-card">
+                        </div>
+                            <div class="panel-body">
+                                <h4>Extended Forecast for</h4>
+                                <div class="tombstone-container"> 
+                                <h3> {this.state.city}, {this.state.state}</h3>
+                                <div className="forecast-card-container">
                                     {this.state.forecastPeriods.map((period) => (
-                                        <div key={period.number}>
+                                        <div key={period.number} className="forecast-card">
+                                            <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
                                             <h2>{period.name}</h2>
-                                            <p>{period.detailedForecast}</p>
+                                            <p>{period.shortForecast}</p>
                                         </div>
                                     ))}
                                 </div>
-                            </div>
-                        )}
-                    </div>
-                    {/* Conditionally render the forecast */}
-                    {hourlyData && (
-                        <div class="Fcard">
-                            <h2>Hourly Forecast</h2>
-                            {this.state.hourlyPeriods.map((period) => (
-                                <div key={period.number}>
-                                    <h6>Humidity {period.relativeHumidity.value}</h6>
-                                    <h4>{period.temperature}</h4>
                                 </div>
-                            ))}
+                            </div>
+                        <div class="card">
+                            <h2>Detailed Forecast</h2>
+                            {this.state.forecastPeriods.map((period) => (
+                                        <div key={period.number} >
+                                        <div>     
+                                            <h2>{period.name}</h2>
+                                            <p>{period.detailedForecast}</p>
+                                            </div>
+                                        </div>
+                                    ))}
                         </div>
-                    )}
                 </div>
                 <div class="card">
                     <div class="footer">
+                        <div className='modalFooter'>
+                        </div>
                     </div>
-                    <p class="centered">version 3.1</p>
+                    <p class="centered">version 3.0</p>
                 </div>
             </div>
 
@@ -193,11 +206,10 @@ class CurrentWeather extends React.Component {
     //Called when user searches for a city 
     searchLocation = async () => {
         var data = this.citySearch.current.value;
-        const apiKey = process.env.OPENWEATHERMAP_API_KEY;
         if (data != null) {
             this.setState({ station: null });
             const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=' +
-                data + process.env.OPENWEATHERMAP_API_KEY);
+                data + '&appid=efac9c071bf33433694d3860d9d1b6f1');
             const currentStation = await response.json();
             if (currentStation != null && currentStation.hasOwnProperty('coord')) {
                 this.setState({ station: { lat: currentStation.coord.lat, lon: currentStation.coord.lon } });
@@ -211,7 +223,7 @@ class CurrentWeather extends React.Component {
         if (this.state.station != null) {
             return (
                 <div id="main">
-                    <div class="cardSearch" align="center" >
+                    <div class="cardSearch" align="left" >
                         <form >
                             <input
                                 ref={this.citySearch}
@@ -238,23 +250,3 @@ class CurrentWeather extends React.Component {
 }
 
 export default CurrentWeather;
-
-
- /* const forecastLink = data.properties.forecast;
-        const forecastResponce = await fetch(forecastLink);
-        const forecastData = await forecastResponce.json();
-
-        this.setState({
-            city: data.properties.relativeLocation.properties.city,
-            state: data.properties.relativeLocation.properties.state,
-            stationName: data.properties.gridId,
-            timestamp: data.properties.observationStations.timestamp,
-            forecast: forecastData.properties.periods[0],
-            forecastPeriods: forecastData.properties.periods,
-            temperature: forecastData.properties.periods[0].temperature,
-            windDirection: forecastData.properties.periods[0].windDirection,
-            windSpeed: forecastData.properties.periods[0].windSpeed,
-            shortForecast: forecastData.properties.periods[0].shortForecast,
-            forecastHourly: forecastData.properties.periods[0],
-            hourlyPeriods: forecastData.properties.periods,
-        }) */
