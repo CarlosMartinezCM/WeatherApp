@@ -127,11 +127,11 @@ class WeatherForecast extends React.Component {
                             <h1> {this.state.city}, {this.state.state}</h1>
                             <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>                            
                             <h2>{this.state.temperature} °F</h2>
-                            <p>add Celcius units and move the short forecast above temp</p>
+                            {/*<p>add Celcius units and move the short forecast above temp</p>*/}
                             <h4> {this.state.shortForecast} </h4>
                             <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
-                            <h5>units: {this.state.units}  </h5>
-                            <h5>Updated: {this.state.updated}  </h5>
+                              {/*<h5>units: {this.state.units}  </h5>*/}
+                             {/* <h5>Updated: {this.state.updated}  </h5>*/}
                             <h4> {this.state.timestamp} </h4>
                         </div>
                         <h6><i>Last Updated on </i></h6>
