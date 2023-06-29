@@ -20,11 +20,21 @@ body {
   bottom: 0;
 }
 
+/*Extended Forecast fitting all data within the container.*/
+.ExFo-container {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+  overflow: auto;
+  width: auto;
+}
+
 .navMenu {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 80px;
   margin: auto;
   width: auto;
   text-align: center;
-  font-size: 36px;
   background-color: "rgb(21, 20, 22)";
   text-decoration: underline;
   color: rgb(21, 20, 22);
@@ -49,7 +59,7 @@ body {
 }
 
 .card {
- /*  display: inline-block;    this makes everything in the card display side by side*/
+  /*  display: inline-block;    this makes everything in the card display side by side*/
   margin: 20px;
   font-family: 'Times New Roman', Times, serif;
   background-color: #fff;
@@ -58,7 +68,7 @@ body {
 }
 
 .Header_card {
- 
+
   margin: 20px;
   font-family: 'Times New Roman', Times, serif;
   background-color: #fff;
@@ -456,43 +466,55 @@ body {
 .form-center {
   text-align: center;
 }
+
 /* Modal Content/Box */
 .modal {
   padding: 56px 8px 0px 8px;
   display: block;
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 }
 
 /* Modal Content/Box*/
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
+  /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
+  /* Could be more or less, depending on screen size */
 }
 
 .modal-header {
-    padding: 2px 16px;
-    background-color: black;
-    color: white;
-  }
-  
-  .modal-body {padding: 2px 16px;}
-  
-  .modal-footer {
-    padding: 2px 16px;
-    background-color: black;
-    color: white;
-  }
+  padding: 2px 16px;
+  background-color: black;
+  color: white;
+}
+
+.modal-body {
+  padding: 2px 16px;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: black;
+  color: white;
+}
 
 /* The Close Button */
 .close {
@@ -518,35 +540,39 @@ body {
 /* Modal Pop-up Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
+  /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
+  /* Could be more or less, depending on screen size */
 }
 
 .modal-header {
-    padding: 2px 16px;
-    background-color: black;
-    color: white;
-    text-align: center;
-  }
-  
-  .modal-title {
-    font-size: 28px;
-    padding: 2px 16px;
-    background-color: black;
-    color: white; 
-    text-align: center;
-  }
-  
-  .modal-body {padding: 2px 16px;}
-  
-  .modal-footer {
-    padding: 2px 16px;
-    background-color: black;
-    color: white;
-    position: left;
-  }
+  padding: 2px 16px;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 28px;
+  padding: 2px 16px;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+.modal-body {
+  padding: 2px 16px;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: black;
+  color: white;
+  position: left;
+}
 
 /* The Close Button for modal box */
 .close {

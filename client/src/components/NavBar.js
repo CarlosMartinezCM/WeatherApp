@@ -18,7 +18,7 @@ class NavBar extends React.Component {
     render() {
         return (
             <div>
-                <div class="navMenu">
+                <div className="navMenu">
                     <h1>Weather App</h1>
                     <div class="navHome">
                     <button>

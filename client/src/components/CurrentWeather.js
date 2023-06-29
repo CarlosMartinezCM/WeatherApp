@@ -9,7 +9,6 @@ I am still working out the dotenv to hide my API key for the implementation of s
 */
 import React from 'react';
 import AppMode from "./../AppMode";
-import App from './App.js'
 import axios from "axios";
 
 class WeatherForecast extends React.Component {
@@ -137,9 +136,9 @@ class WeatherForecast extends React.Component {
                         <h6><i>Last Updated on </i></h6>
                         <p>{this.state.now.toString()}</p>
                         </div>
-                            <div class="panel-body">
-                                <h4>Extended Forecast for</h4>
+                            <div class="ExFo-container ">
                                 <div class="tombstone-container"> 
+                                <h4>Extended Forecast for</h4>
                                 <h3> {this.state.city}, {this.state.state}</h3>
                                 <div className="forecast-card-container">
                                     {this.state.forecastPeriods.map((period) => (
