@@ -1,52 +1,18 @@
-body {
-  background-color: rgb(0, 11, 75);
-}
-
-.header {
-  margin: auto;
-  width: auto;
-  text-align: center;
-  background-color: #35393f;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.bottomBar {
-  margin: auto;
-  width: auto;
-  text-align: end;
-  font-size: 20px;
-  background-color: "rgb(21, 20, 22)";
-  color: rgb(21, 20, 22);
-  bottom: 0;
-}
-
-/*Extended Forecast fitting all data within the container.*/
-.ExFo-container {
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 20px;
-  overflow: auto;
-  width: auto;
-}
 
 .navMenu {
   font-family: 'Times New Roman', Times, serif;
-  font-size: 80px;
-  margin: auto;
-  width: auto;
+  font-size: 100px;
   text-align: center;
-  background-color: "rgb(21, 20, 22)";
-  text-decoration: underline;
   color: rgb(21, 20, 22);
-  background-color: #1a2431;
+  background-color: rgb(194, 206, 251);
 }
 
 .navHome {
   margin: auto;
   width: auto;
   text-align: center;
-  font-size: 15px;
-  background-color: "rgb(21, 20, 22)";
+  font-size: 12px;
+  background-color:  rgb(204, 213, 246);
   color: rgb(21, 20, 22);
 }
 
@@ -63,53 +29,58 @@ body {
   margin: 20px;
   font-family: 'Times New Roman', Times, serif;
   background-color: #fff;
-  border-radius: 20px;
   width: auto;
 }
 
-.Header_card {
-
-  margin: 20px;
-  font-family: 'Times New Roman', Times, serif;
-  background-color: #fff;
-  border-radius: 20px;
+/*Add text style anc color to headers for each section*/
+.headerText {
   width: auto;
-  justify-content: center;
+  text-align: left;
+  font-size: 15px;
+  background-color: rgb(194, 206, 251);
 }
 
-.card.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+/*Extended Forecast fitting all data within the container.*/
+.ExFo-container {
+  margin: 10px;
+  padding: 10px;
+  overflow: auto;
+  width: auto;
 }
 
+/*Container for the extended forecast*/
 .forecast-card-container {
   display: flex;
 }
-
+/*Card to display the extended forecast side by side*/
 .forecast-card {
   background-color: #fff;
-  border-radius: 50px;
   flex: 1;
-  margin: o 5px;
-  box-shadow: 0 2px 4px rgba(135, 16, 16, 0.1);
-  padding: 20px;
-  width: auto;
-  /* set the desired width of the card */
   margin: 10px;
+  padding: 10px;
+  /* set the desired width of the card */
+  margin: 5px;
 }
 
-.HFcard {
-  /* display: inline-block;    this makes everything in the card display side by side*/
-  color: rgb(21, 20, 22);
-  margin: 20px;
-  font-family: 'Times New Roman', Times, serif;
-  background-color: rgb(108, 117, 121);
+ /*Top buttons, TODAY, HOURLY, DAILY, RADAR*/
+.forecastBtns{
+  text-align: center;
+  color: #4e4ee7;
+  font-size: 15px;
   width: auto;
-  padding: 10px;
-  top: 50%;
-  right: 20px;
-  /* set the desired distance from the left side of the page */
+  font-family:'Times New Roman', Times, serif;
+  background-color: rgb(194, 206, 251);
+}
+
+/* Add a gray background color to the button when it is selected */
+.forecastBtns b:active {
+  background-color: #302998;
+  color: #272c35;
+}
+
+/* Add background color to button when it is hovered */
+.forecastBtns b:hover {
+  color: #16162f99;
 }
 
 .cardSearch {
@@ -142,10 +113,8 @@ body {
 }
 
 .currWeatherCenter {
-
   text-align: "right";
   background-color: "rgb(21, 20, 22)";
-
 }
 
 .centered {
@@ -191,7 +160,7 @@ body {
 
 .navbar-title {
   color: white;
-  font-size: 18px;
+  font-size: 30px;
 }
 
 /* navbarItems defines styling of items within navbar. They should be centered top-to-bottom
@@ -201,113 +170,6 @@ body {
   align-items: center;
   padding-top: 5px;
   padding-bottom: 5px;
-}
-
-/* sidemenu -- Styling of the side navigation menu */
-.sidemenu {
-  height: 100%;
-  /* Menu is full height of window */
-  width: 0px;
-  /* Menu hidden -- will be opened on click */
-  position: fixed;
-  /* Menu stays in place regardless of other content */
-  z-index: 150;
-  /* Force the menu to be at front */
-  top: 48px;
-  /* Position menu 48 px from top of screen; accomodates top navbar */
-  left: 0;
-  /* Position the menu on the left hand side */
-  background-color: #13294E;
-  /* Background color is dark blue */
-  overflow-x: hidden;
-  /* Don't allow horizontal scroll */
-  transition: 0.5s;
-  /* Animation transition time is 0.5 sec */
-  padding-top: 12px;
-  /* Place menu content 12 px from top */
-}
-
-/* applies only to an anchor tag that's a child of a sidenav element. */
-.sidemenu a {
-  padding: 16px 8px 16px 32px;
-  text-decoration: none;
-  font-size: 16px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-}
-
-
-.sidemenu div {
-  padding: 0px 0px 10px 6px;
-  text-decoration: none;
-  font-size: 16px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-  /* border-bottom: 2px solid white; */
-}
-
-/* Required ordering of link style definitions: visited, hover, active. If out of this order, they won't work!! */
-
-.sidemenu a:visited {
-  background-color: #13294E !important;
-  color: white !important;
-}
-
-.sidemenu a:active {
-  background-color: #13294E !important;
-  color: white !important;
-}
-
-
-/* Cascading style within a style: This definition applies only to sidenavtitle class defined in an 
- element that's a child of sidenav element. */
-.sidenmenu .sidemenu-title {
-  position: absolute;
-  width: 100%;
-  top: 0px;
-  left: 0px;
-  padding: 0px 0px 0px 6px;
-  font-size: 18px;
-  margin-top: 20px;
-  margin-bottom: 20px !important;
-  border-bottom: 2px solid white;
-}
-
-.sidemenu .sidemenu-userID {
-  font-size: 14px;
-}
-
-/* side menu button styling */
-.sidemenu-btn {
-  background-color: transparent;
-  border-color: #13294E;
-  text-align: center;
-}
-
-.sidemenu-btn-icon {
-  color: white;
-  font-size: 30px;
-  cursor: pointer;
-  text-align: center;
-}
-
-
-.sidemenu-item:hover {
-  cursor: default;
-  text-decoration: none;
-  color: #13294E !important;
-  background-color: #F0F0F0;
-}
-
-/* side menu styling when menu item selected */
-.sidemenu-item-selected {
-  pointer-events: none;
-  cursor: default;
-  text-decoration: none;
-  color: #13294E !important;
-  background-color: #F0F0F0;
 }
 
 /* The SpeedScore dark blue color theme  */
@@ -344,7 +206,6 @@ body {
   display: none;
 }
 
-
 .clickable-div {
   cursor: pointer;
 }
@@ -352,7 +213,7 @@ body {
 /* Styling for mode bar at the bottom of the page,
 position fixed along with bottom places the mode bar at the bottom of the page */
 .modebar {
-  background-color: #8b8c8e;
+  background-color: #585859;
   overflow: hidden;
   position: fixed;
   text-align: center;
@@ -368,7 +229,7 @@ position fixed along with bottom places the mode bar at the bottom of the page *
 .modebar a {
   display: block;
   float: left;
-  width: 25%;
+  width: 33%;
   color: white;
   text-align: center;
   padding: 2px 2px;
@@ -379,92 +240,24 @@ position fixed along with bottom places the mode bar at the bottom of the page *
 /* Add a gray background color to the button when it is selected */
 .modebar a:active {
   background-color: #F0F0F0;
-  color: #13294E;
+  color: #272c35;
 }
 
-/* Add a gray background color to button when it is hovered */
+/* Add background color to button when it is hovered */
 .modebar a:hover {
-  color: #F0F0F0;
-}
-
-/* Hide the link that should open and close the navbar on small screens */
-.modebar .icon {
-  display: none;
+  color: #16162f99;
 }
 
 /* Style the icons in the bottom bar */
 .modebar-icon {
   display: block;
-  padding-top: 3px;
+  padding-top: 10px;
 }
 
 /* Style the text in the bottom bar */
 .modebar-text {
   display: block;
   font-size: small;
-}
-
-/* Style the floating action button, which is fixed in the lower right of the app */
-.floatbtn {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 60px;
-  right: 40px;
-  background-color: #13294E;
-  color: white;
-  border-radius: 50px;
-  text-align: center;
-  box-shadow: 2px 2px 3px #999;
-}
-
-.floatbtn-icon {
-  margin-top: 22px;
-}
-
-.floatbtn a:visited {
-  color: white !important;
-}
-
-.floatbtn a:active {
-  color: white !important;
-}
-
-body {
-  margin: 0;
-}
-
-/* This class disables a button */
-.disabled-button {
-  pointer-events: none;
-  opacity: 0.4;
-}
-
-.floatbtn a:visited {
-  color: white !important;
-}
-
-.floatbtn a:active {
-  color: white !important;
-}
-
-/* Login page styling */
-.login-text {
-  text-align: center;
-  width: 90%;
-  height: 10%;
-  font-size: 24px;
-}
-
-.login-btn {
-  width: 70%;
-  font-size: 36px;
-}
-
-/* Form styling */
-
-.form-center {
-  text-align: center;
 }
 
 /* Modal Content/Box */

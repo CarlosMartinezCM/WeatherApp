@@ -9,30 +9,25 @@ class NavBar extends React.Component {
             color: "black"
         };
     }
-
     handleChange = (event) => {
         event.preventDefault();
         this.props.changeMode(AppMode.HOMEPAGE);
     }
-
     render() {
         return (
             <div>
                 <div className="navMenu">
-                    <h1>Weather App</h1>
+                    <h1>Weather Service</h1>
                     <div class="navHome">
-                    <button>
-                        <span role="button" className="button"
-                            onClick={this.props.homeweatherPage} >&nbsp;Weather</span>
-                    </button>
-                    <button>
-                        <span role="button" className="button"
-                            onClick={this.props.SiteMode} >&nbsp;Site Map</span>
-                    </button>
-                    <button>
-                        <span role="button" className="button" 
-                            onClick={this.props.loginPage} >&nbsp;Login</span>
-                    </button>
+                        {/*  Can add web navigation buttons under the Wether App title*/}
+                        <button>
+                            <span role="button" className="button"
+                                onClick={this.props.homeweatherPage} >&nbsp;Forecast</span>
+                        </button>
+                        <button>
+                            <span role="button" className="button"
+                                onClick={this.props.SiteMode} >&nbsp;Site Map</span>
+                        </button>
                     </div>
                 </div>
             </div>

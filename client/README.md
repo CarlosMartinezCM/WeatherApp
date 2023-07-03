@@ -1,3 +1,4 @@
+Static app deployed on Vercel.
 
 
 

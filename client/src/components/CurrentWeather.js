@@ -102,72 +102,71 @@ class WeatherForecast extends React.Component {
     handleRadarClick = async () => {
         alert("Alert Radar");
     };
-  
+
     render() {
 
-        const { forecast, forecastData, hourlyData } = this.state;
+        const { forecast } = this.state;
         if (!forecast) {
             return <div>No data available.....</div>
         }
         return (
             <div>
-                <div>
-                    <div class="card" >
-                    <div align="right">
-                        {/* Conditionally render the forecast and hourly when selected make sure to load new page */}
-                        <button type="submit" className="btn-color-theme" onClick={this.handleTodayClick}>TODAY</button>
-                        <button type="submit" className="btn-color-theme" onClick={this.handlehourlyClick}>HOURLY</button>
-                        <button type="submit" className="btn-color-theme" onClick={this.handleForecastClick}>DAILY</button>
-                        <button type="submit" className="btn-color-theme"n onClick={this.handleRadarClick}>RADAR</button>
-                    </div>
-                        <div class="tCity" >
-                            {/*add the current weather ICON and curr temp*/}
-                            <b>Current conditions at </b>
-                            <h1> {this.state.city}, {this.state.state}</h1>
-                            <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>                            
-                            <h2>{this.state.temperature} °F</h2>
-                            {/*<p>add Celcius units and move the short forecast above temp</p>*/}
-                            <h4> {this.state.shortForecast} </h4>
-                            <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
-                              {/*<h5>units: {this.state.units}  </h5>*/}
-                             {/* <h5>Updated: {this.state.updated}  </h5>*/}
-                            <h4> {this.state.timestamp} </h4>
-                        </div>
-                        <h6><i>Last Updated on </i></h6>
-                        <p>{this.state.now.toString()}</p>
-                        </div>
-                            <div class="ExFo-container ">
-                                <div class="tombstone-container"> 
-                                <h4>Extended Forecast for</h4>
-                                <h3> {this.state.city}, {this.state.state}</h3>
-                                <div className="forecast-card-container">
-                                    {this.state.forecastPeriods.map((period) => (
-                                        <div key={period.number} className="forecast-card">
-                                            <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
-                                            <h2>{period.name}</h2>
-                                            <p>{period.shortForecast}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                                </div>
+                <div className='forecastBtns'>
+                    <div><p>More Information:</p></div>
+                    {/* Conditionally render the forecast and hourly when selected make sure to load new page */}
+                    <span type="submit" onClick={this.handleTodayClick}>TODAY&nbsp;</span>
+                    <span type="submit" onClick={this.handlehourlyClick}>HOURLY&nbsp;</span>
+                    <span type="submit" onClick={this.handleForecastClick}>DAILY&nbsp;</span>
+                    <span type="submit" onClick={this.handleRadarClick}>RADAR&nbsp;</span>
+                </div>
+                <div class="tCity" >
+                    {/*add the current weather ICON and curr temp*/}
+                    <b>Current conditions at </b>
+                    <h1> {this.state.city}, {this.state.state}</h1>
+                    <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
+                    <h2>{this.state.temperature} °F</h2>
+                    {/*<p>add Celcius units and move the short forecast above temp</p>*/}
+                    <h4> {this.state.shortForecast} </h4>
+                    <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
+                    {/*<h5>units: {this.state.units}  </h5>*/}
+                    {/* <h5>Updated: {this.state.updated}  </h5>*/}
+                    <h4> {this.state.timestamp} </h4>
+                </div>
+                <div className='headerText'>
+                    <h4>Extended Forecast for</h4>
+                    <h3> {this.state.city}, {this.state.state}</h3>
+                </div>
+                <div class="ExFo-container ">
+                    <div className="forecast-card-container">
+                        {this.state.forecastPeriods.map((period) => (
+                            <div key={period.number} className="forecast-card">
+                                <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
+                                <h2>{period.name}</h2>
+                                <p>{period.shortForecast}</p>
                             </div>
-                        <div class="card">
-                            <h2>Detailed Forecast</h2>
-                            {this.state.forecastPeriods.map((period) => (
-                                        <div key={period.number} >
-                                        <div>     
-                                            <h2>{period.name}</h2>
-                                            <p>{period.detailedForecast}</p>
-                                            </div>
-                                        </div>
-                                    ))}
+                        ))}
+                    </div>
+                </div>
+                <div class="card">
+                    <div className='headerText'>
+                        <h2>Detailed Forecast</h2>
+                    </div>
+                    {this.state.forecastPeriods.map((period) => (
+                        <div key={period.number} >
+                            <div>
+                                <h2>{period.name}</h2>
+                                <p>{period.detailedForecast}</p>
+                            </div>
                         </div>
+                    ))}
                 </div>
                 <div class="card">
                     <div class="footer">
                         <div className='modalFooter'>
                         </div>
                     </div>
+                    <h6><i>Last Updated on </i></h6>
+                    <p>{this.state.now.toString()}</p>
                     <p class="centered">version 3.0</p>
                 </div>
             </div>
@@ -240,6 +239,7 @@ class CurrentWeather extends React.Component {
                     <div class="card" >
                         <WeatherForecast latitude={this.state.station.lat} longitude={this.state.station.lon} />
                     </div>
+
                 </div>
             );
         } else {
