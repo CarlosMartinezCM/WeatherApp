@@ -61,27 +61,47 @@
   /* set the desired width of the card */
   margin: 5px;
 }
-
- /*Top buttons, TODAY, HOURLY, DAILY, RADAR*/
-.forecastBtns{
+ /*Top buttons, TODAY, HOURLY, DAILY, RADAR */
+.forecastText{
+  align-items: center;
   text-align: center;
-  color: #4e4ee7;
+  display: flex;
+  background-image: linear-gradient(144deg,#59bd2b, #6296e9 50%,#008458);
+  color: #000000;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: rgba(140, 6, 265, 0.2);
+  padding: 3px;
   font-size: 15px;
+  justify-content: space-evenly;
   width: auto;
   font-family:'Times New Roman', Times, serif;
   background-color: rgb(194, 206, 251);
+  cursor: pointer;
 }
-
 /* Add a gray background color to the button when it is selected */
-.forecastBtns b:active {
+/* Add background color to button when it is hovered */
+.forecastText:active, .forecastText:hover  {
   background-color: #302998;
   color: #272c35;
 }
-
-/* Add background color to button when it is hovered */
-.forecastBtns b:hover {
-  color: #16162f99;
+.forecastText span {
+  background-color: rgb(194, 206, 251);
+  padding: 16px 24px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
 }
+
+.forecastText:hover span {
+  background: none;
+}
+@media (min-width: 768px) {
+  .forecastBtns {
+    font-size: 15px;
+    min-width: 196px;
+  }}
 
 .cardSearch {
   margin: 20px;

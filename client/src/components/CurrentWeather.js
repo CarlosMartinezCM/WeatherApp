@@ -38,6 +38,7 @@ class WeatherForecast extends React.Component {
         this.setState({
             city: data.properties.relativeLocation.properties.city,
             state: data.properties.relativeLocation.properties.state,
+            temp1: data.properties.temperature,
             forecast: forecastData.properties.periods[0],
             forecastPeriods: forecastData.properties.periods,
             temperature: forecastData.properties.periods[0].temperature,
@@ -49,6 +50,8 @@ class WeatherForecast extends React.Component {
             units: forecastData.properties.units,
             updated: forecastData.properties.updated,
         })
+        
+
 
     }
 
@@ -111,8 +114,8 @@ class WeatherForecast extends React.Component {
         }
         return (
             <div>
-                <div className='forecastBtns'>
-                    <div><p>More Information:</p></div>
+                <div><p>More Information:</p></div>
+                <div class='forecastText'>
                     {/* Conditionally render the forecast and hourly when selected make sure to load new page */}
                     <span type="submit" onClick={this.handleTodayClick}>TODAY&nbsp;</span>
                     <span type="submit" onClick={this.handlehourlyClick}>HOURLY&nbsp;</span>
@@ -124,7 +127,7 @@ class WeatherForecast extends React.Component {
                     <b>Current conditions at </b>
                     <h1> {this.state.city}, {this.state.state}</h1>
                     <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
-                    <h2>{this.state.temperature} °F</h2>
+                    <h2>Today's High {this.state.temp1} °F</h2>
                     {/*<p>add Celcius units and move the short forecast above temp</p>*/}
                     <h4> {this.state.shortForecast} </h4>
                     <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
@@ -201,7 +204,7 @@ class CurrentWeather extends React.Component {
     getLocError = (err) => {
         this.setState({ station: { lat: 46.26955, lon: -119.11813 } });
     }
-    //Called when user searches for a city 
+    //This function is called when the user wants to search by city. Working on hiding the APIkey. 
     searchLocation = async () => {
         var data = this.citySearch.current.value;
         if (data != null) {
