@@ -118,7 +118,7 @@ class WeatherForecast extends React.Component {
 
         const { forecast } = this.state;
         if (!forecast) {
-            return <div>No data available.....</div>
+            return <div>No data available. Please refresh the page!</div>
         }
         return (
             <div>
