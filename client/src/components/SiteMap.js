@@ -10,9 +10,9 @@ class SiteMap extends React.Component {
     render() {
         return (
             <div >
-                    <div class="forecastText">
-                            <span role="button" className="button"
-                                onClick={this.props.homeweatherPage} >&nbsp;Weather</span>
+                    <div class="navOptions">
+                            <div className="navOptions"
+                                onClick={this.props.homeweatherPage} >&nbsp;Weather</div>
                     </div>
             </div>
         )

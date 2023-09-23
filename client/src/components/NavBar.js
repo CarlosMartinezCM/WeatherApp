@@ -2,7 +2,6 @@ import React from "react";
 import AppMode from "./../AppMode.js";
 
 class NavBar extends React.Component {
-
     constructor() {
         super();
         this.state = {
@@ -16,21 +15,17 @@ class NavBar extends React.Component {
     render() {
         return (
             <div>
-                <div className="navMenu">
+                <div className="navTitle">
                     <h1>Weather Service</h1>
-                    <div class="navHome">
+                    </div>
+                    <div class="navOptionsTop">
                         {/*  Can add web navigation buttons under the Wether App title*/}
-                        <button>
-                            <span role="button" className="button"
-                                onClick={this.props.homeweatherPage} >&nbsp;Forecast</span>
-                        </button>
-                        <button>
-                            <span role="button" className="button"
-                                onClick={this.props.SiteMode} >&nbsp;Site Map</span>
-                        </button>
+                            <div div class='navOptionsTop-but' type="submit"  
+                                onClick={this.props.homeweatherPage} >&nbsp;Forecast</div>
+                            <div div class='navOptionsTop-but' type="submit"
+                                onClick={this.props.SiteMode} >&nbsp;Site Map</div>
                     </div>
                 </div>
-            </div>
         )
     }
 }

@@ -8,15 +8,15 @@ class ModeBar extends React.Component {
     return (
       <div class="modebar">
         <div>
-        <a className="modebarbtn"
+        <a className="navOptionsTop"
           onClick={() => this.props.changeMode(AppMode.WEATHER)}>
           <span className="modebar-text">Weather</span>
         </a>
-        <a className="modebarbtn"
+        <a className="navOptionsTop"
           onClick={() => this.props.changeMode(AppMode.SITEMAP)}>
           <span className="modebar-text">Site Map</span>
         </a>
-        <a className="modebarbtn"
+        <a className="navOptionsTop"
           onClick={this.props.showAbout}>
           <span className="modebar-text">About</span>
         </a>

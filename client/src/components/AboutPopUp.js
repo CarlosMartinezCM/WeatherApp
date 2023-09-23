@@ -18,7 +18,7 @@ class AboutPopUp extends React.Component {
                             <p style={{ fontStyle: "italic" }}>Version 3.1; Weather Forecast Project</p>
                         </center>
                         <div className='modalFooter'>
-                            <button className='btn btn-two' onClick={this.props.hideAbout}>close</button>
+                            <button className='modal-submit-btn' onClick={this.props.hideAbout}>close</button>
                         </div>
                     </div>
                 </div>

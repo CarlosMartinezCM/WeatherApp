@@ -20,7 +20,8 @@ class WeatherForecast extends React.Component {
             showForecast: "",
             forecastUrl: "",
             hourlyUrl: "",
-            now: new Date()
+            now: new Date(), 
+            forecastPeriods:[],
         };
     }
     componentDidMount = () => {
@@ -38,7 +39,6 @@ class WeatherForecast extends React.Component {
         this.setState({
             city: data.properties.relativeLocation.properties.city,
             state: data.properties.relativeLocation.properties.state,
-            temp1: data.properties.temperature,
             forecast: forecastData.properties.periods[0],
             forecastPeriods: forecastData.properties.periods,
             temperature: forecastData.properties.periods[0].temperature,
@@ -50,9 +50,6 @@ class WeatherForecast extends React.Component {
             units: forecastData.properties.units,
             updated: forecastData.properties.updated,
         })
-        
-
-
     }
 
     toggleUnits = () => {
@@ -102,6 +99,17 @@ class WeatherForecast extends React.Component {
         alert("Alert Today");
     };
 
+    handlehourlyClick = async () => {
+
+        alert("Alert Hourly");
+    };
+
+
+    handleDailyClick = async () => {
+
+        alert("Alert Daily");
+    };
+
     handleRadarClick = async () => {
         alert("Alert Radar");
     };
@@ -115,19 +123,19 @@ class WeatherForecast extends React.Component {
         return (
             <div>
                 <div><p>More Information:</p></div>
-                <div class='forecastText'>
+                <div class='navOptions'>
                     {/* Conditionally render the forecast and hourly when selected make sure to load new page */}
-                    <span type="submit" onClick={this.handleTodayClick}>TODAY&nbsp;</span>
-                    <span type="submit" onClick={this.handlehourlyClick}>HOURLY&nbsp;</span>
-                    <span type="submit" onClick={this.handleForecastClick}>DAILY&nbsp;</span>
-                    <span type="submit" onClick={this.handleRadarClick}>RADAR&nbsp;</span>
+                    <div class='navOptionsTop-but' type="submit" onClick={this.handleTodayClick}>TODAY&nbsp;</div>
+                    <div class='navOptionsTop-but' type="submit" onClick={this.handlehourlyClick}>HOURLY&nbsp;</div>
+                    <div class='navOptionsTop-but' type="submit" onClick={this.handleDailyClick }>DAILY&nbsp;</div>
+                    <div class='navOptionsTop-but' type="submit" onClick={this.handleRadarClick}>RADAR&nbsp;</div>
                 </div>
                 <div class="tCity" >
                     {/*add the current weather ICON and curr temp*/}
                     <b>Current conditions at </b>
                     <h1> {this.state.city}, {this.state.state}</h1>
                     <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
-                    <h2>Today's High {this.state.temp1} °F</h2>
+                    <h2>Today's High {this.state.temperature} °F</h2>
                     {/*<p>add Celcius units and move the short forecast above temp</p>*/}
                     <h4> {this.state.shortForecast} </h4>
                     <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
@@ -135,7 +143,7 @@ class WeatherForecast extends React.Component {
                     {/* <h5>Updated: {this.state.updated}  </h5>*/}
                     <h4> {this.state.timestamp} </h4>
                 </div>
-                <div className='headerText'>
+                <div className='subHeader'>
                     <h4>Extended Forecast for</h4>
                     <h3> {this.state.city}, {this.state.state}</h3>
                 </div>
@@ -151,11 +159,12 @@ class WeatherForecast extends React.Component {
                     </div>
                 </div>
                 <div class="card">
-                    <div className='headerText'>
+                    <div className='subHeader'>
                         <h2>Detailed Forecast</h2>
                     </div>
-                    {this.state.forecastPeriods.map((period) => (
-                        <div key={period.number} >
+                    {this.state.forecastPeriods.map((period, index) => (
+                        <div key={period.number} 
+                          className={index % 2 === 0 ? 'even-item' : 'odd-item'} >
                             <div>
                                 <h2>{period.name}</h2>
                                 <p>{period.detailedForecast}</p>
@@ -234,7 +243,7 @@ class CurrentWeather extends React.Component {
                                 placeholder="Enter City name" />
                             <button
                                 type="submit"
-                                className="btn-color-theme" onClick={this.searchLocation} >
+                                class="btn-color-theme" onClick={this.searchLocation} >
                                 <span id="login-btn-icon" className={this.state.searchButton} />&nbsp;{this.state.searchButton}
                             </button>
                         </form>

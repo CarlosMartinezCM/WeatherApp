@@ -5,17 +5,19 @@ import ModeBar from './ModeBar.js';
 import AppMode from './../AppMode.js';
 import AboutPopUp from './AboutPopUp.js';
 import SiteMap from './SiteMap.js';
+//import DailyWeather from './DailyWeather.js'; 
 
 const modeTitle = {};
 modeTitle[AppMode.WEATHER] = "Current Weather!!";
 modeTitle[AppMode.SITEMAP] = "Site Map!!!";
+//modeTitle[AppMode.DAILYWEATHER] = "Daily Weather!!!";
 
 const modeToPage = {};
 modeToPage[AppMode.WEATHER] = CurrentWeather;
 modeToPage[AppMode.SITEMAP] = SiteMap;
+//modeToPage[AppMode.DAILYWEATHER] = DailyWeather;
 
 class App extends React.Component {
-
     constructor() {
         super();
         this.state = {
@@ -69,8 +71,6 @@ class App extends React.Component {
                     SiteMode={() => this.handleChangeMode(AppMode.SITEMAP)}
                     showAbout={this.toggleAbout}
                 />
-                
-
             </div>
         );
     }

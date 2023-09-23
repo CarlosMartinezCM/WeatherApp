@@ -2,7 +2,7 @@
 
 const AppMode = {
   WEATHER: "WeatherMode",
-  LOGIN: "LoginMode",
+  //LOGIN: "LoginMode",
   SITEMAP: "SiteMode",
 };
 
