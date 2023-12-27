@@ -10,6 +10,7 @@ I am still working out the dotenv to hide my API key for the implementation of s
 import React from 'react';
 import AppMode from "./../AppMode";
 import axios from "axios";
+require("dotenv").config();
 
 class WeatherForecast extends React.Component {
     constructor(props) {
@@ -200,6 +201,7 @@ class CurrentWeather extends React.Component {
             station: null
         };
     }
+    
     componentDidMount = () => {
         //Get users location if allowed
         navigator.geolocation.getCurrentPosition(this.getLocSuccess, this.getLocError);
@@ -219,7 +221,7 @@ class CurrentWeather extends React.Component {
         if (data != null) {
             this.setState({ station: null });
             const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=' +
-                data + '&appid=efac9c071bf33433694d3860d9d1b6f1');
+                data + '&appid=process.env.REACT_APP_API_KEY');
             const currentStation = await response.json();
             if (currentStation != null && currentStation.hasOwnProperty('coord')) {
                 this.setState({ station: { lat: currentStation.coord.lat, lon: currentStation.coord.lon } });
