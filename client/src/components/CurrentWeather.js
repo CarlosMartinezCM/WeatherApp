@@ -10,7 +10,7 @@ I am still working out the dotenv to hide my API key for the implementation of s
 import React from 'react';
 import AppMode from "./../AppMode";
 import axios from "axios";
-require("dotenv").config();
+require('dotenv').config();
 
 class WeatherForecast extends React.Component {
     constructor(props) {
@@ -23,14 +23,14 @@ class WeatherForecast extends React.Component {
             hourlyUrl: "",
             now: new Date(), 
             forecastPeriods:[],
+            station: null,
         };
     }
     componentDidMount = () => {
-        this.getCurrentWeather();
-        //this.getFiveDayForecast();
+        this.getWeatherForecast();
     }
 
-    getCurrentWeather = async () => {
+    getWeatherForecast = async () => {
         const response = await fetch(`https://api.weather.gov/points/${this.state.latitude},${this.state.longitude}`);
         const data = await response.json();
         const forecastLink = data.properties.forecast;
@@ -40,6 +40,7 @@ class WeatherForecast extends React.Component {
         this.setState({
             city: data.properties.relativeLocation.properties.city,
             state: data.properties.relativeLocation.properties.state,
+            station: data.properties.cwa,
             forecast: forecastData.properties.periods[0],
             forecastPeriods: forecastData.properties.periods,
             temperature: forecastData.properties.periods[0].temperature,
@@ -50,8 +51,27 @@ class WeatherForecast extends React.Component {
             hourlyPeriods: forecastData.properties.periods,
             units: forecastData.properties.units,
             updated: forecastData.properties.updated,
+            
         })
+        this.getCurrentObservations();
     }
+
+    getCurrentObservations = async () =>  {
+        try {
+          const response = await fetch(`https://api.weather.gov/stations/${this.state.station}/observations/latest`);
+          const data = await response.json();
+      
+          // assign constant for Temperature
+          //const temperature1 = data.properties.temperature;
+      
+          // Update the state with the fetched observation data
+          this.setState({
+            temperature1: data.properties.temperature,
+          });
+        } catch (error) {
+          console.error('Error fetching current observations:', error);
+        }
+      }
 
     toggleUnits = () => {
         if (this.state.tempUnit === "F") {
@@ -66,7 +86,7 @@ class WeatherForecast extends React.Component {
     }
     //Udate the current weather conditions
     updateWeather = async () => {
-        this.getCurrentWeather();
+        this.getWeatherForecast();
         //alert("updating weather");
     }
 
@@ -140,7 +160,7 @@ class WeatherForecast extends React.Component {
                     {/*<p>add Celcius units and move the short forecast above temp</p>*/}
                     <h4> {this.state.shortForecast} </h4>
                     <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
-                    {/*<h5>units: {this.state.units}  </h5>*/}
+                    <h4>Weather Station: {this.state.station}  </h4>
                     {/* <h5>Updated: {this.state.updated}  </h5>*/}
                     <h4> {this.state.timestamp} </h4>
                 </div>
@@ -220,8 +240,8 @@ class CurrentWeather extends React.Component {
         var data = this.citySearch.current.value;
         if (data != null) {
             this.setState({ station: null });
-            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=' +
-                data + '&appid=process.env.REACT_APP_API_KEY');
+            const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=` +
+                data + `&appid=${process.env.REACT_APP_API_KEY}`);
             const currentStation = await response.json();
             if (currentStation != null && currentStation.hasOwnProperty('coord')) {
                 this.setState({ station: { lat: currentStation.coord.lat, lon: currentStation.coord.lon } });
