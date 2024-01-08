@@ -24,10 +24,16 @@ class WeatherForecast extends React.Component {
             now: new Date(), 
             forecastPeriods:[],
             station: null,
+            stationIdentifier: null,
+            temperature1: "",
+            gridX: "",
+            gridY: "",
+            gridId: "",
         };
     }
     componentDidMount = () => {
         this.getWeatherForecast();
+        this.getCurrentObservations();
     }
 
     getWeatherForecast = async () => {
@@ -36,11 +42,17 @@ class WeatherForecast extends React.Component {
         const forecastLink = data.properties.forecast;
         const forecastResponce = await fetch(forecastLink);
         const forecastData = await forecastResponce.json();
+      //  const obs = data.properties.observation;
+     //   const observationResponce = await fetch(obs);
+       // const observationData = await observationResponce .json();
 
         this.setState({
             city: data.properties.relativeLocation.properties.city,
             state: data.properties.relativeLocation.properties.state,
             station: data.properties.cwa,
+            gridX: data.properties.gridX,
+            gridY: data.properties.gridY,
+            gridId: data.properties.gridId,
             forecast: forecastData.properties.periods[0],
             forecastPeriods: forecastData.properties.periods,
             temperature: forecastData.properties.periods[0].temperature,
@@ -51,26 +63,57 @@ class WeatherForecast extends React.Component {
             hourlyPeriods: forecastData.properties.periods,
             units: forecastData.properties.units,
             updated: forecastData.properties.updated,
-            
+            //stationIdentifier: observationData.features[0].properties.stationIdentifier,
         })
-        this.getCurrentObservations();
+        
+        //alert(this.state.stationIdentifier);
+       // this.getCurrentObservations(); 
     }
 
     getCurrentObservations = async () =>  {
-        try {
-          const response = await fetch(`https://api.weather.gov/stations/${this.state.station}/observations/latest`);
-          const data = await response.json();
-      
-          // assign constant for Temperature
-          //const temperature1 = data.properties.temperature;
-      
-          // Update the state with the fetched observation data
-          this.setState({
-            temperature1: data.properties.temperature,
-          });
-        } catch (error) {
-          console.error('Error fetching current observations:', error);
-        }
+       
+      //  alert(this.state.gridX);
+        //alert(this.state.gridY);
+        // const response = await fetch("https://api.weather.gov/gridpoints/MTR/85,105/stations");
+        // const data = await response.json();
+        
+        // const features = data.features;
+        
+        // if (features && features.length > 0) {
+        //   const firstFeature = features[0];
+        //   const stationIdentifier = firstFeature.properties.stationIdentifier;
+        
+        //   this.setState({
+        //     // ... (other state updates)
+        //     stationIdentifier: stationIdentifier,
+        //   });
+        
+        //   alert(stationIdentifier);
+        // } else {
+        //   console.error('No features found or features array is empty.');
+        // }
+    //     try {
+    //         const response = await fetch(`https://api.weather.gov/stations?latitude=37.7749&longitude=-122.4194`);
+    //         const data = await response.json();
+            
+    //         // Assuming there's at least one station in the response
+    //         const firstStationId = data.features[0].properties.stationIdentifier;
+    //         console.log('Station ID:', firstStationId);
+    //      // const response = await fetch(`https://api.weather.gov/stations/PDT/observations/latest`);
+    //    //   const data2 = await response.json();
+    //      alert(this.state.station);
+         
+    //       // assign constant for Temperature
+    //       //const temperature1 = data.properties.temperature;
+    //      // console.log(data2); 
+    //       // Update the state with the fetched observation data
+    //       this.setState({
+    //      //   temperature1: data2.properties.temperature.value,
+    //       });
+    //     } catch (error) {
+    //       console.error('Error fetching current observations:', error);
+    //     }
+       
       }
 
     toggleUnits = () => {
@@ -160,7 +203,7 @@ class WeatherForecast extends React.Component {
                     {/*<p>add Celcius units and move the short forecast above temp</p>*/}
                     <h4> {this.state.shortForecast} </h4>
                     <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
-                    <h4>Weather Station: {this.state.station}  </h4>
+                    <h4>Weather Forecast Station: {this.state.gridId}  </h4>
                     {/* <h5>Updated: {this.state.updated}  </h5>*/}
                     <h4> {this.state.timestamp} </h4>
                 </div>
