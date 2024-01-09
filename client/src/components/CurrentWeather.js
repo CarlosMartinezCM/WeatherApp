@@ -21,30 +21,33 @@ class WeatherForecast extends React.Component {
             showForecast: "",
             forecastUrl: "",
             hourlyUrl: "",
-            now: new Date(), 
-            forecastPeriods:[],
+            now: new Date(),
+            forecastPeriods: [],
             station: null,
-            stationIdentifier: null,
-            temperature1: "",
-            gridX: "",
-            gridY: "",
-            gridId: "",
+            icon: null,
         };
     }
     componentDidMount = () => {
         this.getWeatherForecast();
-        this.getCurrentObservations();
     }
 
+    // Function to ensure that the state has updated after the first API call. 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.stationIdentifier !== this.state.stationIdentifier) {
+            this.getCurrentObservations();
+        }
+    }
+
+    //This function will make an API call to the NOAA API weather service and fetch forecast data
     getWeatherForecast = async () => {
         const response = await fetch(`https://api.weather.gov/points/${this.state.latitude},${this.state.longitude}`);
         const data = await response.json();
         const forecastLink = data.properties.forecast;
         const forecastResponce = await fetch(forecastLink);
         const forecastData = await forecastResponce.json();
-      //  const obs = data.properties.observation;
-     //   const observationResponce = await fetch(obs);
-       // const observationData = await observationResponce .json();
+        const obs = data.properties.observationStations;
+        const observationResponce = await fetch(obs);
+        const observationData = await observationResponce.json();
 
         this.setState({
             city: data.properties.relativeLocation.properties.city,
@@ -63,58 +66,30 @@ class WeatherForecast extends React.Component {
             hourlyPeriods: forecastData.properties.periods,
             units: forecastData.properties.units,
             updated: forecastData.properties.updated,
-            //stationIdentifier: observationData.features[0].properties.stationIdentifier,
+            stationIdentifier: observationData.features[0].properties.stationIdentifier,
         })
-        
-        //alert(this.state.stationIdentifier);
-       // this.getCurrentObservations(); 
+
+
+        //this.getCurrentObservations(); 
     }
 
-    getCurrentObservations = async () =>  {
-       
-      //  alert(this.state.gridX);
-        //alert(this.state.gridY);
-        // const response = await fetch("https://api.weather.gov/gridpoints/MTR/85,105/stations");
-        // const data = await response.json();
-        
-        // const features = data.features;
-        
-        // if (features && features.length > 0) {
-        //   const firstFeature = features[0];
-        //   const stationIdentifier = firstFeature.properties.stationIdentifier;
-        
-        //   this.setState({
-        //     // ... (other state updates)
-        //     stationIdentifier: stationIdentifier,
-        //   });
-        
-        //   alert(stationIdentifier);
-        // } else {
-        //   console.error('No features found or features array is empty.');
-        // }
-    //     try {
-    //         const response = await fetch(`https://api.weather.gov/stations?latitude=37.7749&longitude=-122.4194`);
-    //         const data = await response.json();
-            
-    //         // Assuming there's at least one station in the response
-    //         const firstStationId = data.features[0].properties.stationIdentifier;
-    //         console.log('Station ID:', firstStationId);
-    //      // const response = await fetch(`https://api.weather.gov/stations/PDT/observations/latest`);
-    //    //   const data2 = await response.json();
-    //      alert(this.state.station);
-         
-    //       // assign constant for Temperature
-    //       //const temperature1 = data.properties.temperature;
-    //      // console.log(data2); 
-    //       // Update the state with the fetched observation data
-    //       this.setState({
-    //      //   temperature1: data2.properties.temperature.value,
-    //       });
-    //     } catch (error) {
-    //       console.error('Error fetching current observations:', error);
-    //     }
-       
-      }
+    getCurrentObservations = async () => {
+
+        try {
+            const response = await fetch(`https://api.weather.gov/stations/${this.state.stationIdentifier}/observations/latest`);
+            const data = await response.json();
+
+            this.setState({
+                temp: data.properties.temperature.value,
+                icon: data.properties.icon,
+                desc: data.properties.textDescription,
+                elev: data.properties.elevation.value,
+                unitCode: data.properties.elevation.unitCode[8],
+            });
+        } catch (error) {
+            console.error('Error fetching current observations:', error);
+        }
+    }
 
     toggleUnits = () => {
         if (this.state.tempUnit === "F") {
@@ -164,7 +139,7 @@ class WeatherForecast extends React.Component {
     };
 
     handlehourlyClick = async () => {
-
+        
         alert("Alert Hourly");
     };
 
@@ -179,7 +154,7 @@ class WeatherForecast extends React.Component {
     };
 
     render() {
-
+        const { icon } = this.state;
         const { forecast } = this.state;
         if (!forecast) {
             return <div>No data available. Please refresh the page!</div>
@@ -191,19 +166,23 @@ class WeatherForecast extends React.Component {
                     {/* Conditionally render the forecast and hourly when selected make sure to load new page */}
                     <div class='navOptionsTop-but' type="submit" onClick={this.handleTodayClick}>TODAY&nbsp;</div>
                     <div class='navOptionsTop-but' type="submit" onClick={this.handlehourlyClick}>HOURLY&nbsp;</div>
-                    <div class='navOptionsTop-but' type="submit" onClick={this.handleDailyClick }>DAILY&nbsp;</div>
+                    <div class='navOptionsTop-but' type="submit" onClick={this.handleDailyClick}>DAILY&nbsp;</div>
                     <div class='navOptionsTop-but' type="submit" onClick={this.handleRadarClick}>RADAR&nbsp;</div>
                 </div>
                 <div class="tCity" >
-                    {/*add the current weather ICON and curr temp*/}
                     <b>Current conditions at </b>
-                    <h1> {this.state.city}, {this.state.state}</h1>
-                    <h6>Lat: {this.state.latitude} Lon: {this.state.longitude}</h6>
-                    <h2>Today's High {this.state.temperature} °F</h2>
+                    <h1> {this.state.city}, {this.state.state}  ({this.state.stationIdentifier})</h1>
+                    <h6>Lat: {this.state.latitude} Lon: {this.state.longitude} Elev: {this.state.elev} {this.state.unitCode}</h6>
+                    {/*<h2>Today's High {this.state.temperature} °F</h2>*/}
                     {/*<p>add Celcius units and move the short forecast above temp</p>*/}
-                    <h4> {this.state.shortForecast} </h4>
+                    {/*add the current weather ICON and curr temp*/}
+                    <div>
+                        {icon && <img src={icon} alt="Weather Icon" />}
+                    </div>
+                    <h4> {this.state.desc} </h4>
+                    <h2>Temperature {Math.round((this.state.temp * 9 / 5) + 32)} °F</h2>
+                    {/* <h4> {this.state.shortForecast} </h4> */}
                     <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
-                    <h4>Weather Forecast Station: {this.state.gridId}  </h4>
                     {/* <h5>Updated: {this.state.updated}  </h5>*/}
                     <h4> {this.state.timestamp} </h4>
                 </div>
@@ -213,10 +192,10 @@ class WeatherForecast extends React.Component {
                 </div>
                 <div class="ExFo-container ">
                     <div className="forecast-card-container">
-                        {this.state.forecastPeriods.map((period) => (
-                            <div key={period.number} className="forecast-card">
+                    {this.state.forecastPeriods.slice(0,8).map((period, index) => (
+                            <div key={period.number} className="periodItem">
+                                <p>{period.name}</p>
                                 <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
-                                <h2>{period.name}</h2>
                                 <p>{period.shortForecast}</p>
                             </div>
                         ))}
@@ -227,8 +206,8 @@ class WeatherForecast extends React.Component {
                         <h2>Detailed Forecast</h2>
                     </div>
                     {this.state.forecastPeriods.map((period, index) => (
-                        <div key={period.number} 
-                          className={index % 2 === 0 ? 'even-item' : 'odd-item'} >
+                        <div key={period.number}
+                            className={index % 2 === 0 ? 'even-item' : 'odd-item'} >
                             <div>
                                 <h2>{period.name}</h2>
                                 <p>{period.detailedForecast}</p>
@@ -264,7 +243,7 @@ class CurrentWeather extends React.Component {
             station: null
         };
     }
-    
+
     componentDidMount = () => {
         //Get users location if allowed
         navigator.geolocation.getCurrentPosition(this.getLocSuccess, this.getLocError);
