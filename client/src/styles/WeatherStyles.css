@@ -95,10 +95,16 @@
   filter: brightness(120%);
 }
 
-/*Styling Current Weather conditions*/
+/*Styling Current Weather conditions side-dy-side with weather data*/
 .tCity {
+  display: flex;
   text-align: center;
   margin: 20px;
+}
+
+.tCity > div {
+  flex: 1;
+  margin-right: 20px; /* Adjust the margin as needed */
 }
 
 /* The apps search button color theme */

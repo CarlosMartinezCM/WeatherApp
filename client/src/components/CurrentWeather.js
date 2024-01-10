@@ -80,11 +80,21 @@ class WeatherForecast extends React.Component {
             const data = await response.json();
 
             this.setState({
+                textDescription: data.properties.textDescription,
                 temp: data.properties.temperature.value,
                 icon: data.properties.icon,
-                desc: data.properties.textDescription,
                 elev: data.properties.elevation.value,
                 unitCode: data.properties.elevation.unitCode[8],
+                relativeHumidity: data.properties.relativeHumidity.value,
+                windSpeed: data.properties.windSpeed.value,
+                barometricPressure: data.properties.barometricPressure.value,
+                dewpoint: data.properties.dewpoint.value,
+                //visibility is in meters need to convert it
+                visibility: data.properties.visibility.value,
+                //WindChill is in C need to convert it
+                windChill: data.properties.windChill.value,
+                //Timestamp needs to be converted
+                timestamp: data.properties.timestamp,
             });
         } catch (error) {
             console.error('Error fetching current observations:', error);
@@ -139,7 +149,7 @@ class WeatherForecast extends React.Component {
     };
 
     handlehourlyClick = async () => {
-        
+
         alert("Alert Hourly");
     };
 
@@ -170,6 +180,7 @@ class WeatherForecast extends React.Component {
                     <div class='navOptionsTop-but' type="submit" onClick={this.handleRadarClick}>RADAR&nbsp;</div>
                 </div>
                 <div class="tCity" >
+                <div >
                     <b>Current conditions at </b>
                     <h1> {this.state.city}, {this.state.state}  ({this.state.stationIdentifier})</h1>
                     <h6>Lat: {this.state.latitude} Lon: {this.state.longitude} Elev: {this.state.elev} {this.state.unitCode}</h6>
@@ -179,12 +190,22 @@ class WeatherForecast extends React.Component {
                     <div>
                         {icon && <img src={icon} alt="Weather Icon" />}
                     </div>
-                    <h4> {this.state.desc} </h4>
-                    <h2>Temperature {Math.round((this.state.temp * 9 / 5) + 32)} °F</h2>
+                    <h4> {this.state.textDescription} </h4>
+                    <h2> {Math.round((this.state.temp * 9 / 5) + 32)} °F</h2>
+                    <h2> {this.state.temp} °C</h2>
+                </div>
+                <div class="humi">
+                    <h4>Humidity: {Math.round(this.state.relativeHumidity)} </h4>
+                    <h4>Wind Speed: {this.state.windSpeed} </h4>
+                    <h4>Barometer: {this.state.barometricPressure} </h4>
+                    <h4>{this.state.barometricPressure} </h4>
+                    <h4>{this.state.barometricPressure} </h4>
+
                     {/* <h4> {this.state.shortForecast} </h4> */}
                     <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
                     {/* <h5>Updated: {this.state.updated}  </h5>*/}
                     <h4> {this.state.timestamp} </h4>
+                </div>
                 </div>
                 <div className='subHeader'>
                     <h4>Extended Forecast for</h4>
@@ -192,7 +213,7 @@ class WeatherForecast extends React.Component {
                 </div>
                 <div class="ExFo-container ">
                     <div className="forecast-card-container">
-                    {this.state.forecastPeriods.slice(0,8).map((period, index) => (
+                        {this.state.forecastPeriods.slice(0, 8).map((period, index) => (
                             <div key={period.number} className="periodItem">
                                 <p>{period.name}</p>
                                 <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
