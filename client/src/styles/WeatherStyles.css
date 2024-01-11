@@ -1,3 +1,13 @@
+/*Card to go around the entire webpage*/
+.body {
+  /*  display: inline-block;    this makes everything in the card display side by side*/
+  margin: 20px;
+  font-size: 12px;
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #fff;
+  width: auto;
+  -webkit-text-size-adjust: 100%;
+}
 /*Styling ordered from top to bottom of web page.*/
 .navTitle {
   display: flex;
@@ -10,7 +20,7 @@
   font-size: 15px;
   justify-content: space-evenly;
   width: auto;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-color: rgb(194, 206, 251);
 }
 
@@ -28,7 +38,7 @@
   font-size: 15px;
   justify-content: space-evenly;
   width: auto;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-color: rgb(194, 206, 251);
   filter: brightness(110%);
 }
@@ -53,7 +63,7 @@
   font-size: 15px;
   justify-content: space-evenly;
   width: auto;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-color: rgb(194, 206, 251);
   cursor: pointer;
   filter: brightness(120%);
@@ -79,7 +89,7 @@
   font-size: 15px;
   justify-content: space-evenly;
   width: auto;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-color: rgb(194, 206, 251);
   filter: brightness(110%);
 }
@@ -89,22 +99,108 @@
   margin: 20px;
   width: auto;
   border-radius: 0px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   border-color: #d4def1;
   width: auto;
   filter: brightness(120%);
 }
+/* current city heading styles */
+.current-heading {
+  margin: 10px;
+  font-size: 16px;
+  line-height: 1;  /* line spacing after each line*/
+}
+/* current city name styling */
+.current-City {
+  color: #135897;
+  font-weight: bold;
+  margin: 5px;
+}
+/* Lattitue, Longitute, and elevation spacing*/
+.lat-lon-elev {
+  display: flex;
+  gap: 20px;
+  margin: 5px;
 
+}
 /*Styling Current Weather conditions side-dy-side with weather data*/
-.tCity {
+.currentData {
   display: flex;
   text-align: center;
   margin: 20px;
+  font-size: 12px;
+  font-size: 0.8em;
 }
-
-.tCity > div {
+.currentData > div {
   flex: 1;
   margin-right: 20px; /* Adjust the margin as needed */
+}
+/*Styling the image and temperature side by side*/
+.temp-container {
+  display: flex;
+  text-align: left;
+  align-items: center;
+  font-size: 14px;
+  line-height: 0.5; 
+  margin: 5px;
+}
+.temp-description-font {
+  font-size: 14px;
+}
+.temp-container img {
+  margin-right: 10px;
+  width: 100px;
+}
+.temp-celcius-font {
+  font-size: 21px;
+  line-height: 20px;
+}
+/*Styling for the current data thats at the center.*/
+.center-current-data{
+  display: flex;
+  font-size: 14px;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  line-height: 1.42857143;
+}
+.center-data-item {
+  margin-bottom: 0px;
+}
+
+/*Add text style anc color to headers for each section*/
+.Extended-Forecast-header {
+  background-image: linear-gradient(144deg, #22c7dd, #6296e9 50%, #2d9b9f);
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  line-height: 0.3;  /* line spacing after each line*/
+  border-radius: 0px;
+  box-shadow: rgba(140, 6, 265, 0.2);
+  justify-content: space-evenly;
+  width: auto;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  background-color: rgb(194, 206, 251);
+  filter: brightness(110%);
+  font-weight: 700;
+}
+
+.ext-fore{
+  margin: 10px;
+  font-size: 14px;
+  font-size: 0.8em;
+}
+.ext-city-name {
+  font-size: 20px;
+  
+  color: #031d36;
+}
+
+.locationData {
+  font-size: 40px;
+  font-weight: bold;
+  -webkit-text-size-adjust: 100%;
 }
 
 /* The apps search button color theme */
@@ -122,20 +218,6 @@
   color: #00952d;
 }
 
-/*Add text style anc color to headers for each section*/
-.subHeader {
-  background-image: linear-gradient(144deg, #22c7dd, #6296e9 50%, #2d9b9f);
-  color: #000000;
-  border: 0;
-  border-radius: 0px;
-  box-shadow: rgba(140, 6, 265, 0.2);
-  font-size: 10px;
-  justify-content: space-evenly;
-  width: auto;
-  font-family: 'Times New Roman', Times, serif;
-  background-color: rgb(194, 206, 251);
-  filter: brightness(110%);
-}
 
 .even-item {
   background-image: linear-gradient(144deg, #22c7dd, #6296e9 50%, #2d9b9f);
@@ -145,15 +227,6 @@
 .odd-item {
   background-image: linear-gradient(144deg, #22c7dd, #6296e9 50%, #2d9b9f);
   filter: brightness(120%);
-}
-
-/*Card to go around the entire webpage*/
-.cardOuter {
-  /*  display: inline-block;    this makes everything in the card display side by side*/
-  margin: 20px;
-  font-family: 'Times New Roman', Times, serif;
-  background-color: #fff;
-  width: auto;
 }
 
 /*Container for the extended forecast*/
@@ -286,7 +359,7 @@ This keeps the mode bar at the bottom*/
   font-size: 15px;
   justify-content: space-evenly;
   width: auto;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-color: rgb(194, 206, 251);
 }
 
@@ -353,7 +426,7 @@ This keeps the mode bar at the bottom*/
   font-size: 15px;
   justify-content: space-evenly;
   width: auto;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-color: rgb(194, 206, 251);
   filter: brightness(110%);
 }

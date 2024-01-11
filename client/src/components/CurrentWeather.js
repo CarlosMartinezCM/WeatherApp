@@ -59,11 +59,12 @@ class WeatherForecast extends React.Component {
             forecast: forecastData.properties.periods[0],
             forecastPeriods: forecastData.properties.periods,
             temperature: forecastData.properties.periods[0].temperature,
+            temperatureUnit: forecastData.properties.periods[0].temperatureUnit,
+            isDaytime: forecastData.properties.periods[0].isDaytime,
             windDirection: forecastData.properties.periods[0].windDirection,
             windSpeed: forecastData.properties.periods[0].windSpeed,
             shortForecast: forecastData.properties.periods[0].shortForecast,
             forecastHourly: forecastData.properties.periods[0],
-            hourlyPeriods: forecastData.properties.periods,
             units: forecastData.properties.units,
             updated: forecastData.properties.updated,
             stationIdentifier: observationData.features[0].properties.stationIdentifier,
@@ -99,6 +100,7 @@ class WeatherForecast extends React.Component {
         } catch (error) {
             console.error('Error fetching current observations:', error);
         }
+        // console.log('is daytime',this.state.isDaytime);
     }
 
     toggleUnits = () => {
@@ -171,7 +173,17 @@ class WeatherForecast extends React.Component {
         }
         return (
             <div>
-                <div><p>More Information:</p></div>
+                <div class="current-heading">
+                    <b>Current conditions at </b>
+                    <div class="current-City">
+                        <h2> {this.state.city}, {this.state.state} ({this.state.stationIdentifier})</h2>
+                    </div>
+                    <div class="lat-lon-elev">
+                        <span>Lat: {this.state.latitude}°N</span>
+                        <span>Lon: {this.state.longitude}°W</span>
+                        <span>Elev: {this.state.elev} {this.state.unitCode}</span>
+                    </div>
+                </div>
                 <div class='navOptions'>
                     {/* Conditionally render the forecast and hourly when selected make sure to load new page */}
                     <div class='navOptionsTop-but' type="submit" onClick={this.handleTodayClick}>TODAY&nbsp;</div>
@@ -179,38 +191,54 @@ class WeatherForecast extends React.Component {
                     <div class='navOptionsTop-but' type="submit" onClick={this.handleDailyClick}>DAILY&nbsp;</div>
                     <div class='navOptionsTop-but' type="submit" onClick={this.handleRadarClick}>RADAR&nbsp;</div>
                 </div>
-                <div class="tCity" >
-                <div >
-                    <b>Current conditions at </b>
-                    <h1> {this.state.city}, {this.state.state}  ({this.state.stationIdentifier})</h1>
-                    <h6>Lat: {this.state.latitude} Lon: {this.state.longitude} Elev: {this.state.elev} {this.state.unitCode}</h6>
-                    {/*<h2>Today's High {this.state.temperature} °F</h2>*/}
-                    {/*<p>add Celcius units and move the short forecast above temp</p>*/}
-                    {/*add the current weather ICON and curr temp*/}
-                    <div>
-                        {icon && <img src={icon} alt="Weather Icon" />}
+                <div class="currentData" >
+                    <div class="temp-container">
+                        <div>
+                            {icon && <img src={icon} alt="Weather Icon" />}
+                        </div>
+                        <div>
+                            <div class="temp-description-font"> <p> {this.state.textDescription} </p></div>
+                            <div class="locationData">
+                                <p> {Math.round((this.state.temp * 9 / 5) + 32)} °F</p>
+                            </div >
+                            <div class="temp-celcius-font">
+                                <p> {this.state.temp} °C</p>
+                            </div>
+                        </div>
                     </div>
-                    <h4> {this.state.textDescription} </h4>
-                    <h2> {Math.round((this.state.temp * 9 / 5) + 32)} °F</h2>
-                    <h2> {this.state.temp} °C</h2>
+                    <div class="center-current-data">
+                        <div class="center-data-item">
+                            <strong>Humidity:</strong> {Math.round(this.state.relativeHumidity)}
+                        </div>
+                        <div class="center-data-item">
+                            <strong>Wind Speed:</strong> {this.state.windSpeed}
+                        </div>
+                        <div class="center-data-item">
+                            <strong>Barometer:</strong> {this.state.barometricPressure}
+                        </div>
+                        <div class="center-data-item">
+                            <strong>Dewpoint:</strong> {this.state.dewpoint}
+                        </div>
+                        <div class="center-data-item">
+                            <strong>Visibility:</strong> {this.state.visibility}
+                        </div>
+                        <div class="center-data-item">
+                            <strong>Wind Direction:</strong> {this.state.windDirection}
+                        </div>
+                        <div class="center-data-item">
+                            <strong>Last updated:</strong> {this.state.timestamp}
+                        </div>
+                    </div>
                 </div>
-                <div class="humi">
-                    <h4>Humidity: {Math.round(this.state.relativeHumidity)} </h4>
-                    <h4>Wind Speed: {this.state.windSpeed} </h4>
-                    <h4>Barometer: {this.state.barometricPressure} </h4>
-                    <h4>{this.state.barometricPressure} </h4>
-                    <h4>{this.state.barometricPressure} </h4>
-
-                    {/* <h4> {this.state.shortForecast} </h4> */}
-                    <h5>Wind Speed: {this.state.windSpeed} {this.state.windDirection} </h5>
-                    {/* <h5>Updated: {this.state.updated}  </h5>*/}
-                    <h4> {this.state.timestamp} </h4>
+                <div className="Extended-Forecast-header">
+                    <div class="ext-fore">
+                        <p>Extended Forecast for</p>
+                        <div class="ext-city-name">
+                            <p> {this.state.city}, {this.state.state}</p>
+                        </div>
+                    </div>
                 </div>
-                </div>
-                <div className='subHeader'>
-                    <h4>Extended Forecast for</h4>
-                    <h3> {this.state.city}, {this.state.state}</h3>
-                </div>
+                {/* Render the forecast by mapping the periods */}
                 <div class="ExFo-container ">
                     <div className="forecast-card-container">
                         {this.state.forecastPeriods.slice(0, 8).map((period, index) => (
@@ -218,14 +246,23 @@ class WeatherForecast extends React.Component {
                                 <p>{period.name}</p>
                                 <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
                                 <p>{period.shortForecast}</p>
+                                {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
+                                {period.isDaytime ? (
+                                    <div>
+                                        <p>High {period.temperature} °{period.temperatureUnit}</p>
+                                    </div>) : (
+                                    <p>Low {period.temperature} °{period.temperatureUnit}</p>)}
+                                <p></p>
                             </div>
                         ))}
                     </div>
                 </div>
+                {/* Render the detailed forecast by mapping the periods */}
                 <div class="card">
                     <div className='subHeader'>
                         <h2>Detailed Forecast</h2>
                     </div>
+                    {/* Conditionally set each period to display in different colors */}
                     {this.state.forecastPeriods.map((period, index) => (
                         <div key={period.number}
                             className={index % 2 === 0 ? 'even-item' : 'odd-item'} >
