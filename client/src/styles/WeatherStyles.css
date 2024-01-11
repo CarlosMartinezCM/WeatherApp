@@ -151,6 +151,21 @@
   margin-right: 10px;
   width: 100px;
 }
+.locationData {
+  font-size: 40px;
+  font-weight: bold;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Mobile styles go here */
+@media (max-width: 767px) {
+  .locationData {
+      font-size: 25px;  /* Adjust font size for smaller screens */
+  }
+  .locationDataCelcius {
+    font-size: 18px;  /* Adjust font size for smaller screens */
+  }
+}
 .temp-celcius-font {
   font-size: 21px;
   line-height: 20px;
@@ -197,11 +212,7 @@
   color: #031d36;
 }
 
-.locationData {
-  font-size: 40px;
-  font-weight: bold;
-  -webkit-text-size-adjust: 100%;
-}
+
 
 /* The apps search button color theme */
 .btn-color-theme,
@@ -465,24 +476,4 @@ This keeps the mode bar at the bottom*/
 
 /*Used to adjust the layout and styling based on the device screen size****************************************/
 /* Styles for mobile devices */
-@media only screen and (max-width: 600px) {
-  .container {
-    width: 80%;
-    margin: 0 auto; /* Center the container */
-  }
 
-  .menu {
-    display: block; /* Show menu on larger screens */
-  }
-}
-/* Styles for larger screens (desktop, tablet, etc.) */
-@media only screen and (min-width: 601px) {
-  .container {
-    width: 80%;
-    margin: 0 auto; /* Center the container */
-  }
-
-  .menu {
-    display: block; /* Show menu on larger screens */
-  }
-}

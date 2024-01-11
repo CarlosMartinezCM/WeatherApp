@@ -202,7 +202,9 @@ class WeatherForecast extends React.Component {
                                 <p> {Math.round((this.state.temp * 9 / 5) + 32)} °F</p>
                             </div >
                             <div class="temp-celcius-font">
+                                <div class="locationDataCelcius">
                                 <p> {this.state.temp} °C</p>
+                                </div>
                             </div>
                         </div>
                     </div>
