@@ -197,13 +197,15 @@ class WeatherForecast extends React.Component {
                             {icon && <img src={icon} alt="Weather Icon" />}
                         </div>
                         <div>
-                            <div class="temp-description-font"> <p> {this.state.textDescription} </p></div>
-                            <div class="locationData">
+                            <div class="temp-description-font">
+                                <p> {this.state.textDescription} </p>
+                            </div>
+                            <div class="locationDatafahrenheit">
                                 <p> {Math.round((this.state.temp * 9 / 5) + 32)} °F</p>
                             </div >
                             <div class="temp-celcius-font">
                                 <div class="locationDataCelcius">
-                                <p> {this.state.temp} °C</p>
+                                    <p> {this.state.temp} °C</p>
                                 </div>
                             </div>
                         </div>

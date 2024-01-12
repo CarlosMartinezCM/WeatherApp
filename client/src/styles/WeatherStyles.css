@@ -1,12 +1,16 @@
 /*Card to go around the entire webpage*/
 .body {
   /*  display: inline-block;    this makes everything in the card display side by side*/
-  margin: 20px;
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+  margin: 20px auto; /* Adjusted margin for centering */
   font-size: 12px;
   font-family: 'Times New Roman', Times, serif;
   background-color: #fff;
-  width: auto;
-  -webkit-text-size-adjust: 100%;
+  max-width: 1000px;
+  /* New styles for centering */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /*Styling ordered from top to bottom of web page.*/
 .navTitle {
@@ -37,7 +41,7 @@
   padding: 3px;
   font-size: 15px;
   justify-content: space-evenly;
-  width: auto;
+ 
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-color: rgb(194, 206, 251);
   filter: brightness(110%);
@@ -62,7 +66,7 @@
   padding: 3px;
   font-size: 15px;
   justify-content: space-evenly;
-  width: auto;
+  
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-color: rgb(194, 206, 251);
   cursor: pointer;
@@ -88,7 +92,7 @@
   padding: 3px;
   font-size: 15px;
   justify-content: space-evenly;
-  width: auto;
+  
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-color: rgb(194, 206, 251);
   filter: brightness(110%);
@@ -97,11 +101,10 @@
 /* The apps search card theme */
 .cardSearch {
   margin: 20px;
-  width: auto;
   border-radius: 0px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   border-color: #d4def1;
-  width: auto;
+  
   filter: brightness(120%);
 }
 /* current city heading styles */
@@ -144,28 +147,34 @@
   line-height: 0.5; 
   margin: 5px;
 }
-.temp-description-font {
-  font-size: 14px;
-}
+
 .temp-container img {
   margin-right: 10px;
   width: 100px;
 }
-.locationData {
-  font-size: 40px;
-  font-weight: bold;
-  -webkit-text-size-adjust: 100%;
+.temp-description-font {
+  font-size: 14px;
+  line-height: 20px;
 }
 
-/* Mobile styles go here */
-@media (max-width: 767px) {
-  .locationData {
-      font-size: 25px;  /* Adjust font size for smaller screens */
-  }
-  .locationDataCelcius {
-    font-size: 18px;  /* Adjust font size for smaller screens */
+.locationDatafahrenheit {
+  font-size: 42px; /* Default font size for larger screens */
+
+  /* Mobile styles go here */
+  @media (max-width: 767px) {
+    font-size: 25px; /* Adjusted font size for smaller screens */
   }
 }
+.locationDataCelcius {
+  font-size: 21px;
+  line-height: 20px;
+  /* Mobile styles go here */
+  @media (max-width: 767px) {
+    font-size: 16px; /* Adjusted font size for smaller screens */
+  }
+}
+
+
 .temp-celcius-font {
   font-size: 21px;
   line-height: 20px;
