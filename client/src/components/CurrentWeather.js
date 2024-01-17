@@ -1,11 +1,5 @@
 /*
-The numbers values for timezoneShift is in seconds from UTC calculate that to get the time zones
-
-Add more of the json responce to the webpage. The ones that dont match with NOAA add to the bottom
-Look into pagation, changing pages to se emore content. 
-
-I am still working out the dotenv to hide my API key for the implementation of search by city. 
-
+****Author: Carlos Martinez
 */
 import React from 'react';
 import AppMode from "./../AppMode";
@@ -63,14 +57,12 @@ class WeatherForecast extends React.Component {
         alert("Alert Today");
     };
 
-    handlehourlyClick = async () => {
-
+    handlehourlyClick = () => {
         alert("Alert Hourly");
     };
-
-
+  
     handleDailyClick = async () => {
-
+    
         alert("Alert Daily");
     };
 
@@ -162,9 +154,8 @@ class WeatherForecast extends React.Component {
         this.getWeatherForecast();
         // alert("updating weather");
     }
-    handleChange = (event) => {
-        event.preventDefault();
-    }
+   
+    //adding weather alerts, if true display, else skip
     render() {
         const { icon } = this.state;
         const { forecast } = this.state;
@@ -174,6 +165,10 @@ class WeatherForecast extends React.Component {
         const formattedTimestamp = this.formatTimestamp(this.state.timestamp);
         return (
             <div>
+                <div className="weatherAlerts">
+                    <h3>Alerts</h3>
+                    {/* <p> adding weather alerts, if true display, else skip</p> */}
+                </div>
                 <div class="current-heading">
                     <b>Current conditions at </b>
                     <div class="current-City">
@@ -185,6 +180,9 @@ class WeatherForecast extends React.Component {
                         <span>Elev: {Math.round((this.state.elev * 3.28084).toFixed(2))} ft. {/*this.state.unitCode*/}</span>
                     </div>
                 </div>
+                <div class="infoList"
+                                onClick={this.handlehourlyClick} >&nbsp;Site Map
+                            </div>
                 <div class='navOptions'>
                     {/* Conditionally render the forecast and hourly when selected make sure to load new page */}
                     <div class='navOptionsTop-but' type="submit" onClick={this.handleTodayClick}>TODAY&nbsp;</div>
@@ -294,9 +292,6 @@ class WeatherForecast extends React.Component {
     }
 }
 
-//Weather App, note if trying to run react-dom.development.js:82 
-//Warning: The tag <currentWeather> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
-//in currentWeather
 class CurrentWeather extends React.Component {
 
     constructor(props) {
@@ -380,4 +375,5 @@ class CurrentWeather extends React.Component {
     }
 }
 
-export default CurrentWeather;
+export { WeatherForecast, CurrentWeather };
+export default CurrentWeather; // Default export

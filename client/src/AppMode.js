@@ -5,6 +5,7 @@ const AppMode = {
   //LOGIN: "LoginMode",
   SITEMAP: "SiteMode",
   SPACE: "SpaceMode",
+  SPACEURLS: "SpaceUrls",
 };
 
 Object.freeze(AppMode);  // Ensuring the object is immutable

@@ -6,18 +6,21 @@ import AppMode from './../AppMode.js';
 import AboutPopUp from './AboutPopUp.js';
 import SiteMap from './SiteMap.js';
 import SPACE from './spaceWeather.js';
+import SPACEURLS from './CoolSpaceVideos.js';
 //import DailyWeather from './DailyWeather.js'; 
 
 const modeTitle = {};
 modeTitle[AppMode.WEATHER] = "Current Weather!!";
 modeTitle[AppMode.SITEMAP] = "Site Map!!!";
 modeTitle[AppMode.SPACE] = "Space Weather!!!";
+modeTitle[AppMode.SPACEURLS] = "Space Videos!!!";
 //modeTitle[AppMode.DAILYWEATHER] = "Daily Weather!!!";
 
 const modeToPage = {};
 modeToPage[AppMode.WEATHER] = CurrentWeather;
 modeToPage[AppMode.SITEMAP] = SiteMap;
 modeToPage[AppMode.SPACE] = SPACE;
+modeToPage[AppMode.SPACEURLS] = SPACEURLS;
 //modeToPage[AppMode.DAILYWEATHER] = DailyWeather;
 
 class App extends React.Component {
@@ -43,7 +46,6 @@ class App extends React.Component {
     }
 
     closeMenu = () => {
-
         this.setState({ menuOpen: false })
     }
 
@@ -60,6 +62,7 @@ class App extends React.Component {
                     homeweatherPage={() => this.handleChangeMode(AppMode.WEATHER)}
                     SiteMode={() => this.handleChangeMode(AppMode.SITEMAP)}
                     Space={() => this.handleChangeMode(AppMode.SPACE)}
+                    SpaceUrls={() => this.handleChangeMode(AppMode.SPACEURLS)}
                     showAbout={this.toggleAbout}
                 />
                 <ModeBar
@@ -74,6 +77,7 @@ class App extends React.Component {
                     homeweatherPage={() => this.handleChangeMode(AppMode.WEATHER)}
                     SiteMode={() => this.handleChangeMode(AppMode.SITEMAP)}
                     Space={() => this.handleChangeMode(AppMode.SPACE)}
+                    SpaceUrls={() => this.handleChangeMode(AppMode.SPACEURLS)}
                     showAbout={this.toggleAbout}
                 />
             </div>
@@ -81,6 +85,4 @@ class App extends React.Component {
     }
 
 }
-
-
 export default App;

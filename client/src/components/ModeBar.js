@@ -20,9 +20,10 @@ class ModeBar extends React.Component {
           onClick={this.props.showAbout}>
           <span className="modebar-text">About</span>
         </a>
+       
         </div>
       </div>
-      
+
     );
   }
 }
