@@ -5,16 +5,19 @@ import ModeBar from './ModeBar.js';
 import AppMode from './../AppMode.js';
 import AboutPopUp from './AboutPopUp.js';
 import SiteMap from './SiteMap.js';
+import SPACE from './spaceWeather.js';
 //import DailyWeather from './DailyWeather.js'; 
 
 const modeTitle = {};
 modeTitle[AppMode.WEATHER] = "Current Weather!!";
 modeTitle[AppMode.SITEMAP] = "Site Map!!!";
+modeTitle[AppMode.SPACE] = "Space Weather!!!";
 //modeTitle[AppMode.DAILYWEATHER] = "Daily Weather!!!";
 
 const modeToPage = {};
 modeToPage[AppMode.WEATHER] = CurrentWeather;
 modeToPage[AppMode.SITEMAP] = SiteMap;
+modeToPage[AppMode.SPACE] = SPACE;
 //modeToPage[AppMode.DAILYWEATHER] = DailyWeather;
 
 class App extends React.Component {
@@ -56,6 +59,7 @@ class App extends React.Component {
                     menuOpen={this.state.menuOpen}
                     homeweatherPage={() => this.handleChangeMode(AppMode.WEATHER)}
                     SiteMode={() => this.handleChangeMode(AppMode.SITEMAP)}
+                    Space={() => this.handleChangeMode(AppMode.SPACE)}
                     showAbout={this.toggleAbout}
                 />
                 <ModeBar
@@ -69,6 +73,7 @@ class App extends React.Component {
                     changeMode={this.handleChangeMode}
                     homeweatherPage={() => this.handleChangeMode(AppMode.WEATHER)}
                     SiteMode={() => this.handleChangeMode(AppMode.SITEMAP)}
+                    Space={() => this.handleChangeMode(AppMode.SPACE)}
                     showAbout={this.toggleAbout}
                 />
             </div>

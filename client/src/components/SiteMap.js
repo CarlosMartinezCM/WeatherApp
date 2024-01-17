@@ -15,10 +15,12 @@ class SiteMap extends React.Component {
     render() {
         return (
             <div >
-                    <div class="navOptions">
-                            <div className="navOptions"
+                    <div class="siteMap">
+                            <div className="siteMap"
                                 onClick={this.props.homeweatherPage} >&nbsp;Weather</div>
-                                {/*<div className="navOptions"
+                            <div className="siteMap"
+                                onClick={this.props.Space} >&nbsp;Space Weather</div>
+                                {/*<div className="siteMap"
                                 onClick={this.handleChange} >&nbsp;Weather using handle change</div>*/}
                     </div>
             </div>

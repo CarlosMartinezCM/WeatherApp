@@ -21,7 +21,9 @@ class NavBar extends React.Component {
                     <div class="navOptionsTop">
                         {/*  Can add web navigation buttons under the Wether App title*/}
                             <div div class='navOptionsTop-but' type="submit"  
-                                onClick={this.props.homeweatherPage} >&nbsp;Forecast</div>
+                                onClick={this.props.homeweatherPage} >&nbsp;Weather Forecast</div>
+                                 <div div class='navOptionsTop-but' type="submit"
+                                onClick={this.props.Space} >&nbsp;Space Weather</div>
                             <div div class='navOptionsTop-but' type="submit"
                                 onClick={this.props.SiteMode} >&nbsp;Site Map</div>
                     </div>

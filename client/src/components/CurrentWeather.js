@@ -182,7 +182,7 @@ class WeatherForecast extends React.Component {
                     <div class="lat-lon-elev">
                         <span>Lat: {this.state.latitude}°N</span>
                         <span>Lon: {this.state.longitude}°W</span>
-                        <span>Elev: {this.state.elev} {this.state.unitCode}</span>
+                        <span>Elev: {Math.round((this.state.elev * 3.28084).toFixed(2))} ft. {/*this.state.unitCode*/}</span>
                     </div>
                 </div>
                 <div class='navOptions'>
