@@ -4,6 +4,7 @@
 import React from 'react';
 import AppMode from "./../AppMode";
 import axios from "axios";
+import Modal from 'react-modal';
 require('dotenv').config();
 
 class WeatherForecast extends React.Component {
@@ -19,8 +20,16 @@ class WeatherForecast extends React.Component {
             forecastPeriods: [],
             station: null,
             icon: null,
+            modalOpen: false,
+            alertDescription: '',
+            alertInstruction: '',
+            alertArea: '',
         };
+        // Set the app element in the constructor
+        Modal.setAppElement('#root'); // Assuming '#root' is the root element of your React app
     }
+
+
     componentDidMount = () => {
         this.getWeatherForecast();
     }
@@ -29,6 +38,7 @@ class WeatherForecast extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevState.stationIdentifier !== this.state.stationIdentifier) {
             this.getCurrentObservations();
+            this.getWarningAlerts();
         }
     }
 
@@ -53,23 +63,6 @@ class WeatherForecast extends React.Component {
         }
     };
 
-    handleTodayClick = async () => {
-        alert("Alert Today");
-    };
-
-    handlehourlyClick = () => {
-        alert("Alert Hourly");
-    };
-  
-    handleDailyClick = async () => {
-    
-        alert("Alert Daily");
-    };
-
-    handleRadarClick = async () => {
-        alert("Alert Radar");
-    };
-
     //This function will make an API call to the NOAA API weather service and fetch forecast data
     getWeatherForecast = async () => {
         const response = await fetch(`https://api.weather.gov/points/${this.state.latitude},${this.state.longitude}`);
@@ -80,6 +73,9 @@ class WeatherForecast extends React.Component {
         const obs = data.properties.observationStations;
         const observationResponce = await fetch(obs);
         const observationData = await observationResponce.json();
+        const zone = data.properties.forecastZone;
+        const zoneResponce = await fetch(zone);
+        const zoneData = await zoneResponce.json();
 
         this.setState({
             city: data.properties.relativeLocation.properties.city,
@@ -100,9 +96,12 @@ class WeatherForecast extends React.Component {
             units: forecastData.properties.units,
             updated: forecastData.properties.updated,
             stationIdentifier: observationData.features[0].properties.stationIdentifier,
+            //zoneData: data.properties.forecastZone,
+            warnzone: zoneData.properties.id,
         })
 
     }
+
     //This function will make an API call to the NOAA API weather service and fetch current observation data
     getCurrentObservations = async () => {
         try {
@@ -126,6 +125,24 @@ class WeatherForecast extends React.Component {
         } catch (error) {
             console.error('Error fetching current observations:', error);
         }
+
+    }
+
+    getWarningAlerts = async () => {
+        try {
+            const response = await fetch(`https://api.weather.gov/alerts/active/zone/${this.state.warnzone}`);
+            const data = await response.json();
+
+            this.setState({
+                area: data.features[0].properties.areaDesc,
+                event: data.features[0].properties.event,
+                headline: data.features[0].properties.headline,
+                description: data.features[0].properties.description,
+                instruction: data.features[0].properties.instruction,
+            });
+        } catch (error) {
+        }
+        console.log(this.state.areaDesc);
     }
     //Toggle units from F to C, not yet implemented.    
     toggleUnits = () => {
@@ -154,7 +171,20 @@ class WeatherForecast extends React.Component {
         this.getWeatherForecast();
         // alert("updating weather");
     }
-   
+    handleAlertClick = (description, instruction, area) => {
+        this.setState({
+            alertDescription: description,
+            alertInstruction: instruction,
+            alertArea: area,
+            modalIsOpen: true,
+        });
+    };
+
+    closeModal = () => {
+        this.setState({
+            modalIsOpen: false,
+        });
+    };
     //adding weather alerts, if true display, else skip
     render() {
         const { icon } = this.state;
@@ -166,8 +196,29 @@ class WeatherForecast extends React.Component {
         return (
             <div>
                 <div className="weatherAlerts">
-                    <h3>Alerts</h3>
-                    {/* <p> adding weather alerts, if true display, else skip</p> */}
+                    <h3>{this.state.event}</h3>
+                    <div className="warnZone">
+                        <p> </p>
+                    </div>
+                    <div>
+                        <div className="alertText" onClick={() => this.handleAlertClick(this.state.description, this.state.instruction, this.state.area)}>
+                            <p> {this.state.headline}</p>
+                        </div>
+                        {/* Modal component */}
+                        <Modal
+                            isOpen={this.state.modalIsOpen}
+                            onRequestClose={this.closeModal}
+                            contentLabel="Example Modal">
+                            {/* Modal data styles go here */}
+                            <button onClick={this.closeModal}>Close Modal</button>
+                            <div className="alertModal">
+                                <p>{this.state.area}</p>
+                                <p>{this.state.description}</p>
+                                <p>{this.state.instruction}</p>
+
+                            </div>
+                        </Modal>
+                    </div>
                 </div>
                 <div class="current-heading">
                     <b>Current conditions at </b>
@@ -181,11 +232,14 @@ class WeatherForecast extends React.Component {
                     </div>
                 </div>
                 <div class='navOptions'>
-                    {/* Conditionally render the forecast and hourly when selected make sure to load new page */}
+                    <div>
+                        <p></p>
+                    </div>
+                    {/*  Conditionally render the forecast and hourly when selected make sure to load new page 
                     <div class='navOptionsTop-but' type="submit" onClick={this.handleTodayClick}>TODAY&nbsp;</div>
                     <div class='navOptionsTop-but' type="submit" onClick={this.handlehourlyClick}>HOURLY&nbsp;</div>
                     <div class='navOptionsTop-but' type="submit" onClick={this.handleDailyClick}>DAILY&nbsp;</div>
-                    <div class='navOptionsTop-but' type="submit" onClick={this.handleRadarClick}>RADAR&nbsp;</div>
+                    <div class='navOptionsTop-but' type="submit" onClick={this.handleRadarClick}>RADAR&nbsp;</div>*/}
                 </div>
                 <div class="currentData" >
                     <div class="temp-container">

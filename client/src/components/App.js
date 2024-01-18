@@ -6,7 +6,7 @@ import AppMode from './../AppMode.js';
 import AboutPopUp from './AboutPopUp.js';
 import SiteMap from './SiteMap.js';
 import SPACE from './spaceWeather.js';
-import SPACEURLS from './CoolSpaceVideos.js';
+import SPACEURLS from './videos.js';
 //import DailyWeather from './DailyWeather.js'; 
 
 const modeTitle = {};
