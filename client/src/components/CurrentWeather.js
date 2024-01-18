@@ -180,9 +180,6 @@ class WeatherForecast extends React.Component {
                         <span>Elev: {Math.round((this.state.elev * 3.28084).toFixed(2))} ft. {/*this.state.unitCode*/}</span>
                     </div>
                 </div>
-                <div class="infoList"
-                                onClick={this.handlehourlyClick} >&nbsp;Site Map
-                            </div>
                 <div class='navOptions'>
                     {/* Conditionally render the forecast and hourly when selected make sure to load new page */}
                     <div class='navOptionsTop-but' type="submit" onClick={this.handleTodayClick}>TODAY&nbsp;</div>
