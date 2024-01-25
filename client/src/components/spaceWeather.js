@@ -53,15 +53,19 @@ class App extends Component {
 
         return (
             <div className="App">
-                <h3>Create a GIF from images in React</h3>
-                {progress !== 0 && <label>Creating GIF... {progress}%</label>}
+                <div className='spaceWeatherHeader'>
+                    <h1>Space Weather Prediction Center NOAA</h1>
+                </div>
+                <div>
+                    {progress !== 0 && <label>Loading... {progress}%</label>}
+                    {gifSrc && (
+                        <div>
+                            <h4>The Sun (EUV):</h4>
+                            <img src={gifSrc} alt="Generated GIF" style={{ maxWidth: '100%' }} />
+                        </div>
 
-                {gifSrc && (
-                    <div>
-                        <h4>Generated GIF:</h4>
-                        <img src={gifSrc} alt="Generated GIF" style={{ maxWidth: '100%' }} />
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
         );
     }

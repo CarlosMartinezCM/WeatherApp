@@ -16,7 +16,7 @@ class NavBar extends React.Component {
         return (
             <div>
                 <div className="navTitle">
-                    <h1>Weather Service</h1>
+                    <h1>The National Oceanic and Atmospheric Administration (NOAA)</h1>
                 </div>
                 <div class="navOptionsTop">
                     {/*  Can add web navigation buttons under the Wether App title*/}

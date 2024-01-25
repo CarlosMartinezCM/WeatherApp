@@ -97,6 +97,16 @@
   filter: brightness(110%);
 }
 
+.WeatherHeader {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .siteMap {
   display: flex;
   flex-direction: column;
@@ -549,6 +559,11 @@ This keeps the mode bar at the bottom*/
 .spaceWeatherHeader {
   align-items: center;
   text-align: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 /******************************** Videos Page******************************************************/
 .videos {
@@ -571,17 +586,27 @@ This keeps the mode bar at the bottom*/
 /*Used to adjust the layout and styling based on the device screen size****************************************/
 /* Styles for mobile devices */
 
-/******************************** Space Weather Page******************************************************/
-
-
+/******************************** Sites Page******************************************************/
 .sitesHeader {
-  align-items: center;
-  text-align: center;
-  color: red;
+  justify-content: center;
+  height: 15vh;
+  text-align: center; /* Optional: Center text within the content */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* ImageAnimation.css */
+.sitesSubHeader{
+  align-items: center;
+  display: flex;
+}
 
+.sitesSubHeader > div {
+  flex: 1;
+  margin-right: 20px; /* Adjust the margin as needed */
+}
+/* ImageAnimation.css */
 .image-animation-container {
   display: flex;
   justify-content: center;

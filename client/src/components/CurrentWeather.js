@@ -29,7 +29,6 @@ class WeatherForecast extends React.Component {
         Modal.setAppElement('#root'); // Assuming '#root' is the root element of your React app
     }
 
-
     componentDidMount = () => {
         this.getWeatherForecast();
     }
@@ -393,7 +392,11 @@ class CurrentWeather extends React.Component {
         if (this.state.station != null) {
             return (
                 <div id="main">
+                    <div className="WeatherHeader">
+                    <h1>Weather Station</h1>
+                </div>
                     <div class="container">
+                    
                         <div class="cardSearch" >
                             <form >
                                 <input
