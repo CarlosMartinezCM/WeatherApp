@@ -5,11 +5,20 @@ class SpaceVideos extends React.Component {
     constructor() {
         super();
         this.state = {
-            color: "black"
+            color: "black",
+            loading: true   //Loading state
         };
     }
 
+    componentDidMount() {
+        // Simulate loading by setting a timeout
+        setTimeout(() => {
+          this.setState({ loading: false });
+        }, 1000);  // Adjust the timeout duration as needed
+      }
+
     render() {
+        const {loading} = this.state;
         return (
             <div >
                 <div class="videos">

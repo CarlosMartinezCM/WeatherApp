@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import AppMode from "./../AppMode.js";
 
 class SpaceWeather extends React.Component {
@@ -6,8 +6,17 @@ class SpaceWeather extends React.Component {
         super(props);
         this.state = {
             imageFilenames: [],
+            loading: true   //Loading state
         };
     }
+
+    componentDidMount() {
+        // Simulate loading by setting a timeout
+        setTimeout(() => {
+          this.setState({ loading: false });
+        }, 1000);  // Adjust the timeout duration as needed
+        this.fetchImageFilenames();
+      }
 
     fetchImageFilenames = async () => {
         try {
@@ -43,11 +52,6 @@ class SpaceWeather extends React.Component {
             console.error('Error fetching image filenames:', error);
         }
     };
-
-    componentDidMount() {
-        // Fetch the list of image filenames
-        this.fetchImageFilenames();
-    }
 
     handleChange = (event) => {
         event.preventDefault();

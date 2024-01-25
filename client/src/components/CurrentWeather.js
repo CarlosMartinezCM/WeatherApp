@@ -185,10 +185,12 @@ class WeatherForecast extends React.Component {
             modalIsOpen: false,
         });
     };
+    
     //adding weather alerts, if true display, else skip
     render() {
         const { icon } = this.state;
         const { forecast } = this.state;
+        
         if (!forecast) {
             return <div>No data available. Please refresh the page!</div>
         }

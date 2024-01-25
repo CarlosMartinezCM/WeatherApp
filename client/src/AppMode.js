@@ -6,6 +6,7 @@ const AppMode = {
   SITEMAP: "SiteMode",
   SPACE: "SpaceMode",
   SPACEURLS: "SpaceUrls",
+  OTHERSITE: "OtherSiteMode",
 };
 
 Object.freeze(AppMode);  // Ensuring the object is immutable
