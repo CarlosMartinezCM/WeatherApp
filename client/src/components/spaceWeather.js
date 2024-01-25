@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { createGIF } from 'gifshot';
 
 class App extends Component {
