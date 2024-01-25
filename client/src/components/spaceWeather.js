@@ -1,89 +1,69 @@
-import React from 'react';
-import AppMode from "./../AppMode.js";
+import React, { Component } from 'react';
+import { createGIF } from 'gifshot';
 
-class SpaceWeather extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            imageFilenames: [],
-            loading: true   //Loading state
-        };
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      progress: 0,
+      gifSrc: null,
+    };
+  }
+
+  componentDidMount() {
+    this.fetchImageFilenames();
+  }
+
+  fetchImageFilenames = async () => {
+    try {
+      const response = await fetch('https://services.swpc.noaa.gov/products/animations/suvi-secondary-195.json');
+      const jsonData = await response.json();
+
+      // Extract image URLs from the JSON data
+      const imageUrls = jsonData.map(item => `https://services.swpc.noaa.gov${item.url}`);
+
+      // Generate GIF with the extracted image URLs
+      this.generateGIF(imageUrls);
+    } catch (error) {
+      console.error('Error fetching image filenames:', error);
     }
+  };
 
-    componentDidMount() {
-        // Simulate loading by setting a timeout
-        setTimeout(() => {
-          this.setState({ loading: false });
-        }, 1000);  // Adjust the timeout duration as needed
-        this.fetchImageFilenames();
-      }
-
-    fetchImageFilenames = async () => {
-        try {
-            const response = await fetch('https://services.swpc.noaa.gov/images/animations/suvi/primary/304/');
-            const html = await response.text();
-
-            // Extract image filenames from HTML content (you may need to adjust this based on the actual HTML structure)
-            const filenames = html.match(/[a-zA-Z0-9_-]+\.png/g) || [];
-
-            // Filter out filenames that lead to a "Not Found" error
-            const filteredFilenames = await Promise.all(filenames.map(async (filename) => {
-                const imageUrl = `https://services.swpc.noaa.gov/images/animations/suvi/primary/304/${filename}`;
-
-                try {
-                    const imageResponse = await fetch(imageUrl);
-
-                    if (imageResponse.ok) {
-                        return filename; // Include the filename in the list
-                    }
-                } catch (error) {
-                    console.error(`Error checking image existence for ${filename}:`, error);
-                }
-
-                return null; // Exclude the filename
-            }));
-
-            // Remove null values (filenames that led to a "Not Found" error)
-            const validFilenames = filteredFilenames.filter(Boolean);
-
-            // Set the valid image filenames in state
-            this.setState({ imageFilenames: validFilenames });
-        } catch (error) {
-            console.error('Error fetching image filenames:', error);
-        }
+  generateGIF = (imageUrls) => {
+    const options = {
+      images: imageUrls,
+      gifWidth: 300,
+      gifHeight: 300,
+      numWorkers: 5,
+      frameDuration: 0.01,
+      sampleInterval: 10,
+      progressCallback: (e) => this.setState({ progress: parseInt(e * 100) }),
     };
 
-    handleChange = (event) => {
-        event.preventDefault();
-        this.props.changeMode(AppMode.SPACEURLS);
-    }
+    createGIF(options, (obj) => {
+      if (!obj.error) {
+        this.setState({ gifSrc: obj.image, progress: 0 });
+      }
+    });
+  };
 
-    render() {
-        return (
-            <div>
-                  <div className="siteMap" onClick={this.handleChange} >&nbsp;Space Videos</div>
-                {this.state.imageFilenames.length > 0 ? (
-                    <div>
-                        <h2>Image Gallery</h2>
-                        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                            {this.state.imageFilenames.map((filename, index) => (
-                                <img
-                                    key={index}
-                                    src={`https://services.swpc.noaa.gov/images/animations/suvi/primary/304/${filename}`}
-                                    alt={`Image ${index + 1}`}
-                                    style={{ width: '300px', height: '300px', margin: '5px' }}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                ) : (
-                    <p>Loading...</p>
-                )}
+  render() {
+    const { progress, gifSrc } = this.state;
 
-              
-            </div>
-        );
-    }
+    return (
+      <div className="App">
+        <h3>Create a GIF from images in React</h3>
+        {progress !== 0 && <label>Creating GIF... {progress}%</label>}
+        
+        {gifSrc && (
+          <div>
+            <h4>Generated GIF:</h4>
+            <img src={gifSrc} alt="Generated GIF" style={{ maxWidth: '100%' }} />
+          </div>
+        )}
+      </div>
+    );
+  }
 }
 
-export default SpaceWeather;
+export default App;

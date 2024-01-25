@@ -546,11 +546,11 @@ This keeps the mode bar at the bottom*/
 }
 
 /******************************** Space Weather Page******************************************************/
-.space-header {
+.spaceWeatherHeader {
   align-items: center;
   text-align: center;
 }
-/******************************** Space Weather Page******************************************************/
+/******************************** Videos Page******************************************************/
 .videos {
   max-width: 800px; /* Set a maximum width for larger screens */
   margin: 0 auto;   /* Center the video within its container */
@@ -558,7 +558,6 @@ This keeps the mode bar at the bottom*/
   @media (max-width: 600px) {
    .videos{max-width: 100%;} /* Adjusted font size for smaller screens */
   }
-
 
 /* change items to gray when disabled class is applied  */
 .disabled {
@@ -572,3 +571,48 @@ This keeps the mode bar at the bottom*/
 /*Used to adjust the layout and styling based on the device screen size****************************************/
 /* Styles for mobile devices */
 
+/******************************** Space Weather Page******************************************************/
+
+
+.sitesHeader {
+  align-items: center;
+  text-align: center;
+  color: red;
+}
+
+/* ImageAnimation.css */
+
+.image-animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust as needed */
+
+  /* Optional: Add styling for the container, like background color or border */
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}
+
+.image-animation-container img {
+  width: 100%; /* Adjust as needed */
+  height: auto; /* Maintain aspect ratio */
+  opacity: 0; /* Initially invisible */
+
+  /* Animation properties */
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards; /* Keeps the final state after animation */
+
+  /* Add additional animation properties if needed (e.g., delay) */
+}
+
+/* Keyframes for fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
