@@ -52,6 +52,7 @@
     "path-browserify": "^1.0.1",
     "process": "^0.11.10",
     "react-app-rewired": "^2.2.1",
-    "webpack": "^5.89.0"
+    "webpack": "^5.89.0",
+    "@babel/plugin-proposal-private-property-in-object": "^1.0.0"
   }
 }
