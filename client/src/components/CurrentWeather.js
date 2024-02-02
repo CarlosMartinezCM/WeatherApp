@@ -21,6 +21,7 @@ class WeatherForecast extends React.Component {
             station: null,
             icon: null,
             modalOpen: false,
+            hourlyModalOpen: false,
             alertDescription: '',
             alertInstruction: '',
             alertArea: '',
@@ -41,64 +42,50 @@ class WeatherForecast extends React.Component {
         }
     }
 
-    handleForecastClick = async () => {
-        try {
-            this.setState({ loading: true });
-            const response = await axios.get(this.state.forecastUrl);
-            const forecastData = response.data;
-            this.setState({ forecastData, loading: false });
-        } catch (error) {
-            this.setState({ error, loading: false });
-        }
-    };
-    handlehourlyClick = async () => {
-        try {
-            this.setState({ loading: true });
-            const response = await axios.get(this.state.hourlyUrl);
-            const hourlyData = response.data;
-            this.setState({ hourlyData, loading: false });
-        } catch (error) {
-            this.setState({ error, loading: false });
-        }
-    };
-
     //This function will make an API call to the NOAA API weather service and fetch forecast data
     getWeatherForecast = async () => {
-        const response = await fetch(`https://api.weather.gov/points/${this.state.latitude},${this.state.longitude}`);
-        const data = await response.json();
-        const forecastLink = data.properties.forecast;
-        const forecastResponce = await fetch(forecastLink);
-        const forecastData = await forecastResponce.json();
-        const obs = data.properties.observationStations;
-        const observationResponce = await fetch(obs);
-        const observationData = await observationResponce.json();
-        const zone = data.properties.forecastZone;
-        const zoneResponce = await fetch(zone);
-        const zoneData = await zoneResponce.json();
+        try {
+            const response = await fetch(`https://api.weather.gov/points/${this.state.latitude},${this.state.longitude}`);
+            const data = await response.json();
 
-        this.setState({
-            city: data.properties.relativeLocation.properties.city,
-            state: data.properties.relativeLocation.properties.state,
-            station: data.properties.cwa,
-            gridX: data.properties.gridX,
-            gridY: data.properties.gridY,
-            gridId: data.properties.gridId,
-            forecast: forecastData.properties.periods[0],
-            forecastPeriods: forecastData.properties.periods,
-            temperature: forecastData.properties.periods[0].temperature,
-            temperatureUnit: forecastData.properties.periods[0].temperatureUnit,
-            isDaytime: forecastData.properties.periods[0].isDaytime,
-            windDirection: forecastData.properties.periods[0].windDirection,
-            windSpeed: forecastData.properties.periods[0].windSpeed,
-            shortForecast: forecastData.properties.periods[0].shortForecast,
-            forecastHourly: forecastData.properties.periods[0],
-            units: forecastData.properties.units,
-            updated: forecastData.properties.updated,
-            stationIdentifier: observationData.features[0].properties.stationIdentifier,
-            //zoneData: data.properties.forecastZone,
-            warnzone: zoneData.properties.id,
-        })
+            const forecastLink = data.properties.forecast;
+            const forecastResponce = await fetch(forecastLink);
+            const forecastData = await forecastResponce.json();
 
+            const obs = data.properties.observationStations;
+            const observationResponce = await fetch(obs);
+            const observationData = await observationResponce.json();
+
+            const zone = data.properties.forecastZone;
+            const zoneResponce = await fetch(zone);
+            const zoneData = await zoneResponce.json();
+
+            this.setState({
+                city: data.properties.relativeLocation.properties.city,
+                state: data.properties.relativeLocation.properties.state,
+                station: data.properties.cwa,
+                gridX: data.properties.gridX,
+                gridY: data.properties.gridY,
+                gridId: data.properties.gridId,
+                forecast: forecastData.properties.periods[0],
+                forecastPeriods: forecastData.properties.periods,
+                temperature: forecastData.properties.periods[0].temperature,
+                temperatureUnit: forecastData.properties.periods[0].temperatureUnit,
+                isDaytime: forecastData.properties.periods[0].isDaytime,
+                windDirection: forecastData.properties.periods[0].windDirection,
+                windSpeed: forecastData.properties.periods[0].windSpeed,
+                shortForecast: forecastData.properties.periods[0].shortForecast,
+                forecastHourly: forecastData.properties.periods[0],
+                units: forecastData.properties.units,
+                updated: forecastData.properties.updated,
+                stationIdentifier: observationData.features[0].properties.stationIdentifier,
+                //zoneData: data.properties.forecastZone,
+                warnzone: zoneData.properties.id,
+            });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            // Handle the error appropriately, e.g., set a default state or show an error message to the user.
+        }
     }
 
     //This function will make an API call to the NOAA API weather service and fetch current observation data
@@ -178,18 +165,27 @@ class WeatherForecast extends React.Component {
             modalIsOpen: true,
         });
     };
+    handleHourlyClick = (description1, instruction1, area1, shortForecast1) => {
+        this.setState({
+            alertDescription: description1,
+            alertInstruction: instruction1,
+            alertArea: area1,
+            shortForecast: shortForecast1,
+            modalIsOpen: true,
+        });
+    };
 
     closeModal = () => {
         this.setState({
             modalIsOpen: false,
         });
     };
-    
+
     //adding weather alerts, if true display, else skip
     render() {
         const { icon } = this.state;
         const { forecast } = this.state;
-        
+
         if (!forecast) {
             return <div>No data available. Please refresh the page!</div>
         }
@@ -209,14 +205,15 @@ class WeatherForecast extends React.Component {
                         <Modal
                             isOpen={this.state.modalIsOpen}
                             onRequestClose={this.closeModal}
-                            contentLabel="Example Modal">
-                            {/* Modal data styles go here */}
+                            contentLabel="Weather Alerts Modal"
+                            className="customModalContent"
+                            >
+                            {/* Add Alert Modal Styles here */}
                             <button onClick={this.closeModal}>Close Modal</button>
                             <div className="alertModal">
                                 <p>{this.state.area}</p>
                                 <p>{this.state.description}</p>
                                 <p>{this.state.instruction}</p>
-
                             </div>
                         </Modal>
                     </div>
@@ -232,15 +229,43 @@ class WeatherForecast extends React.Component {
                         <span>Elev: {Math.round((this.state.elev * 3.28084).toFixed(2))} ft. {/*this.state.unitCode*/}</span>
                     </div>
                 </div>
+                <div>
+                    <div className="ModalForecastText" onClick={() => this.handleHourlyClick(this.state.temperature, this.state.temperatureUnit, this.state.icon, this.state.shortForecast)}>
+                        <p>DAILY</p>
+                    </div>
+                    {/* Modal component */}
+                    <Modal
+                        isOpen={this.state.modalIsOpen}
+                        onRequestClose={this.closeModal}
+                        contentLabel="Weather Alerts Modal"
+                        className="customModalContent" // Apply your custom content class
+                    >
+                        {/* Add Forecast Modal Styles here */}
+                        <button onClick={this.closeModal}>Close Modal</button>
+                        <div overlayClassName="customModalOverlay">
+                            <div className="forecast-card-container">
+                                {this.state.forecastPeriods.slice(0, 8).map((period, index) => (
+                                    <div key={period.number} className="periodItem">
+                                        <p>{period.name}</p>
+                                        <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
+                                        <p>{period.shortForecast}</p>
+                                        {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
+                                        {period.isDaytime ? (
+                                            <div>
+                                                <p>High: {period.temperature} °{period.temperatureUnit}</p>
+                                            </div>) : (
+                                            <p>Low: {period.temperature} °{period.temperatureUnit}</p>)}
+                                        <p></p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </Modal>
+                </div>
                 <div class='navOptions'>
                     <div>
                         <p></p>
                     </div>
-                    {/*  Conditionally render the forecast and hourly when selected make sure to load new page 
-                    <div class='navOptionsTop-but' type="submit" onClick={this.handleTodayClick}>TODAY&nbsp;</div>
-                    <div class='navOptionsTop-but' type="submit" onClick={this.handlehourlyClick}>HOURLY&nbsp;</div>
-                    <div class='navOptionsTop-but' type="submit" onClick={this.handleDailyClick}>DAILY&nbsp;</div>
-                    <div class='navOptionsTop-but' type="submit" onClick={this.handleRadarClick}>RADAR&nbsp;</div>*/}
                 </div>
                 <div class="currentData" >
                     <div class="temp-container">
@@ -393,10 +418,10 @@ class CurrentWeather extends React.Component {
             return (
                 <div id="main">
                     <div className="WeatherHeader">
-                    <h1>Weather Station</h1>
-                </div>
+                        <h1>Weather Station</h1>
+                    </div>
                     <div class="container">
-                    
+
                         <div class="cardSearch" >
                             <form >
                                 <input

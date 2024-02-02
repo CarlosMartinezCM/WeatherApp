@@ -41,7 +41,6 @@
   padding: 3px;
   font-size: 15px;
   justify-content: space-evenly;
- 
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-color: rgb(194, 206, 251);
   filter: brightness(110%);
@@ -640,4 +639,33 @@ This keeps the mode bar at the bottom*/
   to {
     opacity: 1;
   }
+}
+
+.ModalForecastText {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;  /* line spacing after each line*/
+  color: rgb(0, 0, 0);
+  transition: color 0.3s, box-shadow 0.3s; /* Add a transition for smooth animation */
+  cursor: pointer;/* Show pointer cursor on hover */
+  margin: 20px;
+  display: flex;
+  text-align: center;
+  border-radius: 0px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border-color: #d4def1;
+  filter: brightness(120%);
+}
+
+.customModalContent {
+  justify-content: center;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+}
+
+.customModalOverlay {
+  background-color: rgba(0, 0, 0, 0.5);
 }
