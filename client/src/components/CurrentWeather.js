@@ -3,7 +3,6 @@
 */
 import React from 'react';
 import AppMode from "./../AppMode";
-import axios from "axios";
 import Modal from 'react-modal';
 require('dotenv').config();
 
