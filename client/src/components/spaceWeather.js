@@ -30,12 +30,13 @@ class App extends Component {
     };
 
     //Function to create the GIF
+    //making a async gif, 
     generateGIF = (imageUrls) => {
         const options = {
             images: imageUrls,
-            gifWidth: 300,
-            gifHeight: 300,
-            numWorkers: 5,
+            gifWidth: 400,
+            gifHeight: 400,
+            numWorkers: 10,
             frameDuration: 0.01,
             sampleInterval: 10,
             progressCallback: (e) => this.setState({ progress: parseInt(e * 100) }),
@@ -50,21 +51,28 @@ class App extends Component {
 
     render() {
         const { progress, gifSrc } = this.state;
-
+    
         return (
-            <div className="App">
+            <div className="card">
                 <div className='spaceWeatherHeader'>
                     <h1>Space Weather Prediction Center NOAA</h1>
                 </div>
+                <div className="summaryStyle">
+                    <p>This page will contain gif's of the weather on our Sun.</p>
+                </div>
                 <div>
+                <div className='gifCard'>
                     {progress !== 0 && <label>Loading... {progress}%</label>}
                     {gifSrc && (
                         <div>
                             <h4>The Sun (EUV):</h4>
                             <img src={gifSrc} alt="Generated GIF" style={{ maxWidth: '100%' }} />
                         </div>
-
                     )}
+                </div>
+                 </div>
+                <div className='spaceFooter'>
+                    <p>About this page.</p>
                 </div>
             </div>
         );

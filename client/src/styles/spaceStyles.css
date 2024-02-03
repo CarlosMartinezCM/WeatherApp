@@ -1,0 +1,57 @@
+/*Card to go around the entire webpage*/
+.spaceWeatherHeader {
+    /*  display: inline-block;    this makes everything in the card display side by side*/
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+    margin: 20px auto; /* Adjusted margin for centering */
+    font-size: 12px;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #fff;
+    max-width: 100px;
+    /* New styles for centering */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .summaryStyle {
+    align-items: center;
+  text-align: center;
+  display: flex;
+  background-image: linear-gradient(144deg,hsl(190, 3%, 54%), #a1a7b0 50%, #6c7475);
+  color: #02033a;
+  padding: 3px;
+  font-size: 20px;
+  font-weight: bold;
+  justify-content: space-evenly;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  filter: brightness(110%);
+  }
+
+  .gifCard {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    padding: 3px;
+    justify-content: space-evenly;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    filter: brightness(110%);
+  }
+
+  .loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px; /* Adjust as needed */
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

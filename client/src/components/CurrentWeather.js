@@ -165,12 +165,12 @@ class WeatherForecast extends React.Component {
             modalIsOpen: true,
         });
     };
-    handleHourlyClick = (description1, instruction1, area1, shortForecast1) => {
+    handleForecastClick = (tempF, tempU, unitF, shortF) => {
         this.setState({
-            alertDescription: description1,
-            alertInstruction: instruction1,
-            alertArea: area1,
-            shortForecast: shortForecast1,
+            forecastTemp: tempF,
+            forecastTempUnit: tempU,
+            forecastUnit: unitF,
+            shortForecast: shortF,
             modalIsOpen: true,
         });
     };
@@ -207,7 +207,7 @@ class WeatherForecast extends React.Component {
                             onRequestClose={this.closeModal}
                             contentLabel="Weather Alerts Modal"
                             className="customModalContent"
-                            >
+                        >
                             {/* Add Alert Modal Styles here */}
                             <button onClick={this.closeModal}>Close Modal</button>
                             <div className="alertModal">
@@ -230,41 +230,37 @@ class WeatherForecast extends React.Component {
                     </div>
                 </div>
                 <div>
-                    <div className="ModalForecastText" onClick={() => this.handleHourlyClick(this.state.temperature, this.state.temperatureUnit, this.state.icon, this.state.shortForecast)}>
-                        <p>DAILY</p>
-                    </div>
-                    {/* Modal component */}
-                    <Modal
-                        isOpen={this.state.modalIsOpen}
-                        onRequestClose={this.closeModal}
-                        contentLabel="Weather Alerts Modal"
-                        className="customModalContent" // Apply your custom content class
-                    >
-                        {/* Add Forecast Modal Styles here */}
-                        <button onClick={this.closeModal}>Close Modal</button>
-                        <div overlayClassName="customModalOverlay">
-                            <div className="forecast-card-container">
-                                {this.state.forecastPeriods.slice(0, 8).map((period, index) => (
-                                    <div key={period.number} className="periodItem">
-                                        <p>{period.name}</p>
-                                        <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
-                                        <p>{period.shortForecast}</p>
-                                        {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
-                                        {period.isDaytime ? (
-                                            <div>
-                                                <p>High: {period.temperature} °{period.temperatureUnit}</p>
-                                            </div>) : (
-                                            <p>Low: {period.temperature} °{period.temperatureUnit}</p>)}
-                                        <p></p>
-                                    </div>
-                                ))}
-                            </div>
+                    <div className='ForecastOptions'>
+                        <div className="ModalForecastText" onClick={() => this.handleForecastClick(this.state.temperature, this.state.temperatureUnit, this.state.icon, this.state.shortForecast)}>
+                            <p>7 Day Forecast</p>
                         </div>
-                    </Modal>
-                </div>
-                <div class='navOptions'>
-                    <div>
-                        <p></p>
+                        {/* Forecast Modal pop up component */}
+                        <Modal
+                            isOpen={this.state.modalIsOpen}
+                            onRequestClose={this.closeModal}
+                            contentLabel="Weather Alerts Modal"
+                            className="customModalContent" >
+                            {/* Add Forecast Modal Styles here */}
+                            <button onClick={this.closeModal}>Close Modal</button>
+                            <div overlayClassName="customModalOverlay">
+                                <div className="forecast-card-container">
+                                    {this.state.forecastPeriods.map((period, index) => (
+                                        <div key={period.number} className="periodItem">
+                                            <p>{period.name}</p>
+                                            <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
+                                            <p>{period.shortForecast}</p>
+                                            {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
+                                            {period.isDaytime ? (
+                                                <div>
+                                                    <p>High: {period.temperature} °{period.temperatureUnit}</p>
+                                                </div>) : (
+                                                <p>Low: {period.temperature} °{period.temperatureUnit}</p>)}
+                                            <p></p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </Modal>
                     </div>
                 </div>
                 <div class="currentData" >
@@ -340,7 +336,7 @@ class WeatherForecast extends React.Component {
                 </div>
                 {/* Render the detailed forecast by mapping the periods */}
                 <div class="card">
-                    <div className='subHeader'>
+                    <div className='detailedForecastHeader'>
                         <h2>Detailed Forecast</h2>
                     </div>
                     {/* Conditionally set each period to display in different colors */}
