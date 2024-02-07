@@ -17,7 +17,7 @@
   align-items: center;
   text-align: center;
   display: flex;
-  background-image: linear-gradient(144deg,hsl(190, 18%, 59%), #879cbc 50%, #75a0a2);
+  background-image: linear-gradient(144deg,hsl(190, 3%, 54%), #a1a7b0 50%, #6c7475);
   color: #000000;
   border: 0;
   border-radius: 0px;
@@ -35,7 +35,7 @@
   align-items: center;
   text-align: center;
   display: flex;
-  background-image: linear-gradient(144deg,hsl(190, 18%, 59%), #879cbc 50%, #75a0a2);
+  background-image: linear-gradient(144deg,hsl(190, 3%, 54%), #a1a7b0 50%, #6c7475);
   color: #000000;
   border: 0;
   border-radius: 0px;
@@ -50,8 +50,8 @@
 
 .navOptionsTop:active,
 .navOptionsTop:hover {
-  background-color: #005c64;
-  color: #06b8ef;
+  background-color:#a1a7b0 50%;
+  color: #a1a7b0 50%;
 }
 
 /*Styling for nav navigation options*/
@@ -59,7 +59,7 @@
   align-items: center;
   text-align: center;
   display: flex;
-  background-image: linear-gradient(144deg,hsl(190, 18%, 59%), #879cbc 50%, #75a0a2);
+  background-image: linear-gradient(144deg,hsl(190, 3%, 54%), #a1a7b0 50%, #6c7475);
   color: #000000;
   border: 0;
   border-radius: 0px;
@@ -75,8 +75,8 @@
 
 .navOptionsTop-but:active,
 .navOptionsTop-but:hover {
-  background-color: #005c64;
-  color: #06b8ef;
+  background-color: #ffffff;
+  color: #acaeae;
 }
 
 /*Styling for navigation options forecast*/
@@ -273,7 +273,7 @@
   margin-bottom: 0px;
 }
 
-/*Add text style anc color to headers for each section*/
+/*Add text style and color to headers for each section*/
 .Extended-Forecast-header {
   background-image: linear-gradient(144deg,hsl(190, 3%, 54%), #a1a7b0 50%, #6c7475);
   color: #000000;
@@ -305,24 +305,24 @@
 .btn-color-theme,
 .btn-color-theme:hover,
 .btn-color-theme:active {
-  background-image: linear-gradient(144deg,hsl(190, 18%, 59%), #879cbc 50%, #75a0a2);
+  background-image: linear-gradient(144deg,hsl(190, 3%, 54%), #a1a7b0 50%, #6c7475);
   border-color: #d4def1;
 }
 
 /* The apps search button color theme hover highlight text*/
 .btn-color-theme:hover,
 .btn-color-theme:active {
-  background-color: #005c64;
-  color: #06b8ef;
+  background-color: #ffffff;
+  color: #acaeae;
 }
 
 .even-item {
-  background-image: linear-gradient(144deg,hsl(190, 18%, 59%), #879cbc 50%, #75a0a2);
+  background-image: linear-gradient(144deg,hsl(190, 3%, 54%), #a1a7b0 50%, #6c7475);
   filter: brightness(150%);
 }
 
 .odd-item {
-  background-image: linear-gradient(144deg,hsl(190, 18%, 59%), #879cbc 50%, #75a0a2);
+  background-image: linear-gradient(144deg,hsl(190, 3%, 54%), #a1a7b0 50%, #6c7475);
   filter: brightness(120%);
 }
 
@@ -408,7 +408,8 @@ This keeps the mode bar at the bottom*/
 
 /* Add background color to button when it is hovered */
 .modebar a:hover {
-  color: #06b8ef;
+  background-color: #ffffff;
+  color: #acaeae;
 }
 
 /* Style the text in the bottom bar */
@@ -437,7 +438,7 @@ This keeps the mode bar at the bottom*/
 /* Styling for the About header*/
 .modal-header {
   padding: 2px 16px;
-  background-image: linear-gradient(144deg,hsl(190, 18%, 59%), #879cbc 50%, #75a0a2);
+  background-image: linear-gradient(144deg,hsl(190, 3%, 54%), #a1a7b0 50%, #6c7475);
   color: white;
 }
 
@@ -462,7 +463,7 @@ This keeps the mode bar at the bottom*/
 /* The Close Button for modal box */
 .close {
   display: flex;
-  background-image: linear-gradient(144deg,hsl(190, 18%, 59%), #879cbc 50%, #75a0a2);
+  background-image: linear-gradient(144deg,hsl(190, 3%, 54%), #a1a7b0 50%, #6c7475);
   color: #000000;
   border: 0;
   border-radius: 0px;
@@ -510,18 +511,13 @@ This keeps the mode bar at the bottom*/
 }
 
 /* The Close Button */
-.close {
-  color: white;
+.close:hover
+.close:focus {
+  background-color: #ffffff;
+  color: #acaeae;;
   float: right;
   font-size: 28px;
   font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #06b8ef;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 /* Style the close button at the bottom of modal box*/
@@ -529,7 +525,7 @@ This keeps the mode bar at the bottom*/
   align-items: center;
   text-align: center;
   display: flex;
-  background-image: linear-gradient(144deg,hsl(190, 18%, 59%), #879cbc 50%, #75a0a2);
+  background-image: linear-gradient(144deg,hsl(190, 3%, 54%), #a1a7b0 50%, #6c7475);
   color: #000000;
   border: 0;
   border-radius: 0px;
@@ -670,6 +666,11 @@ This keeps the mode bar at the bottom*/
   filter: brightness(120%);
 }
 
+.ModalForecastText:active,
+.ModalForecastText:hover {
+  color: #acaeae;
+}
+
 .customModalContent {
   /* Your existing styles */
   justify-content: center;
@@ -679,9 +680,9 @@ This keeps the mode bar at the bottom*/
   overflow-y: auto; /* This allows for vertical scrolling for overflow content */
   max-height: 60vh; /* Set a maximum height for the modal content */
   /* Media query for smaller screens */
-    @media (max-width: 1000px) {
-     width: 90%; /* Adjust the width for smaller screens */
-     height: 120%; /* Adjust the height for smaller screens */
+    @media (max-width: 1800px) {
+     width: auto; /* Adjust the width for smaller screens */
+     height: auto; /* Adjust the height for smaller screens */
 }
 
 }

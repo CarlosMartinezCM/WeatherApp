@@ -200,14 +200,14 @@ class WeatherForecast extends React.Component {
                         <div className="alertText" onClick={() => this.handleAlertClick(this.state.description, this.state.instruction, this.state.area)}>
                             <p> {this.state.headline}</p>
                         </div>
-                        {/* Modal component */}
+                        {/* Modal component for the Alerts */}
                         <Modal
                             isOpen={this.state.modalIsOpen}
                             onRequestClose={this.closeModal}
                             contentLabel="Weather Alerts Modal"
                             className="customModalContent"
                         >
-                            {/* Add Alert Modal Styles here */}
+                            {/*Alert Modal Styles*/}
                             <button onClick={this.closeModal}>Close Modal</button>
                             <div className="alertModal">
                                 <p>{this.state.area}</p>
@@ -239,7 +239,7 @@ class WeatherForecast extends React.Component {
                             onRequestClose={this.closeModal}
                             contentLabel="Weather Alerts Modal"
                             className="customModalContent" >
-                            {/* Add Forecast Modal Styles here */}
+                            {/* Forecast Modal Styles  */}
                             <button onClick={this.closeModal}>Close Modal</button>
                             <div overlayClassName="customModalOverlay">
                                 <div className="forecast-card-container">
