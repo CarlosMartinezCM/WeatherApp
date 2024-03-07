@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createGIF } from 'gifshot';
+//const fs = require('fs');
 
 class App extends Component {
     constructor(props) {
@@ -38,27 +39,33 @@ class App extends Component {
             // Extract image URLs from the JSON data
             const imageUrlsArray = jsonDataArray.map(jsonData => jsonData.map(item => `https://services.swpc.noaa.gov${item.url}`));
 
-
             // Generate GIFs with the extracted image URLs
             const gifArray = [];
             for (const imageUrls of imageUrlsArray) {
                 const gif = await this.generateGIF(imageUrls);
                 gifArray.push(gif);
+                //This will call the handledownload to automatically download the gif to downloads folder. 
+                //this.handleDownload(gif);
             }
 
             console.log('gifArray:', gifArray);
 
             // Now, gifArray contains all the generated GIFs
-
             const numberOfGIFs = gifArray.length;
             console.log(`Number of GIFs: ${numberOfGIFs}`);
 
             this.setState({ gifArray, progress: 0 });
+            // Trigger downloading of each generated GIF
+            gifArray.forEach((gif, index) => {
+                this.downloadGIF(gif, `generated_gif_${index}.gif`);
+            });
 
         } catch (error) {
             console.error('Error fetching image filenames:', error);
         }
     };
+
+    
     //generate Gifs of the sun from the PNGs
     generateGIF = (imageUrls) => {
         return new Promise((resolve, reject) => {
@@ -68,7 +75,7 @@ class App extends Component {
                 gifHeight: 400,
                 numWorkers: 10,
                 frameDuration: 0.01,
-                sampleInterval: 10,
+                sampleInterval: 12,
                 progressCallback: (e) => this.setState({ progress: parseInt(e * 100) }),
             };
 
@@ -82,8 +89,15 @@ class App extends Component {
                 }
             });
         });
+       
     };
 
+    handleDownload = (gifUrl) => {
+        const link = document.createElement('a');
+        link.href = gifUrl;
+        link.download = 'generated_gif.gif';
+        link.click();
+    };
 
     render() {
         const { progress, gifArray } = this.state;
@@ -94,27 +108,24 @@ class App extends Component {
                     <div className='spaceWeatherHeader'>
                         <h1>Space Weather Prediction Center NOAA</h1>
                     </div>
-
                     <div className='spaceWeatherHeader'>
                         This page will contain gif's of the weather on our Sun.
                         <div style={{
                             color: 'red',        // temp styling
                             fontSize: '16px',   
                             fontWeight: 'bold',
-                        }}>Content is slow to display, working on a solution, takes about 15 seconds.</div>
+                        }}>Please wait for Gif Generation.</div>
                         <div>
                             {progress !== 0 && <label>Loading... {progress}%</label>}
-
-                            {gifArray && gifArray.length > 0 && (
-                                <div className="gifContainer">
-                                    {gifArray.map((gif, index) => (
-                                        <img key={index} src={gif} alt={`Generated GIF ${index}`} className="gifImage" />
-                                    ))}
-                                </div>
-                            )}
+                            {gifArray.map((gif, index) => (
+                            <div key={index}>
+                                <img src={gif} alt={`Generated GIF ${index}`} />
+                                <br></br>
+                                <button onClick={() => this.handleDownload(gif)}>Download GIF</button>
+                            </div>
+                        ))}
                         </div>
                     </div>
-
                     <div class="card">
                         <div class="footer">
                             <div className='modalFooter'>
