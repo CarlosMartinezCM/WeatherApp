@@ -30,11 +30,23 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            mode: AppMode.WEATHER,
+            mode: localStorage.getItem('mode') || AppMode.WEATHER,  // this sets the initial mode from localStorage 
             showAbout: false,
             menuOpen: false
         };
     }
+
+    componentDidMount() {
+            window.addEventListener('beforeunload', this.saveModeToLocalStorage);  //Saves mode to local staorage before refresh
+    }
+
+    componentWillUnmount() {
+            window.removeEventListener('beforeunload', this.saveModeToLocalStorage);
+    }
+
+    saveModeToLocalStorage = () => {
+          localStorage.setItem('mode', this.state.mode);  //save current mode to localstorage.
+    } 
 
     toggleAbout = () => {
         this.setState(prevState => ({ showAbout: !prevState.showAbout }));
