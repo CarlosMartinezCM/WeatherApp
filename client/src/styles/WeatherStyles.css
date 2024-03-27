@@ -690,4 +690,49 @@ This keeps the mode bar at the bottom*/
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+/******************************** Space Weather****************************************************/
+
+/*Card to go around the entire webpage*/
+.spaceWeatherHeader {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.gif-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.gif-item {
+  flex: 0 0 calc(50% - 10px); /* Two items per row with 20px gap */
+  max-width: calc(50% - 10px);
+  text-align: center;
+}
+@media (max-width: 300px) {
+  .gif-item {
+    max-width: 100%;
+  }
+  /* Adjusted font size for smaller screens */
+}
+
+.spaceFooter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  background-color: #f4f4f4;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000; /* Adjust the z-index as needed */
+}
+
 

@@ -37,16 +37,24 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-            window.addEventListener('beforeunload', this.saveModeToLocalStorage);  //Saves mode to local staorage before refresh
+        window.addEventListener('beforeunload', this.saveModeToLocalStorage); // Save mode to localStorage before refresh
+       // window.addEventListener('unload', this.clearLocalStorage); // Clear mode from localStorage on browser close
     }
 
     componentWillUnmount() {
-            window.removeEventListener('beforeunload', this.saveModeToLocalStorage);
+        window.removeEventListener('beforeunload', this.saveModeToLocalStorage);
+       // window.removeEventListener('unload', this.clearLocalStorage);
     }
 
     saveModeToLocalStorage = () => {
-          localStorage.setItem('mode', this.state.mode);  //save current mode to localstorage.
-    } 
+        localStorage.setItem('mode', this.state.mode); // Save current mode to localStorage
+    }
+
+    clearLocalStorage = () => {
+        if (localStorage.getItem('mode')) {
+            localStorage.removeItem('mode'); // Clear mode from localStorage on browser close
+        }
+    }
 
     toggleAbout = () => {
         this.setState(prevState => ({ showAbout: !prevState.showAbout }));
@@ -68,7 +76,7 @@ class App extends React.Component {
         const ModePage = modeToPage[this.state.mode];
         return (
             <div>
-                {this.state.showAbout ? <AboutPopUp hideAbout={this.toggleAbout}/> : null}
+                {this.state.showAbout ? <AboutPopUp hideAbout={this.toggleAbout} /> : null}
                 <NavBar
                     title={modeTitle[this.state.mode]}
                     changeMode={this.handleChangeMode}

@@ -24,7 +24,7 @@ class otherSites extends React.Component {
                 <div className="sitesHeader" >
                     <h1>More Information</h1>
                 </div>
-                <div className="sitesSubHeader">
+                <div className="container">
                     <div>
                         <h3>Cool Websites</h3>
                         <div>

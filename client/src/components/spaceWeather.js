@@ -10,6 +10,7 @@ class App extends Component {
             gifSrc: null,
             now: new Date(),
             gifArray: [],
+            selectedGifIndex: 1, // Initialize selectedGifIndex to 0
         };
     }
 
@@ -21,12 +22,14 @@ class App extends Component {
         try {
             // Array of URLs to fetch, I want to change thsi
             const urls = [
-                //'https://services.swpc.noaa.gov/products/animations/suvi-primary-094.json',
-                'https://services.swpc.noaa.gov/products/animations/suvi-primary-131.json',
-                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-171.json',
-                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-195.json',
-                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-284.json',
-                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-304.json',
+
+                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-304.json',  //
+                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-195.json',   // THE SUN (EUV)
+                'https://services.swpc.noaa.gov/products/animations/suvi-primary-131.json',        //
+                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-171.json',    //
+                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-284.json',  //
+                'https://services.swpc.noaa.gov/products/animations/suvi-primary-094.json',
+
                 // Add more URLs as needed
             ];
 
@@ -65,14 +68,14 @@ class App extends Component {
         }
     };
 
-    
+
     //generate Gifs of the sun from the PNGs
     generateGIF = (imageUrls) => {
         return new Promise((resolve, reject) => {
             const options = {
                 images: imageUrls,
-                gifWidth: 400,
-                gifHeight: 400,
+                gifWidth: 300,
+                gifHeight: 300,
                 numWorkers: 10,
                 frameDuration: 0.01,
                 sampleInterval: 12,
@@ -89,7 +92,7 @@ class App extends Component {
                 }
             });
         });
-       
+
     };
 
     handleDownload = (gifUrl) => {
@@ -100,43 +103,57 @@ class App extends Component {
     };
 
     render() {
-        const { progress, gifArray } = this.state;
+        const { progress, gifArray, selectedGifIndex } = this.state;
 
         return (
-            <div className='container'>
-                <div className='content'>
-                    <div className='spaceWeatherHeader'>
-                        <h1>Space Weather Prediction Center NOAA</h1>
-                    </div>
-                    <div className='spaceWeatherHeader'>
-                        This page will contain gif's of the weather on our Sun.
-                        <div style={{
-                            color: 'red',        // temp styling
-                            fontSize: '16px',   
-                            fontWeight: 'bold',
-                        }}>Please wait for Gif Generation.</div>
-                        <div>
-                            {progress !== 0 && <label>Loading... {progress}%</label>}
+            <div> 
+                <div className='spaceWeatherHeader'>
+                    <h1>Space Weather Prediction Center NOAA</h1>
+                </div>
+                <div className='spaceWeatherHeader'>
+                    This page will contain gif's of the weather on our Sun.
+                    <div style={{
+                        color: 'Blue',        // temp styling
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                    }}>Please wait for Gif Generation.</div>
+                    {/* Render the selected GIF */} 
+                    {gifArray.length > 0 && (
+                        <div className='selected-gif-container'>
+                            <h3>Selected GIF:</h3>
+                            <h2>THE SUN (EUV):</h2>
+                            <img src={gifArray[selectedGifIndex]} alt={`Selected GIF ${selectedGifIndex}`} />
+                            <br></br>
+                            <div className='infoList'> The Sun (EUV) </div>
+                            {/*<div className='infoList' onClick={() => this.handleDownload(selectedGifIndex)}>Download GIF</div >*/}
+                            {/* Add any additional content for the selected GIF */}
+                        </div>
+                    )}
+                    <div class="container">
+                        {progress !== 0 && <label>Loading... {progress}%</label>}
+                        <div className="gif-container">
                             {gifArray.map((gif, index) => (
-                            <div key={index}>
-                                <img src={gif} alt={`Generated GIF ${index}`} />
-                                <br></br>
-                                <button onClick={() => this.handleDownload(gif)}>Download GIF</button>
-                            </div>
-                        ))}
+                                <div key={index} className="gif-item">
+                                    <img src={gif} alt={`Generated GIF ${index}`} />
+                                    <br></br>
+                                    <div className='infoList' onClick={() => this.handleDownload(gif)}>Download GIF</div>
+                                </div>
+                            ))}
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="footer">
-                            <div className='modalFooter'>
-                            </div>
+
+                </div>
+                <div class="card">
+                    <div class="footer">
+                        <div className='modalFooter'>
                         </div>
-                        <h6><i>Last Updated on </i></h6>
-                        <p>{this.state.now.toString()}</p>
-                        <p class="centered">version 3.0</p>
                     </div>
+                    <h6><i>Last Updated on </i></h6>
+                    <p>{this.state.now.toString()}</p>
+                    <p class="centered">version 3.0.1</p>
                 </div>
             </div>
+
         );
     }
 
