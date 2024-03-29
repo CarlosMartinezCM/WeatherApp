@@ -10,7 +10,7 @@ class App extends Component {
             gifSrc: null,
             now: new Date(),
             gifArray: [],
-            selectedGifIndex: 1, // Initialize selectedGifIndex to 0
+            selectedGifIndex: 0, // Initialize selectedGifIndex to 0
         };
     }
 
@@ -20,17 +20,19 @@ class App extends Component {
 
     fetchImageFilenames = async () => {
         try {
-            // Array of URLs to fetch, I want to change thsi
+            // Array of URLs to fetch
             const urls = [
-
-                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-304.json',  //
-                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-195.json',   // THE SUN (EUV)
+                'https://services.swpc.noaa.gov/products/animations/ovation_north_24h.json',
+              //  'https://services.swpc.noaa.gov/products/animations/suvi-secondary-304.json',  //
+               // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-195.json',   // THE SUN (EUV)
                 'https://services.swpc.noaa.gov/products/animations/suvi-primary-131.json',        //
-                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-171.json',    //
-                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-284.json',  //
+               // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-171.json',    //
+               // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-284.json',  //
                 'https://services.swpc.noaa.gov/products/animations/suvi-primary-094.json',
+                'https://services.swpc.noaa.gov/products/animations/sdo-hmii.json',
+                'https://services.swpc.noaa.gov/products/animations/lasco-c3.json',
+                'https://services.swpc.noaa.gov/products/animations/lasco-c2.json',
 
-                // Add more URLs as needed
             ];
 
             // Fetch all resources concurrently using Promise.all
@@ -74,10 +76,10 @@ class App extends Component {
         return new Promise((resolve, reject) => {
             const options = {
                 images: imageUrls,
-                gifWidth: 300,
-                gifHeight: 300,
+                gifWidth: 200,
+                gifHeight: 200,
                 numWorkers: 10,
-                frameDuration: 0.01,
+                frameDuration: 0.15,
                 sampleInterval: 12,
                 progressCallback: (e) => this.setState({ progress: parseInt(e * 100) }),
             };
@@ -106,9 +108,23 @@ class App extends Component {
         const { progress, gifArray, selectedGifIndex } = this.state;
 
         return (
-            <div> 
+            <div >
                 <div className='spaceWeatherHeader'>
                     <h1>Space Weather Prediction Center NOAA</h1>
+                </div>
+                <div >
+                    <div className='aurora'>
+                        <img
+                            src='https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png'
+                            alt='NOAA Aurora Dashboard'
+                            style={{ width: '200px' }}
+                        />
+                        <img
+                            src='https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tomorrow_nights_static_viewline_forecast.png'
+                            alt='NOAA Aurora Dashboard'
+                            style={{ width: '200px' }}
+                        />
+                    </div>
                 </div>
                 <div className='spaceWeatherHeader'>
                     This page will contain gif's of the weather on our Sun.
@@ -117,19 +133,19 @@ class App extends Component {
                         fontSize: '16px',
                         fontWeight: 'bold',
                     }}>Please wait for Gif Generation.</div>
-                    {/* Render the selected GIF */} 
+                    {/* Render the selected GIF */}
                     {gifArray.length > 0 && (
                         <div className='selected-gif-container'>
                             <h3>Selected GIF:</h3>
                             <h2>THE SUN (EUV):</h2>
                             <img src={gifArray[selectedGifIndex]} alt={`Selected GIF ${selectedGifIndex}`} />
                             <br></br>
-                            <div className='infoList'> The Sun (EUV) </div>
+                            <div className='infoList'> Aurora Forecast </div>
                             {/*<div className='infoList' onClick={() => this.handleDownload(selectedGifIndex)}>Download GIF</div >*/}
                             {/* Add any additional content for the selected GIF */}
                         </div>
                     )}
-                    <div class="container">
+                    <div class="gif-container">
                         {progress !== 0 && <label>Loading... {progress}%</label>}
                         <div className="gif-container">
                             {gifArray.map((gif, index) => (
@@ -141,16 +157,11 @@ class App extends Component {
                             ))}
                         </div>
                     </div>
-
                 </div>
-                <div class="card">
-                    <div class="footer">
-                        <div className='modalFooter'>
-                        </div>
-                    </div>
+                <div class="spaceFooter">
                     <h6><i>Last Updated on </i></h6>
                     <p>{this.state.now.toString()}</p>
-                    <p class="centered">version 3.0.1</p>
+                    <p class="centered">version 3.0.2</p>
                 </div>
             </div>
 

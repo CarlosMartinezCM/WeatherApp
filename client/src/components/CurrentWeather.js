@@ -24,13 +24,16 @@ class WeatherForecast extends React.Component {
             alertDescription: '',
             alertInstruction: '',
             alertArea: '',
+            baseImageUrl: 'https://radar.weather.gov/ridge/standard/',
+            gifRadar: '',
         };
         // Set the app element in the constructor
-        Modal.setAppElement('#root'); // Assuming '#root' is the root element of your React app
+        Modal.setAppElement('#root'); // Assuming '#root' is the root element of your React app  
     }
 
     componentDidMount = () => {
         this.getWeatherForecast();
+
     }
 
     // Function to ensure that the state has updated after the first API call. 
@@ -38,7 +41,11 @@ class WeatherForecast extends React.Component {
         if (prevState.stationIdentifier !== this.state.stationIdentifier) {
             this.getCurrentObservations();
             this.getWarningAlerts();
+            const { baseImageUrl } = this.state;
+            const gifRadar = `${baseImageUrl}K${this.state.station}_loop.gif`;
+            this.setState({ gifRadar });
         }
+
     }
 
     //This function will make an API call to the NOAA API weather service and fetch forecast data
@@ -129,6 +136,24 @@ class WeatherForecast extends React.Component {
         }
         console.log(this.state.areaDesc);
     }
+
+    getRadar = async () => {
+        try {
+            const response = await fetch(`https://api.weather.gov/alerts/active/zone/${this.state.station}`);
+            const data = await response.json();
+
+            this.setState({
+                area: data.features[0].properties.areaDesc,
+                event: data.features[0].properties.event,
+                headline: data.features[0].properties.headline,
+                description: data.features[0].properties.description,
+                instruction: data.features[0].properties.instruction,
+            });
+        } catch (error) {
+        }
+        console.log(this.state.areaDesc);
+    }
+
     //Toggle units from F to C, not yet implemented.    
     toggleUnits = () => {
         if (this.state.tempUnit === "F") {
@@ -184,6 +209,7 @@ class WeatherForecast extends React.Component {
     render() {
         const { icon } = this.state;
         const { forecast } = this.state;
+        const { gifRadar } = this.state;
 
         if (!forecast) {
             return <div>No data available. Please refresh the page!</div>
@@ -333,6 +359,10 @@ class WeatherForecast extends React.Component {
                         ))}
                     </div>
                 </div>
+                <div className='radar'>
+                        <h3>Weather Radar</h3>
+                        {gifRadar && <img src={gifRadar} alt='Weather Radar' />}
+                    </div>
                 {/* Render the detailed forecast by mapping the periods */}
                 <div class="card">
                     <div className='detailedForecastHeader'>
@@ -348,6 +378,7 @@ class WeatherForecast extends React.Component {
                             </div>
                         </div>
                     ))}
+                    
                 </div>
                 <div class="card">
                     <div class="footer">
