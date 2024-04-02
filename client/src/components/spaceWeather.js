@@ -23,11 +23,11 @@ class App extends Component {
             // Array of URLs to fetch
             const urls = [
                 'https://services.swpc.noaa.gov/products/animations/ovation_north_24h.json',
-              //  'https://services.swpc.noaa.gov/products/animations/suvi-secondary-304.json',  //
-               // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-195.json',   // THE SUN (EUV)
+                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-304.json',  //
+                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-195.json',   // THE SUN (EUV)
                 'https://services.swpc.noaa.gov/products/animations/suvi-primary-131.json',        //
-               // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-171.json',    //
-               // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-284.json',  //
+                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-171.json',    //
+                'https://services.swpc.noaa.gov/products/animations/suvi-secondary-284.json',  //
                 'https://services.swpc.noaa.gov/products/animations/suvi-primary-094.json',
                 'https://services.swpc.noaa.gov/products/animations/sdo-hmii.json',
                 'https://services.swpc.noaa.gov/products/animations/lasco-c3.json',

@@ -216,7 +216,7 @@ class WeatherForecast extends React.Component {
         }
         const formattedTimestamp = this.formatTimestamp(this.state.timestamp);
         return (
-            <div>
+            <div className="globalMedia">
                 <div className="weatherAlerts">
                     <h3>{this.state.event}</h3>
                     <div className="warnZone">
@@ -288,23 +288,19 @@ class WeatherForecast extends React.Component {
                         </Modal>
                     </div>
                 </div>
-                <div class="currentData" >
+                <div class="currentData">
                     <div class="temp-container">
                         <div>
                             {icon && <img src={icon} alt="Weather Icon" />}
                         </div>
-                        <div>
+                        <div  class="weatherIconSpace">
+                            <div class="text-description-font">
+                                <p>{this.state.textDescription}</p>
+                            </div>
                             <div class="temp-description-font">
-                                <p> {this.state.textDescription} </p>
-                            </div>
-                            <div class="locationDatafahrenheit">
-                                <p> {Math.round((this.state.temp * 9 / 5) + 32)} °F</p>
-                            </div >
-                            <div class="temp-celcius-font">
-                                <div class="locationDataCelcius">
-                                    <p> {this.state.temp} °C</p>
-                                </div>
-                            </div>
+                                <p class="locationDatafahrenheit">{Math.round((this.state.temp * 9 / 5) + 32)}°F</p>
+                            </div> 
+                             <p class="locationDataCelcius">{this.state.temp}°C</p>
                         </div>
                     </div>
                     <div class="center-current-data">
@@ -360,9 +356,9 @@ class WeatherForecast extends React.Component {
                     </div>
                 </div>
                 <div className='radar'>
-                        <h3>Weather Radar</h3>
-                        {gifRadar && <img src={gifRadar} alt='Weather Radar' />}
-                    </div>
+                    <h3>Weather Radar</h3>
+                    {gifRadar && <img src={gifRadar} alt='Weather Radar' />}
+                </div>
                 {/* Render the detailed forecast by mapping the periods */}
                 <div class="card">
                     <div className='detailedForecastHeader'>
@@ -378,7 +374,7 @@ class WeatherForecast extends React.Component {
                             </div>
                         </div>
                     ))}
-                    
+
                 </div>
                 <div class="card">
                     <div class="footer">
