@@ -417,7 +417,8 @@ class CurrentWeather extends React.Component {
         this.setState({ station: { lat: 46.26955, lon: -119.11813 } });
     }
     //This function is called when the user wants to search by city. Working on hiding the APIkey. 
-    searchLocation = async () => {
+    searchLocation = async (event) => {
+        event.preventDefault(); // Prevent default form submission behavior
         var data = this.citySearch.current.value;
         if (data != null) {
             this.setState({ station: null });
