@@ -217,7 +217,7 @@ class WeatherForecast extends React.Component {
         const formattedTimestamp = this.formatTimestamp(this.state.timestamp);
         return (
             <div className="globalMedia">
-                <div className="weatherAlerts">
+                <div /*className="weatherAlerts"*/>
                     <h3>{this.state.event}</h3>
                     <div className="warnZone">
                         <p> </p>
@@ -243,147 +243,148 @@ class WeatherForecast extends React.Component {
                         </Modal>
                     </div>
                 </div>
-                <div class="current-heading">
-                    <b>Current conditions at </b>
-                    <div class="current-City">
-                        <h2> {this.state.city}, {this.state.state} ({this.state.stationIdentifier})</h2>
+                <div className='ForecastOptions'>
+                    <div className="ModalForecastText" onClick={() => this.handleForecastClick(this.state.temperature, this.state.temperatureUnit, this.state.icon, this.state.shortForecast)}>
+                        <p>7 Day Forecast</p>
                     </div>
-                    <div class="lat-lon-elev">
-                        <span>Lat: {this.state.latitude}°N</span>
-                        <span>Lon: {this.state.longitude}°W</span>
-                        <span>Elev: {Math.round((this.state.elev * 3.28084).toFixed(2))} ft. {/*this.state.unitCode*/}</span>
-                    </div>
-                </div>
-                <div>
-                    <div className='ForecastOptions'>
-                        <div className="ModalForecastText" onClick={() => this.handleForecastClick(this.state.temperature, this.state.temperatureUnit, this.state.icon, this.state.shortForecast)}>
-                            <p>7 Day Forecast</p>
+                    {/* Forecast Modal pop up component */}
+                    <Modal
+                        isOpen={this.state.modalIsOpen}
+                        onRequestClose={this.closeModal}
+                        contentLabel="Weather Alerts Modal"
+                        className="customModalContent" >
+                        {/* Forecast Modal Styles  */}
+                        <button onClick={this.closeModal}>Close Modal</button>
+                        <div overlayClassName="customModalOverlay">
+                            <div className="forecast-card-container">
+                                {this.state.forecastPeriods.map((period, index) => (
+                                    <div key={period.number} className="periodItem">
+                                        <p>{period.name}</p>
+                                        <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
+                                        <p>{period.shortForecast}</p>
+                                        {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
+                                        {period.isDaytime ? (
+                                            <div>
+                                                <p>High: {period.temperature} °{period.temperatureUnit}</p>
+                                            </div>) : (
+                                            <p>Low: {period.temperature} °{period.temperatureUnit}</p>)}
+                                        <p></p>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        {/* Forecast Modal pop up component */}
-                        <Modal
-                            isOpen={this.state.modalIsOpen}
-                            onRequestClose={this.closeModal}
-                            contentLabel="Weather Alerts Modal"
-                            className="customModalContent" >
-                            {/* Forecast Modal Styles  */}
-                            <button onClick={this.closeModal}>Close Modal</button>
-                            <div overlayClassName="customModalOverlay">
-                                <div className="forecast-card-container">
-                                    {this.state.forecastPeriods.map((period, index) => (
-                                        <div key={period.number} className="periodItem">
-                                            <p>{period.name}</p>
-                                            <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
-                                            <p>{period.shortForecast}</p>
-                                            {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
-                                            {period.isDaytime ? (
-                                                <div>
-                                                    <p>High: {period.temperature} °{period.temperatureUnit}</p>
-                                                </div>) : (
-                                                <p>Low: {period.temperature} °{period.temperatureUnit}</p>)}
-                                            <p></p>
-                                        </div>
-                                    ))}
+                    </Modal>
+                </div>
+                <div className='currentWeatherContainer'>
+                    <div className="current-heading">
+                        <b>Current conditions at </b>
+                        <div className="current-City">
+                            <h2> {this.state.city}, {this.state.state} ({this.state.stationIdentifier})</h2>
+                        </div>
+                        <div class="lat-lon-elev">
+                            <span>Lat: {this.state.latitude}°N</span>
+                            <span>Lon: {this.state.longitude}°W</span>
+                            <span>Elev: {Math.round((this.state.elev * 3.28084).toFixed(2))} ft. {/*this.state.unitCode*/}</span>
+                        </div>
+                    </div>
+                    <div class="currentData">
+                        <div class="temp-container">
+                            <div>
+                                {icon && <img src={icon} alt="Weather Icon" />}
+                            </div>
+                            <div class="weatherIconSpace">
+                                <div class="text-description-font">
+                                    <p>{this.state.textDescription}</p>
                                 </div>
+                                <div class="temp-description-font">
+                                    <p class="locationDatafahrenheit">{Math.round((this.state.temp * 9 / 5) + 32)}°F</p>
+                                </div>
+                                <p class="locationDataCelcius">{Math.round(this.state.temp)}°C</p>
                             </div>
-                        </Modal>
-                    </div>
-                </div>
-                <div class="currentData">
-                    <div class="temp-container">
-                        <div>
-                            {icon && <img src={icon} alt="Weather Icon" />}
                         </div>
-                        <div  class="weatherIconSpace">
-                            <div class="text-description-font">
-                                <p>{this.state.textDescription}</p>
+                        <div class="center-current-data">
+                            <div class="center-data-item">
+                                <strong>Humidity:</strong> {Math.round(this.state.relativeHumidity)}%
                             </div>
-                            <div class="temp-description-font">
-                                <p class="locationDatafahrenheit">{Math.round((this.state.temp * 9 / 5) + 32)}°F</p>
-                            </div> 
-                             <p class="locationDataCelcius">{this.state.temp}°C</p>
-                        </div>
-                    </div>
-                    <div class="center-current-data">
-                        <div class="center-data-item">
-                            <strong>Humidity:</strong> {Math.round(this.state.relativeHumidity)}%
-                        </div>
-                        <div class="center-data-item">
-                            <strong>Wind Speed:</strong> {this.state.windDirection} {(Math.round(this.state.windSpeed * .621371))} MPH
-                        </div>
-                        <div class="center-data-item">
-                            {/* Convert to inches and round to nearest tenth then convert to millibars */}
-                            <strong>Barometer:</strong> {((this.state.barometricPressure * .0002953).toFixed(2))} in ({(this.state.barometricPressure / 100).toFixed(2)}mb)
-                        </div>
-                        <div class="center-data-item">
-                            <strong>Dewpoint:</strong> {Math.round((this.state.dewpoint * 9 / 5) + 32)}°F ({Math.round(this.state.dewpoint)}°C)
-                        </div>
-                        <div class="center-data-item">
-                            <strong>Visibility:</strong> {(Math.round(this.state.visibility * .000621371).toFixed(2))} mi
-                        </div>
-                        <div class="center-data-item">
-                            <strong>Wind Chill:</strong> { }{Math.round((this.state.windChill * 9 / 5) + 32)}°F ({Math.round(this.state.windChill)}°C)
-                        </div>
-                        <div class="center-data-item">
-                            <strong>Last updated:</strong> {formattedTimestamp}
-                        </div>
-                    </div>
-                </div>
-                <div className="Extended-Forecast-header">
-                    <div class="ext-fore">
-                        <p>Extended Forecast for</p>
-                        <div class="ext-city-name">
-                            <p> {this.state.city}, {this.state.state}</p>
-                        </div>
-                    </div>
-                </div>
-                {/* Render the forecast by mapping the periods */}
-                <div class="ExFo-container ">
-                    <div className="forecast-card-container">
-                        {this.state.forecastPeriods.slice(0, 8).map((period, index) => (
-                            <div key={period.number} className="periodItem">
-                                <p>{period.name}</p>
-                                <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
-                                <p>{period.shortForecast}</p>
-                                {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
-                                {period.isDaytime ? (
-                                    <div>
-                                        <p>High: {period.temperature} °{period.temperatureUnit}</p>
-                                    </div>) : (
-                                    <p>Low: {period.temperature} °{period.temperatureUnit}</p>)}
-                                <p></p>
+                            <div class="center-data-item">
+                                <strong>Wind Speed:</strong> {this.state.windDirection} {(Math.round(this.state.windSpeed * .621371))} MPH
                             </div>
-                        ))}
+                            <div class="center-data-item">
+                                {/* Convert to inches and round to nearest tenth then convert to millibars */}
+                                <strong>Barometer:</strong> {((this.state.barometricPressure * .0002953).toFixed(2))} in ({(this.state.barometricPressure / 100).toFixed(2)}mb)
+                            </div>
+                            <div class="center-data-item">
+                                <strong>Dewpoint:</strong> {Math.round((this.state.dewpoint * 9 / 5) + 32)}°F ({Math.round(this.state.dewpoint)}°C)
+                            </div>
+                            <div class="center-data-item">
+                                <strong>Visibility:</strong> {(Math.round(this.state.visibility * .000621371).toFixed(2))} mi
+                            </div>
+                            <div class="center-data-item">
+                                <strong>Wind Chill:</strong> { }{Math.round((this.state.windChill * 9 / 5) + 32)}°F ({Math.round(this.state.windChill)}°C)
+                            </div>
+                            <div class="center-data-item">
+                                <strong>Last updated:</strong> {formattedTimestamp}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className='radar'>
-                    <h3>Weather Radar</h3>
-                    {gifRadar && <img src={gifRadar} alt='Weather Radar' />}
+                <div className='Extended-Forecast-container'>
+                    <div className="Extended-Forecast-header">
+                        <div class="ext-fore">
+                            <p>Extended Forecast for</p>
+                            <div class="ext-city-name">
+                                <p> {this.state.city}, {this.state.state}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Render the forecast by mapping the periods */}
+                    <div class="ExFo-container ">
+                        <div className="forecast-card-container">
+                            {this.state.forecastPeriods.slice(0, 8).map((period, index) => (
+                                <div key={period.number} className="periodItem">
+                                    <p>{period.name}</p>
+                                    <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
+                                    <p>{period.shortForecast}</p>
+                                    {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
+                                    {period.isDaytime ? (
+                                        <div>
+                                            <p>High: {period.temperature} °{period.temperatureUnit}</p>
+                                        </div>) : (
+                                        <p>Low: {period.temperature} °{period.temperatureUnit}</p>)}
+                                    <p></p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <div className='RadarContainer'>
+                    <div className='radarHeader'>
+                        <h4>Current Weather Radar</h4>
+                    </div>
+                    <div className='radar'>
+                        {gifRadar && <img src={gifRadar} alt='Weather Radar' />}
+                    </div>
                 </div>
                 {/* Render the detailed forecast by mapping the periods */}
-                <div class="card">
-                    <div className='detailedForecastHeader'>
-                        <h2>Detailed Forecast</h2>
+                <div className='detailedForecastHeader'>
+                    <div className='detailedForecastHeaderStyle'>
+                        <h5>Detailed Forecast</h5>
                     </div>
                     {/* Conditionally set each period to display in different colors */}
                     {this.state.forecastPeriods.map((period, index) => (
                         <div key={period.number}
                             className={index % 2 === 0 ? 'even-item' : 'odd-item'} >
                             <div>
-                                <h2>{period.name}</h2>
+                                <h5>{period.name}</h5>
                                 <p>{period.detailedForecast}</p>
                             </div>
                         </div>
                     ))}
-
                 </div>
-                <div class="card">
-                    <div class="footer">
-                        <div className='modalFooter'>
-                        </div>
-                    </div>
+                <div class="footer">
                     <h6><i>Last Updated on </i></h6>
                     <p>{this.state.now.toString()}</p>
-                    <p class="centered">version 3.0</p>
+                    <p class="centered">version 3.1</p>
                 </div>
             </div>
 
@@ -439,11 +440,7 @@ class CurrentWeather extends React.Component {
         if (this.state.station != null) {
             return (
                 <div id="main">
-                    <div className="WeatherHeader">
-                        <h1>Weather Station</h1>
-                    </div>
-                    <div class="container">
-
+                    <div class="SearchContainer">
                         <div class="cardSearch" >
                             <form >
                                 <input
@@ -451,7 +448,7 @@ class CurrentWeather extends React.Component {
                                     type="text"
                                     id="cName"
                                     name="cName"
-                                    placeholder="Enter City name" />
+                                    placeholder="Enter City Name" />
                                 <button
                                     type="submit"
                                     class="btn-color-theme" onClick={this.searchLocation} >
@@ -466,10 +463,9 @@ class CurrentWeather extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div class="card" >
+                    <div>
                         <WeatherForecast latitude={this.state.station.lat} longitude={this.state.station.lon} />
                     </div>
-
                 </div>
             );
         } else {

@@ -161,7 +161,7 @@ class App extends Component {
                 <div class="spaceFooter">
                     <h6><i>Last Updated on </i></h6>
                     <p>{this.state.now.toString()}</p>
-                    <p class="centered">version 3.0.2</p>
+                    <p class="centered">version 3.1.0</p>
                 </div>
             </div>
 
