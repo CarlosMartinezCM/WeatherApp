@@ -216,13 +216,14 @@
 
 /* Current Weather image, description, F and C temps, and weather items onright side styles*/
 .currentData {
+  
   display: flex;
   justify-content: flex-start;
   margin: 10px;
 }
 
 /* Media query for smaller screens */
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 360px) {
   .currentData {
     flex-direction: column;
     /* Change to column layout for smaller screens */
@@ -231,6 +232,7 @@
 }
 
 .temp-container {
+   font-size: 11px;
   display: flex;
   line-height: .6;
   /* line spacing after each line*/
@@ -239,11 +241,12 @@
 }
 
 .weatherIconSpace {
+  font-size: 11px;
   margin: 10px;
 }
 
 .text-description-font {
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .temp-description-font {
@@ -257,6 +260,7 @@
 
 .locationDatafahrenheit,
 .locationDataCelcius {
+  
   margin-left: 5px;
   margin-right: 50px;
 }

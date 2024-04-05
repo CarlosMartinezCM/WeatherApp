@@ -292,7 +292,7 @@ class WeatherForecast extends React.Component {
                             <div>
                                 {icon && <img src={icon} alt="Weather Icon" />}
                             </div>
-                            <div class="weatherIconSpace">
+                            <div >
                                 <div class="text-description-font">
                                     <p>{this.state.textDescription}</p>
                                 </div>
