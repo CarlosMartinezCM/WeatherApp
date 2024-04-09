@@ -150,12 +150,12 @@ class App extends Component {
                     </div>
                 </div>
                 <div className='spaceWeatherHeader'>
-                    This page will contain gif's of the weather on our Sun.
+                  {/*This page will contain gif's of the weather on our Sun. */}  
                     <div style={{
                         color: 'Blue',        // temp styling
                         fontSize: '16px',
                         fontWeight: 'bold',
-                    }}>Please wait for Gif Generation.</div>
+                    }}> {/* Please wait for Gif Generation. */}  </div>
                     {/* Render the selected GIF */}
                     {gifArray.length > 0 && (
                         <div className='selected-gif-container'>
