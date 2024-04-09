@@ -120,9 +120,8 @@
 /* Styling items under more information*/
 .infoList {
   color: #135897;
-  transition: color 0.3s, box-shadow 0.3s;
   /* Add a transition for smooth animation */
-  box-shadow: 0 2px 4px rgba(2, 179, 191, 0.1);
+  box-shadow: 0 2px 4px rgba(80, 87, 88, 0.1);
 }
 
 .infoList:hover {
@@ -756,22 +755,47 @@ This keeps the mode bar at the bottom*/
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Aurora styles */
+/* Aurora Styling */
 .aurora {
   display: flex;
   flex-wrap: wrap; /* Allow items to wrap to a new row */
-  justify-content: center; /* Center items horizontally */
+  justify-content: space-between; /* Distribute items evenly along the main axis */
   padding: 20px;
+  align-items: center; /* Center items vertically within each row */
   border: 1px solid #ccc;
-  margin: 20px auto; /* Center the card horizontally */
+  margin: 20px auto; /* Center the container horizontally */
   max-width: 75%;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Aurora Styling */
+.aurora {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to a new row */
+  justify-content: space-between; /* Distribute items evenly along the main axis */
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 75%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Aurora items per row */
+.aurora > div {
+  width: calc(50% - 20px); /* Two items per row with 20px gap */
+  margin-bottom: 20px; /* Adjust the margin for spacing */
+  text-align: center; /* Center items horizontally */
+}
+
+/* Style for text below each image */
+.gif-item .infoList {
+  margin-top: 10px; /* Add some space between the image and the text */
+}
+
 /* Aurora img size and spacing */
 .aurora img {
-  flex: 0 0 calc(50% - 20px); /* Two items per row with 20px gap */
   width: 200px;
   /* Set initial width for images */
   margin-right: 20px;

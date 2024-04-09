@@ -11,6 +11,17 @@ class App extends Component {
             now: new Date(),
             gifArray: [],
             selectedGifIndex: 0, // Initialize selectedGifIndex to 0
+            selectedGifUrl: null, // Initialize selected GIF URL to null
+            modalVisible: false, // Initialize modal visibility to false
+            imageUrls: [
+                'https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png',
+                'https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tomorrow_nights_static_viewline_forecast.png',
+                'https://services.swpc.noaa.gov/images/animations/suvi/primary/131/or_suvi-l2-ci131_g16_s20240409T122800Z_e20240409T123200Z_v1-0-1.png',
+                'https://services.swpc.noaa.gov/images/animations/suvi/primary/094/or_suvi-l2-ci094_g16_s20240409T123200Z_e20240409T123600Z_v1-0-1.png',
+                'https://services.swpc.noaa.gov/images/animations/sdo-hmii/20240327_182238_512_HMII.jpg',
+                'https://services.swpc.noaa.gov/images/animations/lasco-c3/20240327_1618_c3_512.jpg',
+                'https://services.swpc.noaa.gov/images/animations/lasco-c2/20240327_1624_c2_512.jpg'
+            ]
         };
     }
 
@@ -18,20 +29,21 @@ class App extends Component {
         this.fetchImageFilenames();
     }
 
+
     fetchImageFilenames = async () => {
         try {
             // Array of URLs to fetch
             const urls = [
-               // 'https://services.swpc.noaa.gov/products/animations/ovation_north_24h.json',
-              //  'https://services.swpc.noaa.gov/products/animations/suvi-secondary-304.json',  //
-               // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-195.json',   // THE SUN (EUV)
-               // 'https://services.swpc.noaa.gov/products/animations/suvi-primary-131.json',        //
-               // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-171.json',    //
-               // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-284.json',  //
-              //  'https://services.swpc.noaa.gov/products/animations/suvi-primary-094.json',
-              //  'https://services.swpc.noaa.gov/products/animations/sdo-hmii.json',
-              //  'https://services.swpc.noaa.gov/products/animations/lasco-c3.json',
-             //   'https://services.swpc.noaa.gov/products/animations/lasco-c2.json',
+                // 'https://services.swpc.noaa.gov/products/animations/ovation_north_24h.json',
+                //  'https://services.swpc.noaa.gov/products/animations/suvi-secondary-304.json',  //
+                // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-195.json',   // THE SUN (EUV)
+                // 'https://services.swpc.noaa.gov/products/animations/suvi-primary-131.json',        //
+                // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-171.json',    //
+                // 'https://services.swpc.noaa.gov/products/animations/suvi-secondary-284.json',  //
+                //  'https://services.swpc.noaa.gov/products/animations/suvi-primary-094.json',
+                //  'https://services.swpc.noaa.gov/products/animations/sdo-hmii.json',
+                //  'https://services.swpc.noaa.gov/products/animations/lasco-c3.json',
+                //   'https://services.swpc.noaa.gov/products/animations/lasco-c2.json',
 
             ];
 
@@ -44,16 +56,19 @@ class App extends Component {
             // Extract image URLs from the JSON data
             const imageUrlsArray = jsonDataArray.map(jsonData => jsonData.map(item => `https://services.swpc.noaa.gov${item.url}`));
 
+            const gif = await this.generateGIF(imageUrlsArray);
+
             // Generate GIFs with the extracted image URLs
-            const gifArray = [];
-            for (const imageUrls of imageUrlsArray) {
-                const gif = await this.generateGIF(imageUrls);
-                gifArray.push(gif);
-                //This will call the handledownload to automatically download the gif to downloads folder. 
-                //this.handleDownload(gif);
-            }
+            /* const gifArray = [];
+             for (const imageUrls of imageUrlsArray) {
+                 const gif = await this.generateGIF(imageUrls);
+                 gifArray.push(gif);
+                 //This will call the handledownload to automatically download the gif to downloads folder. 
+                 //this.handleDownload(gif);
+             }*/
 
             // Now, gifArray contains all the generated GIFs
+            const gifArray = [];
             const numberOfGIFs = gifArray.length;
             console.log(`Number of GIFs: ${numberOfGIFs}`);
             this.setState({ gifArray, progress: 0 });
@@ -65,13 +80,11 @@ class App extends Component {
     //generate Gifs of the sun from the PNGs or jpg
     generateGIF = (imageUrls) => {
         return new Promise((resolve, reject) => {
-
             // Check if there are no images provided
             if (!imageUrls || imageUrls.length === 0) {
                 resolve('No images provided. Skipping GIF generation.');
                 return; // Exit the function
             }
-    
             const options = {
                 images: imageUrls,
                 gifWidth: 800,
@@ -81,7 +94,6 @@ class App extends Component {
                 sampleInterval: 12,
                 progressCallback: (e) => this.setState({ progress: parseInt(e * 100) }),
             };
-
             createGIF(options, (obj) => {
                 if (!obj.error) {
                     console.log('Generated GIF:', obj.image);
@@ -92,8 +104,18 @@ class App extends Component {
                 }
             });
         });
-
     };
+
+    handleImageClick = (imageUrl) => {
+        alert('image clicked');
+        this.generateGIF(imageUrl)
+            .then(gifUrl => {
+                this.setState({ selectedGifUrl: gifUrl, modalVisible: true });
+            })
+            .catch(error => {
+                console.error('Error generating GIF:', error);
+            });
+    }
 
     handleDownload = (gifUrl) => {
         const link = document.createElement('a');
@@ -103,8 +125,7 @@ class App extends Component {
     };
 
     render() {
-        const { progress, gifArray, selectedGifIndex } = this.state;
-
+        const { progress, gifArray, selectedGifIndex, imageUrls, selectedGifUrl, modalVisible } = this.state;
         return (
             <div >
                 <div className='spaceWeatherHeader'>
@@ -112,45 +133,24 @@ class App extends Component {
                 </div>
                 <div >
                     <div className='aurora'>
-                        <img
-                            src='https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png'
-                            alt='NOAA Aurora Dashboard'
-                            style={{ width: '225px' }}
-                        />
-                        <img
-                            src='https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tomorrow_nights_static_viewline_forecast.png'
-                            alt='NOAA Aurora Dashboard'
-                            style={{ width: '225px' }}
-                        />
-                        <img
-                            src='https://services.swpc.noaa.gov/images/animations/suvi/primary/131/or_suvi-l2-ci131_g16_s20240409T122800Z_e20240409T123200Z_v1-0-1.png'
-                            alt='NOAA Suvi131'
-                            style={{ width: '225px' }}
-                        />
-                        <img
-                            src='https://services.swpc.noaa.gov/images/animations/suvi/primary/094/or_suvi-l2-ci094_g16_s20240409T123200Z_e20240409T123600Z_v1-0-1.png'
-                            alt='NOAA Suvi094'
-                            style={{ width: '225px' }}
-                        />
-                        <img
-                            src='https://services.swpc.noaa.gov/images/animations/sdo-hmii/20240327_182238_512_HMII.jpg'
-                            alt='NOAA HMII'
-                            style={{ width: '225px' }}
-                        />
-                        <img
-                            src='https://services.swpc.noaa.gov/images/animations/lasco-c3/20240327_1618_c3_512.jpg'
-                            alt='NOAA Lasco-C3'
-                            style={{ width: '225px' }}
-                        />
-                        <img
-                            src='https://services.swpc.noaa.gov/images/animations/lasco-c2/20240327_1624_c2_512.jpg'
-                            alt='NOAA Lasco-C2'
-                            style={{ width: '225px' }}
-                        />
+                        {imageUrls.map((imageUrl, index) => (
+                            <div key={index} className="gif-item">
+                                <img src={imageUrl} alt={`Image ${index}`} style={{ width: '250px' }} />
+                                <div className='infoList' onClick={() => this.handleImageClick(imageUrl)}>
+                                    Click to view GIF
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
+               
+
+
+
+                {/*Code below was to generate the GIF upon landing on the page. This was very ineffiecient, had to change approach. */}
+
                 <div className='spaceWeatherHeader'>
-                  {/*This page will contain gif's of the weather on our Sun. */}  
+                    {/*This page will contain gif's of the weather on our Sun. */}
                     <div style={{
                         color: 'Blue',        // temp styling
                         fontSize: '16px',
