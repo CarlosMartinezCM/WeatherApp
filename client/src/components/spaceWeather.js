@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createGIF } from 'gifshot';
+import ImageModal from './ImageModal.js';
 //const fs = require('fs');
 
 class App extends Component {
@@ -14,6 +15,9 @@ class App extends Component {
             selectedGifIndex: 0, // Initialize selectedGifIndex to 0
             selectedGifUrl: null, // Initialize selected GIF URL to null
             modalVisible: false, // Initialize modal visibility to false
+            imageUrlsArrayAll: [],
+            selectedImageUrl: null,
+            modalVisible: false,
             imageUrls: [
                 'https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png',
                 'https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tomorrow_nights_static_viewline_forecast.png'
@@ -58,6 +62,11 @@ class App extends Component {
                 }
             });
 
+            // Extract image URLs from the JSON data and store them in an array to access later.
+            const imageUrlsArrayAll = jsonDataArray.map(jsonData => jsonData.map(item => `https://services.swpc.noaa.gov${item.url}`));
+
+            console.log('imageUrlsArrayAll:', imageUrlsArrayAll);
+
             // Filter out any null values (if any)
             const filteredImageUrlsArray = imageUrlsArray.filter(url => url !== null);
 
@@ -69,11 +78,19 @@ class App extends Component {
 
             // Return the updated array
             return imageUrls;
-            
+
         } catch (error) {
             console.error('Error fetching images:', error);
             // Handle error accordingly
         }
+    }
+
+    handleImageClick = (imageUrls) => {
+        this.setState({ selectedImageUrl: imageUrls, modalVisible: true });
+    }
+
+    handleCloseModal = () => {
+        this.setState({ modalVisible: false });
     }
 
     //generate Gifs of the sun from the PNGs or jpg
@@ -105,17 +122,6 @@ class App extends Component {
         });
     };
 
-    handleImageClick = (imageUrl) => {
-        alert('image clicked');
-        this.generateGIF(imageUrl)
-            .then(gifUrl => {
-                this.setState({ selectedGifUrl: gifUrl, modalVisible: true });
-            })
-            .catch(error => {
-                console.error('Error generating GIF:', error);
-            });
-    }
-
     handleDownload = (gifUrl) => {
         const link = document.createElement('a');
         link.href = gifUrl;
@@ -124,7 +130,7 @@ class App extends Component {
     };
 
     render() {
-        const { progress, gifArray, selectedGifIndex, imageUrlsArray, imageUrls } = this.state;
+        const { progress, gifArray, selectedGifIndex, imageUrlsArray, imageUrls, modalVisible, selectedImageUrl } = this.state;
         return (
             <div>
                 <div className='spaceWeatherHeader'>
@@ -132,48 +138,58 @@ class App extends Component {
                 </div>
                 <div>
                     <div className='aurora'>
-                     {/* This prints out the Aurora forecast prediction. */}
-                    {imageUrls && imageUrls.map((imageUrl1, index) => ( // Add null check here
-                            <div key={index} className="gif-item">
-                                <img src={imageUrl1} alt={`Image ${index}`} style={{ width: '250px' }} />
-                                <div className='infoList' onClick={() => this.handleImageClick(imageUrl1)}>
-                                    Click to view image
+                        {/* This prints out the Aurora forecast prediction. */}
+                        {
+                            imageUrls && imageUrls.map((imageUrl1, index) => ( // Add null check here
+                                <div key={index} className="gif-item">
+                                    <img src={imageUrl1} alt={`Image ${index}`} style={{ width: '250px' }} />
+                                    <div className='infoList' onClick={() => this.handleImageClick(imageUrl1)}>
+                                        Click to view image
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))
+                        }
                         {/* This prints out the Suns current images. */}
-                        {imageUrlsArray && imageUrlsArray.map((imageUrls, index) => ( // Add null check here
-                            <div key={index} className="gif-item">
-                                <img src={imageUrls} alt={`Image ${index}`} style={{ width: '250px' }} />
-                                <div className='infoList' onClick={() => this.handleImageClick(imageUrls)}>
-                                    Click to view image
+                        {
+                            imageUrlsArray && imageUrlsArray.map((imageUrls, index) => ( // Add null check here
+                                <div key={index} className="gif-item">
+                                    <img src={imageUrls} alt={`Image ${index}`} style={{ width: '250px' }} />
+                                    <div className='infoList' onClick={() => this.handleImageClick(imageUrls)}>
+                                        Click to view image
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
+                            ))
+                        }
+                    </div >
+                </div >
+                {/* Render the modal or lightbox */}
+                {modalVisible && selectedImageUrl &&
+                    <ImageModal imageUrl={selectedImageUrl} onClose={this.handleCloseModal} />
+                }
                 {/*Code below was to generate the GIF upon landing on the page. This was very ineffiecient, had to change approach. */}
 
-                <div className='spaceWeatherHeader'>
+                < div className='spaceWeatherHeader' >
                     {/*This page will contain gif's of the weather on our Sun. */}
-                    <div style={{
+                    < div style={{
                         color: 'Blue',        // temp styling
                         fontSize: '16px',
                         fontWeight: 'bold',
-                    }}> {/* Please wait for Gif Generation. */}  </div>
+                    }
+                    }> {/* Please wait for Gif Generation. */}  </div >
                     {/* Render the selected GIF */}
-                    {gifArray.length > 0 && (
-                        <div className='selected-gif-container'>
-                            <h3>Selected GIF:</h3>
-                            <h2>THE SUN (EUV):</h2>
-                            <img src={gifArray[selectedGifIndex]} alt={`Selected GIF ${selectedGifIndex}`} />
-                            <br></br>
-                            <div className='infoList'> Aurora Forecast </div>
-                            {/*<div className='infoList' onClick={() => this.handleDownload(selectedGifIndex)}>Download GIF</div >*/}
-                            {/* Add any additional content for the selected GIF */}
-                        </div>
-                    )}
+                    {
+                        gifArray.length > 0 && (
+                            <div className='selected-gif-container'>
+                                <h3>Selected GIF:</h3>
+                                <h2>THE SUN (EUV):</h2>
+                                <img src={gifArray[selectedGifIndex]} alt={`Selected GIF ${selectedGifIndex}`} />
+                                <br></br>
+                                <div className='infoList'> Aurora Forecast </div>
+                                {/*<div className='infoList' onClick={() => this.handleDownload(selectedGifIndex)}>Download GIF</div >*/}
+                                {/* Add any additional content for the selected GIF */}
+                            </div>
+                        )
+                    }
                     <div class="gif-container">
                         {progress !== 0 && <label>Loading... {progress}%</label>}
                         <div className="gif-container">
@@ -186,13 +202,13 @@ class App extends Component {
                             ))}
                         </div>
                     </div>
-                </div>
+                </div >
                 <div class="spaceFooter">
                     <h6><i>Last Updated on </i></h6>
                     <p>{this.state.now.toString()}</p>
                     <p class="centered">version 3.1.0</p>
                 </div>
-            </div>
+            </div >
 
         );
     }

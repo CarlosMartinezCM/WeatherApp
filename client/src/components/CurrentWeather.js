@@ -344,7 +344,9 @@ class WeatherForecast extends React.Component {
                                 <div key={period.number} className="periodItem">
                                     <p>{period.name}</p>
                                     <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
+                                    <div class="shortForecastText">
                                     <p>{period.shortForecast}</p>
+                                    </div>
                                     {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
                                     {period.isDaytime ? (
                                         <div>
