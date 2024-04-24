@@ -86,9 +86,25 @@
 }
 
 .SearchContainer {
-   margin: 20px;
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 50%;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap; /* Allow content to wrap to the next line */
+  align-items: center;
+  width: 50%;
+  border: 1px solid rgb(128, 128, 128); /* Border around the container */
+  border-radius: 5px; /* Border radius */
+  overflow: hidden; /* Clear floats */
+}
+
+.SearchContainer > div {
+  flex: 1;
+}
+
+@media screen and (max-width: 360px) { 
+   .SearchContainer{
+    width: 100%;
+   }
 }
 
 /* The apps search card theme */
@@ -181,7 +197,8 @@
 }
 /* current city heading styles */
 .currentWeatherContainer {
-  margin: 20px;
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 50%;
   border: 1px solid rgb(128, 128, 128); /* Border around the container */
   border-radius: 5px; /* Border radius */
   overflow: hidden; /* Clear floats */
@@ -195,6 +212,18 @@
   text-align: left;
   background-color: #b7b7b7;
   padding: 10px; /* Add padding to create space */
+  gap: 10px;
+}
+
+.current-heading > div {
+  flex: 1;
+  margin-right: 10px;
+}
+
+@media screen and (max-idth:360px) {
+.current-heading  {
+  width: 100%;
+ }
 }
 
 /* current city name styling */
@@ -215,7 +244,6 @@
 
 /* Current Weather image, description, F and C temps, and weather items onright side styles*/
 .currentData {
-  
   display: flex;
   justify-content: flex-start;
   margin: 10px;
@@ -231,25 +259,38 @@
 }
 
 .temp-container {
-   font-size: 11px;
+  font-size: 11px;
   display: flex;
-  line-height: .6;
-  /* line spacing after each line*/
+  flex-wrap: wrap; /* Allow content to wrap to the next line */
   align-items: center;
   width: 50%;
+  margin: 10px;
 }
+
+.temp-container > div {
+  flex: left; /* Make each child div flexible */
+ line-height: .8;
+}
+
+@media screen and (max-width: 768px) {
+  .temp-container {
+    width: 100%; /* Adjust width to fit smaller screens */
+  }
+}
+
 
 .weatherIconSpace {
   font-size: 11px;
   margin: 10px;
 }
 
-.text-description-font {
-  font-size: 12px;
+.text-descriptionContainer {
+  margin: 10px;
 }
 
 .temp-description-font {
   font-size: 30px;
+  font-weight: bold;
 }
 
 .tempDescSpacing {
@@ -360,7 +401,8 @@
   line-height: 1;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   filter: brightness(110%);
-  margin: 20px;
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 50%;
   border: 1px solid rgb(128, 128, 128);
   /* Border around the container */
   border-radius: 5px;
@@ -413,7 +455,8 @@
   line-height: 1;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   filter: brightness(110%);
-  margin: 20px;
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 50%;
   border: 1px solid rgb(128, 128, 128);
   /* Border around the container */
   border-radius: 5px;
@@ -719,7 +762,8 @@ This keeps the mode bar at the bottom*/
 /******************************** Modal forecast ******************************************************/
 /*Styling for navigation options forecast*/
 .ForecastOptions {
-  margin: 20px;
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 50%;
   border: 1px solid rgb(128, 128, 128); /* Border around the container */
   border-radius: 5px; /* Border radius */
   overflow: hidden; /* Clear floats */

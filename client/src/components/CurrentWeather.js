@@ -247,7 +247,7 @@ class WeatherForecast extends React.Component {
                     <div className="ModalForecastText" onClick={() => this.handleForecastClick(this.state.temperature, this.state.temperatureUnit, this.state.icon, this.state.shortForecast)}>
                         <p>7 Day Forecast</p>
                     </div>
-                    {/* Forecast Modal pop up component */}
+                    {/*************** 7 Day Forecast Modal component **********************/}
                     <Modal
                         isOpen={this.state.modalIsOpen}
                         onRequestClose={this.closeModal}
@@ -292,8 +292,8 @@ class WeatherForecast extends React.Component {
                             <div>
                                 {icon && <img src={icon} alt="Weather Icon" />}
                             </div>
-                            <div >
-                                <div class="text-description-font">
+                            <div class="text-descriptionContainer">
+                                <div>
                                     <p>{this.state.textDescription}</p>
                                 </div>
                                 <div class="temp-description-font">
@@ -328,7 +328,7 @@ class WeatherForecast extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className='Extended-Forecast-container'>
+                <div className='currentWeatherContainer'>
                     <div className="Extended-Forecast-header">
                         <div class="ext-fore">
                             <p>Extended Forecast for</p>
@@ -345,7 +345,7 @@ class WeatherForecast extends React.Component {
                                     <p>{period.name}</p>
                                     <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
                                     <div class="shortForecastText">
-                                    <p>{period.shortForecast}</p>
+                                        <p>{period.shortForecast}</p>
                                     </div>
                                     {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
                                     {period.isDaytime ? (
@@ -359,7 +359,7 @@ class WeatherForecast extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className='RadarContainer'>
+                <div className='currentWeatherContainer'>
                     <div className='radarHeader'>
                         <h4>Current Weather Radar</h4>
                     </div>
