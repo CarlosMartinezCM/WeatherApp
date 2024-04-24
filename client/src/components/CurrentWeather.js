@@ -26,6 +26,7 @@ class WeatherForecast extends React.Component {
             alertArea: '',
             baseImageUrl: 'https://radar.weather.gov/ridge/standard/',
             gifRadar: '',
+            errorMessage: '', 
         };
         // Set the app element in the constructor
         Modal.setAppElement('#root'); // Assuming '#root' is the root element of your React app  
@@ -90,7 +91,9 @@ class WeatherForecast extends React.Component {
             });
         } catch (error) {
             console.error('Error fetching data:', error);
-            // Handle the error appropriately, e.g., set a default state or show an error message to the user.
+            this.setState({
+                errorMessage: 'Error fetching weather data. Please refresh the page or try again later.',
+            });
         }
     }
 
@@ -212,7 +215,7 @@ class WeatherForecast extends React.Component {
         const { gifRadar } = this.state;
 
         if (!forecast) {
-            return <div>No data available. Please refresh the page!</div>
+            return <div>{this.state.errorMessage && <p>{this.state.errorMessage}</p>}</div>
         }
         const formattedTimestamp = this.formatTimestamp(this.state.timestamp);
         return (
@@ -220,7 +223,7 @@ class WeatherForecast extends React.Component {
                 <div /*className="weatherAlerts"*/>
                     <h3>{this.state.event}</h3>
                     <div className="warnZone">
-                        <p> </p>
+                        <p> {this.state.errorMessage && <p>{this.state.errorMessage}</p>} </p>
                     </div>
                     <div>
                         <div className="alertText" onClick={() => this.handleAlertClick(this.state.description, this.state.instruction, this.state.area)}>
