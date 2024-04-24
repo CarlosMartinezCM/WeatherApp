@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import gifshot from 'gifshot';
+import ImageModal from './ImageModal.js';
 
 class ImageUploader extends Component {
     constructor(props) {
@@ -9,7 +10,9 @@ class ImageUploader extends Component {
             gifDataUrl: '',
             frameDuration: '',
             customSpeed: '',
-            newValue: ''
+            newValue: '',
+            genGif: null,
+            modalVisible: false, // Initialize modal visibility to false
         };
     }
 
@@ -24,24 +27,33 @@ class ImageUploader extends Component {
                     images: [...prevState.images, event.target.result],
                 }));
             };
-
             reader.readAsDataURL(file);
         });
+
     }
+
+    handleCloseModal = () => {
+        this.setState({ modalVisible: false });
+    }
+
+    handleImageClick = () => {
+        this.setState({ modalVisible: true });
+    }
+
 
     createGif = () => {
         const { customSpeed } = this.state;
         const frameDuration = parseFloat(customSpeed); // Convert customSpeed to a float
         // Check if frameDuration is a positive number
-    if (frameDuration <= 0 || isNaN(frameDuration)) {
-        alert('Please enter a positive number for the speed and clock on Create GIF again.');
-        return; // Exit the function if the speed is not valid
-    }
+        if (frameDuration <= 0 || isNaN(frameDuration)) {
+            alert('Please enter a positive number for the speed and clock on Create GIF again.');
+            return; // Exit the function if the speed is not valid
+        }
 
         gifshot.createGIF({
             images: this.state.images,
-            gifWidth: 200,
-            gifHeight: 200,
+            gifWidth: 600,
+            gifHeight: 600,
             numWorkers: 10,
             frameDuration: frameDuration,
             sampleInterval: 12,
@@ -53,6 +65,7 @@ class ImageUploader extends Component {
     }
 
     render() {
+        const { modalVisible, gifDataUrl } = this.state;
         return (
             <div className='GifContainer'>
                 <input type="file" accept="image/*" multiple onChange={this.handleImageUpload} />
@@ -64,23 +77,28 @@ class ImageUploader extends Component {
                 </div>
                 {this.state.gifDataUrl && (
                     <div>
-                        <img src={this.state.gifDataUrl} alt="Generated GIF" />
+                        <img src={this.state.gifDataUrl} alt="Generated GIF" className="generated-gif" />
                         <a href={this.state.gifDataUrl} download="generated.gif">Download GIF</a>
                     </div>
+
                 )}
                 {/* Input field for custom speed */}
                 <input
                     type="text"
                     value={this.state.customSpeed}
-                    onChange={(e) => {
-                        //Ensure that only positive numbers are allowed
-                        const newValue = e.target.value.replace(/[^0-9.]/g, ''); // Remove non-numeric characters except for dot
-                        this.setState({ customSpeed: e.target.value });
-                    }}
+                    onChange={(e) => this.setState({ customSpeed: e.target.value })
+                    }
                     pattern="[0-9]*" // Accept only numbers
                     placeholder="Enter custom speed (seconds)"
                     className="custom-input" // Apply custom styling class
                 />
+                <div className='infoList' onClick={() => this.handleImageClick(gifDataUrl)}>
+                    Click to view image
+                </div>
+                {/* Render the modal or lightbox */}
+                {modalVisible && gifDataUrl &&
+                    <ImageModal imageUrl={gifDataUrl} onClose={this.handleCloseModal} />
+                }
 
             </div>
         );

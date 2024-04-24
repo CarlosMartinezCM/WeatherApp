@@ -1074,3 +1074,8 @@ This keeps the mode bar at the bottom*/
 .custom-input::placeholder {
   color: #aaa;
 }
+
+.generated-gif {
+  width: 300px;
+  height: 300px;
+}

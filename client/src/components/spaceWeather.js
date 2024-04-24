@@ -14,7 +14,6 @@ class App extends Component {
             imageArray: [],
             selectedGifIndex: 0, // Initialize selectedGifIndex to 0
             selectedGifUrl: null, // Initialize selected GIF URL to null
-            modalVisible: false, // Initialize modal visibility to false
             imageUrlsArrayAll: [],
             selectedImageUrl: null,
             modalVisible: false,
