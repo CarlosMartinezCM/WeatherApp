@@ -668,10 +668,16 @@ This keeps the mode bar at the bottom*/
 
 /******************************** Videos Page******************************************************/
 .videos {
-  max-width: 800px;
-  /* Set a maximum width for larger screens */
-  margin: 0 auto;
-  /* Center the video within its container */
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin: 20px;
+  max-width: 75%;
+  margin: 0 auto;  /* Center the card horizontally */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 600px) {
@@ -696,22 +702,34 @@ This keeps the mode bar at the bottom*/
 
 /******************************** Sites Page******************************************************/
 .sitesHeader {
-  justify-content: center;
-  height: 15vh;
+  align-items: center;
   text-align: center;
-  /* Optional: Center text within the content */
+  justify-content: center;
   padding: 20px;
   border: 1px solid #ccc;
+  margin: 20px;
+  max-width: 75%;
+  margin: 0 auto;
+  /* Center the card horizontally */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.sitesSubHeader {
+.sites{ 
   align-items: center;
-  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin: 20px;
+  max-width: 75%;
+  margin: 0 auto;
+  /* Center the card horizontally */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.sitesSubHeader>div {
+.sites > div {
   flex: 1;
   margin-right: 20px;
   /* Adjust the margin as needed */
