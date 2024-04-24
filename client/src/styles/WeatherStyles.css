@@ -79,10 +79,17 @@
   justify-content: center;
   text-align: center;
   padding: 3px;
+  cursor: pointer;
+  /* Show pointer cursor on hover */
   font-size: 20px;
   transition: color 0.3s, box-shadow 0.3s;
   /* Add a transition for smooth animation */
   box-shadow: 0 2px 4px rgba(2, 179, 191, 0.1);
+}
+
+.siteMap:active,
+.siteMap:hover {
+  color: #616161;
 }
 
 .SearchContainer {
@@ -720,6 +727,7 @@ This keeps the mode bar at the bottom*/
   text-align: center;
   justify-content: center;
   padding: 20px;
+  cursor: pointer; /* Change cursor to pointer */
   border: 1px solid #ccc;
   margin: 20px;
   max-width: 75%;
@@ -734,6 +742,12 @@ This keeps the mode bar at the bottom*/
   margin-right: 20px;
   /* Adjust the margin as needed */
 }
+
+
+.sites:hover {
+  background-color: lightgray; /* Change background color on hover */
+}
+
 
 /* ImageAnimation.css */
 .image-animation-container {
@@ -1023,4 +1037,40 @@ This keeps the mode bar at the bottom*/
   .radar img {
     max-width: 100%; /* Adjust maximum width for smaller screens */
   }
+}
+
+.GifContainer {
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 75%;
+  display: flex;
+  flex-wrap: wrap; /* Allow content to wrap to the next line */
+  align-items: center;
+  width: 75%;
+  border: 1px solid rgb(128, 128, 128); /* Border around the container */
+  border-radius: 5px; /* Border radius */
+  overflow: hidden; /* Clear floats */
+}
+
+.GifContainer > div {
+  flex: 1;
+}
+
+@media screen and (max-width: 360px) { 
+   .GifContainer{
+    width: 100%;
+   }
+}
+/* Custom styling for the input field */
+.custom-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+  width: 300px; /* Adjust width as needed */
+}
+
+/* Styling for the placeholder text */
+.custom-input::placeholder {
+  color: #aaa;
 }

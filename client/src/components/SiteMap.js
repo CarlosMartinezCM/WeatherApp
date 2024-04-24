@@ -17,12 +17,22 @@ class SiteMap extends React.Component {
         return (
             <div >
                 <div class="siteMap">
-                    <div className="siteMap"
-                        onClick={this.props.homeweatherPage} >&nbsp;Weather</div>
-                    <div className="siteMap"
-                        onClick={this.props.Space} >&nbsp;Space Weather</div>
-                    <div className="siteMap"
-                        onClick={this.props.SpaceUrls} >&nbsp;Space Videos</div>
+                    <div class="siteMap">
+                        <div className="sites" onClick={this.props.homeweatherPage}>
+                            &nbsp;Weather
+                        </div>
+                        <div className="sites" onClick={this.props.Space}>
+                            &nbsp;Space Weather
+                        </div>
+                        <div className="sites" onClick={this.props.gif}>
+                            &nbsp;Create a Gif!!
+                        </div>
+                        <div className="sites" onClick={this.props.SpaceUrls}>
+                            &nbsp;Space Videos
+                        </div>
+                        {/* Add more divs here if needed */}
+                    </div>
+
                     {/*<div className="siteMap"
                                 onClick={this.handleChange} >&nbsp;Weather using handle change</div>*/}
                 </div>

@@ -6,6 +6,7 @@ const AppMode = {
   SITEMAP: "SiteMode",
   SPACE: "SpaceMode",
   SPACEURLS: "SpaceUrls",
+  GIF: "CreateGIF",
   OTHERSITE: "OtherSiteMode",
 };
 

@@ -8,6 +8,7 @@ import SiteMap from './SiteMap.js';
 import SPACE from './spaceWeather.js';
 import SPACEURLS from './videos.js';
 import OTHERSITE from './Sites.js';
+import GIF from './createGif.js';
 //import DailyWeather from './DailyWeather.js'; 
 
 const modeTitle = {};
@@ -16,6 +17,7 @@ modeTitle[AppMode.SITEMAP] = "Site Map!!!";
 modeTitle[AppMode.OTHERSITE] = "Other Sites!!!";
 modeTitle[AppMode.SPACE] = "Space Weather!!!";
 modeTitle[AppMode.SPACEURLS] = "Space Videos!!!";
+modeTitle[AppMode.GIF] = "Create Gifs!!!";
 //modeTitle[AppMode.DAILYWEATHER] = "Daily Weather!!!";
 
 const modeToPage = {};
@@ -24,6 +26,7 @@ modeToPage[AppMode.SITEMAP] = SiteMap;
 modeToPage[AppMode.OTHERSITE] = OTHERSITE;
 modeToPage[AppMode.SPACE] = SPACE;
 modeToPage[AppMode.SPACEURLS] = SPACEURLS;
+modeToPage[AppMode.GIF] = GIF;
 //modeToPage[AppMode.DAILYWEATHER] = DailyWeather;
 
 class App extends React.Component {
@@ -87,6 +90,7 @@ class App extends React.Component {
                     OtherSiteMode={() => this.handleChangeMode(AppMode.OTHERSITE)}
                     Space={() => this.handleChangeMode(AppMode.SPACE)}
                     SpaceUrls={() => this.handleChangeMode(AppMode.SPACEURLS)}
+                    gif={() => this.handleChangeMode(AppMode.GIF)}
                     showAbout={this.toggleAbout}
                 />
                 <ModeBar
@@ -103,6 +107,7 @@ class App extends React.Component {
                     OtherSiteMode={() => this.handleChangeMode(AppMode.OTHERSITE)}
                     Space={() => this.handleChangeMode(AppMode.SPACE)}
                     SpaceUrls={() => this.handleChangeMode(AppMode.SPACEURLS)}
+                    gif={() => this.handleChangeMode(AppMode.GIF)}
                     showAbout={this.toggleAbout}
                 />
             </div>
