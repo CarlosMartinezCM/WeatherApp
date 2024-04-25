@@ -1,75 +1,98 @@
-import React, { useState } from "react";
+import React from "react";
+import AppMode from "./../AppMode";
 
-const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
+class contactMe extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      formData: {
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
+      }
+    };
+  }
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState(prevState => ({
+      formData: {
+        ...prevState.formData,
+        [name]: value
+      }
+    }));
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission (send email)
-    // You can send formData to your server-side script here
-    console.log(formData);
-    // Reset form after submission
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: ""
+  handleSubmit = (event) => {
+    event.preventDefault();
+    // You can perform any action with the form data here, such as sending it to a server
+    console.log("Form submitted:", this.state.formData);
+    // Clear the form after submission
+    this.setState({
+      formData: {
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
+      }
     });
-  };
+  }
 
-  return (
-    <form onSubmit={handleSubmit}>
+  render() {
+    const { formData } = this.state;
+    return (
       <div>
-        <label>Name:</label>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+        <div className='spaceWeatherHeader'> 
+        <h1>This Page is under construction!!</h1>
+        </div>
+      <div class="videos">
+        <form onSubmit={this.handleSubmit}>
+          <div >
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={this.handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={this.handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Subject:</label>
+            <input
+              type="text"
+              name="subject"
+              value={formData.subject}
+              onChange={this.handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Message:</label>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={this.handleChange}
+              required
+            />
+          </div>
+          <button type="submit">Send Message</button>
+        </form>
       </div>
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
       </div>
-      <div>
-        <label>Subject:</label>
-        <input
-          type="text"
-          name="subject"
-          value={formData.subject}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Message:</label>
-        <textarea
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <button type="submit">Send Message</button>
-    </form>
-  );
-};
+    )
+  }
+}
 
-export default ContactForm;
+export default contactMe;

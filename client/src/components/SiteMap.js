@@ -40,7 +40,4 @@ class SiteMap extends React.Component {
     }
 }
 
-
-
-
 export default SiteMap;

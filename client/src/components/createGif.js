@@ -52,8 +52,8 @@ class ImageUploader extends Component {
 
         gifshot.createGIF({
             images: this.state.images,
-            gifWidth: 600,
-            gifHeight: 600,
+            gifWidth: 800,
+            gifHeight: 800,
             numWorkers: 10,
             frameDuration: frameDuration,
             sampleInterval: 12,
@@ -76,6 +76,9 @@ class ImageUploader extends Component {
                 </div>
                 {/* Input field for custom speed */}
                 <div className='customSpeed'>
+                    <p>The custom speed allows you to enter the speed you would
+                    like your GIF to play at. The lower the number i.e. .01, .1, .5, 
+                    the faster the GIF will play. <br></br>Have FUN!! </p>
                     <input
                         type="text"
                         value={this.state.customSpeed}
@@ -105,9 +108,10 @@ class ImageUploader extends Component {
                     </div>
                 )}
                 {this.state.gifDataUrl && (
-                    <div><div className='expandGIFtext' onClick={() => this.handleImageClick(gifDataUrl)}>
-                        Click to expand Gif
-                    </div>
+                    <div>
+                        <div className='expandGIFtext' onClick={() => this.handleImageClick(gifDataUrl)}>
+                            Click to expand Gif
+                        </div>
                         <img src={this.state.gifDataUrl} alt="Generated GIF" className="generated-gif" />
                         <a href={this.state.gifDataUrl} download="generated.gif"><br></br>Download GIF</a>
 
