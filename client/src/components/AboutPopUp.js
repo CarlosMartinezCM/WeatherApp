@@ -1,5 +1,5 @@
 // Modal for about pop up
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 class AboutPopUp extends React.Component {
 
@@ -12,7 +12,7 @@ class AboutPopUp extends React.Component {
 
     return (
       <div className="modal" role="dialog">
-        <div className="modal-content">
+        <div className="about-modal-content">
           <div className='modal-header'>
             <p className='modal-title'>About</p>
             <button id='modalClose' className='close' onClick={this.props.hideAbout}>
@@ -20,14 +20,19 @@ class AboutPopUp extends React.Component {
           </div>
           <div className='modalBody'>
             <center>
-              <h1>Weather Application using ReactJS.</h1>
+              <h1>Weather Application using React.js</h1>
               <p>Static site deployed on Vercel from GitHub.</p>
-              <p style={{ fontStyle: "italic" }}>Version 3.1; Weather Forecast Project</p>
+              <p>Weather Forecast and Gif generator!!</p>
               <div>
                 <p>My name is Carlos Martinez</p>
+                <p>You can check out the code and other projects at</p>
+                <a href="https://github.com/CarlosMartinezCM?tab=repositories" target="_blank" rel="noopener noreferrer">
+                  My GitHub Repo
+                </a>
+                <p style={{ fontStyle: "italic" }}><br></br>Version 3.4 </p>
               </div>
             </center>
-            <div className='modalFooter'>
+            <div className='modal-footer'>
               <button className='modal-submit-btn' onClick={this.props.hideAbout}>close</button>
             </div>
           </div>
@@ -35,8 +40,5 @@ class AboutPopUp extends React.Component {
       </div>
     );
   }
-
-
 }
-
 export default AboutPopUp;

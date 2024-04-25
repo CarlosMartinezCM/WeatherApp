@@ -161,7 +161,7 @@ class App extends Component {
                         }
                     </div >
                 </div >
-                {/* Render the modal or lightbox */}
+                {/* Render the modal*/}
                 {modalVisible && selectedImageUrl &&
                     <ImageModal imageUrl={selectedImageUrl} onClose={this.handleCloseModal} />
                 }

@@ -68,37 +68,51 @@ class ImageUploader extends Component {
         const { modalVisible, gifDataUrl } = this.state;
         return (
             <div className='GifContainer'>
-                <input type="file" accept="image/*" multiple onChange={this.handleImageUpload} />
-                <button onClick={() => this.createGif(this.state.frameDuration)}>Create GIF</button>
+                <div className="file-input-container">
+                    <label htmlFor="file-input" className="file-input-label">
+                        <span>Choose Files</span>
+                        <input type="file" id="file-input" accept="image/*" multiple onChange={this.handleImageUpload} />
+                    </label>
+                </div>
+                {/* Input field for custom speed */}
+                <div className='customSpeed'>
+                    <input
+                        type="text"
+                        value={this.state.customSpeed}
+                        onChange={(e) => this.setState({ customSpeed: e.target.value })}
+                        pattern="[0-9]*" // Accept only numbers
+                        placeholder="Enter custom speed (seconds)"
+                        className="custom-input" // Apply custom styling class
+                    />
+                    <div>
+                        <div className="generated-gif">
+                            {/* "Create GIF" button */}
+                            <button onClick={() => this.createGif(this.state.frameDuration)}>Create GIF</button>
+                        </div>
+                    </div>
+                </div>
                 <div>
                     {this.state.images.map((imageUrl, index) => (
                         <img key={index} src={imageUrl} alt={`Uploaded ${index}`} style={{ width: '100px', height: '100px', margin: '5px' }} />
                     ))}
                 </div>
-                {this.state.gifDataUrl && (
-                    <div>
-                        <img src={this.state.gifDataUrl} alt="Generated GIF" className="generated-gif" />
-                        <a href={this.state.gifDataUrl} download="generated.gif">Download GIF</a>
+                {/* Render the modal */}
+                {modalVisible && gifDataUrl && (
+                    <div className="modal-container">
+                        <div className="modal-content">
+                            <ImageModal imageUrl={gifDataUrl} onClose={this.handleCloseModal} />
+                        </div>
                     </div>
-
                 )}
-                {/* Input field for custom speed */}
-                <input
-                    type="text"
-                    value={this.state.customSpeed}
-                    onChange={(e) => this.setState({ customSpeed: e.target.value })
-                    }
-                    pattern="[0-9]*" // Accept only numbers
-                    placeholder="Enter custom speed (seconds)"
-                    className="custom-input" // Apply custom styling class
-                />
-                <div className='infoList' onClick={() => this.handleImageClick(gifDataUrl)}>
-                    Click to view image
-                </div>
-                {/* Render the modal or lightbox */}
-                {modalVisible && gifDataUrl &&
-                    <ImageModal imageUrl={gifDataUrl} onClose={this.handleCloseModal} />
-                }
+                {this.state.gifDataUrl && (
+                    <div><div className='expandGIFtext' onClick={() => this.handleImageClick(gifDataUrl)}>
+                        Click to expand Gif
+                    </div>
+                        <img src={this.state.gifDataUrl} alt="Generated GIF" className="generated-gif" />
+                        <a href={this.state.gifDataUrl} download="generated.gif"><br></br>Download GIF</a>
+
+                    </div>
+                )}
 
             </div>
         );
