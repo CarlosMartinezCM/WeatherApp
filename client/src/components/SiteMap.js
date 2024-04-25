@@ -30,11 +30,10 @@ class SiteMap extends React.Component {
                         <div className="sites" onClick={this.props.SpaceUrls}>
                             &nbsp;Space Videos
                         </div>
-                        {/* Add more divs here if needed */}
+                        <div className="sites" onClick={this.props.contactMe}>
+                            &nbsp;Contact Me
+                        </div>
                     </div>
-
-                    {/*<div className="siteMap"
-                                onClick={this.handleChange} >&nbsp;Weather using handle change</div>*/}
                 </div>
             </div>
         )

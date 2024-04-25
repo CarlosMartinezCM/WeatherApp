@@ -9,6 +9,7 @@ import SPACE from './spaceWeather.js';
 import SPACEURLS from './videos.js';
 import OTHERSITE from './Sites.js';
 import GIF from './createGif.js';
+import CONTACTME from './contactMe.js';
 //import DailyWeather from './DailyWeather.js'; 
 
 const modeTitle = {};
@@ -18,7 +19,7 @@ modeTitle[AppMode.OTHERSITE] = "Other Sites!!!";
 modeTitle[AppMode.SPACE] = "Space Weather!!!";
 modeTitle[AppMode.SPACEURLS] = "Space Videos!!!";
 modeTitle[AppMode.GIF] = "Create Gifs!!!";
-//modeTitle[AppMode.DAILYWEATHER] = "Daily Weather!!!";
+modeTitle[AppMode.CONTACTME] = "Contact Me!!!";
 
 const modeToPage = {};
 modeToPage[AppMode.WEATHER] = CurrentWeather;
@@ -27,7 +28,7 @@ modeToPage[AppMode.OTHERSITE] = OTHERSITE;
 modeToPage[AppMode.SPACE] = SPACE;
 modeToPage[AppMode.SPACEURLS] = SPACEURLS;
 modeToPage[AppMode.GIF] = GIF;
-//modeToPage[AppMode.DAILYWEATHER] = DailyWeather;
+modeToPage[AppMode.CONTACTME] = CONTACTME;
 
 class App extends React.Component {
     constructor() {
@@ -91,6 +92,7 @@ class App extends React.Component {
                     Space={() => this.handleChangeMode(AppMode.SPACE)}
                     SpaceUrls={() => this.handleChangeMode(AppMode.SPACEURLS)}
                     gif={() => this.handleChangeMode(AppMode.GIF)}
+                    contactMe={() => this.handleChangeMode(AppMode.CONTACTME)}
                     showAbout={this.toggleAbout}
                 />
                 <ModeBar
@@ -108,6 +110,7 @@ class App extends React.Component {
                     Space={() => this.handleChangeMode(AppMode.SPACE)}
                     SpaceUrls={() => this.handleChangeMode(AppMode.SPACEURLS)}
                     gif={() => this.handleChangeMode(AppMode.GIF)}
+                    contactMe={() => this.handleChangeMode(AppMode.CONTACTME)}
                     showAbout={this.toggleAbout}
                 />
             </div>

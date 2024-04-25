@@ -4,7 +4,9 @@
 import React from 'react';
 import AppMode from "./../AppMode";
 import Modal from 'react-modal';
+import ImageModal from './ImageModal.js';
 require('dotenv').config();
+
 
 class WeatherForecast extends React.Component {
     constructor(props) {
@@ -26,7 +28,8 @@ class WeatherForecast extends React.Component {
             alertArea: '',
             baseImageUrl: 'https://radar.weather.gov/ridge/standard/',
             gifRadar: '',
-            errorMessage: '', 
+            errorMessage: '',
+            modalVisible: false, // Initialize modal visibility to false
         };
         // Set the app element in the constructor
         Modal.setAppElement('#root'); // Assuming '#root' is the root element of your React app  
@@ -208,11 +211,16 @@ class WeatherForecast extends React.Component {
         });
     };
 
+    handleCloseImageModal = () => {
+        this.setState({ modalVisible: false });
+    }
+
+    handleImageClick = () => {
+        this.setState({ modalVisible: true });
+    }
     //adding weather alerts, if true display, else skip
     render() {
-        const { icon } = this.state;
-        const { forecast } = this.state;
-        const { gifRadar } = this.state;
+        const { icon, modalVisible, forecast, gifRadar } = this.state;
 
         if (!forecast) {
             return <div>{this.state.errorMessage && <p>{this.state.errorMessage}</p>}</div>
@@ -367,9 +375,18 @@ class WeatherForecast extends React.Component {
                         <h4>Current Weather Radar</h4>
                     </div>
                     <div className='radar'>
-                        {gifRadar && <img src={gifRadar} alt='Weather Radar' />}
+                    <img
+                        src={this.state.gifRadar} // Assuming the image is at index 0
+                        alt="Weather Radar"
+                        // Add cursor style for indicating clickability
+                        onClick={() => this.handleImageClick(this.state.gifRadar)} // Attach onClick event handler
+                    />
                     </div>
                 </div>
+                {/* Render the modal */}
+                {modalVisible && gifRadar &&
+                    <ImageModal imageUrl={gifRadar} onClose={this.handleCloseImageModal} />
+                }
                 {/* Render the detailed forecast by mapping the periods */}
                 <div className='detailedForecastHeader'>
                     <div className='detailedForecastHeaderStyle'>

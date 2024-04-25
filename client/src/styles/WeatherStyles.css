@@ -1020,6 +1020,7 @@ This keeps the mode bar at the bottom*/
   width: 100%; /* Set initial width to 100% */
   max-width: fit-content; /* Set maximum width to fit the content */
   margin: 0 auto; /* Center the card horizontally */
+  cursor: pointer; 
 }
 
 .radar img {

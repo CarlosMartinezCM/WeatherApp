@@ -8,6 +8,7 @@ const AppMode = {
   SPACEURLS: "SpaceUrls",
   GIF: "CreateGIF",
   OTHERSITE: "OtherSiteMode",
+  CONTACTME: "contactMe",
 };
 
 Object.freeze(AppMode);  // Ensuring the object is immutable
