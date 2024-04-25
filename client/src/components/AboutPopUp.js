@@ -24,8 +24,7 @@ class AboutPopUp extends React.Component {
               <p>Static site deployed on Vercel from GitHub.</p>
               <p>Weather Forecast and Gif generator!!</p>
               <div>
-                <p>My name is Carlos Martinez</p>
-                <p>You can check out the code and other projects at</p>
+                <p>You can check out my code for this and other projects at</p>
                 <a href="https://github.com/CarlosMartinezCM?tab=repositories" target="_blank" rel="noopener noreferrer">
                   My GitHub Repo
                 </a>

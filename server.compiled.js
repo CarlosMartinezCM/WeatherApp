@@ -8,6 +8,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var express = require('express');
 var cors = require('cors');
 var fetch = require('node-fetch');
+var bodyParser = require('body-parser');
+var nodemailer = require('nodemailer');
 //require('dotenv').config();
 var PORT = process.env.HTTP_PORT || 8081;
 var app = express();
@@ -58,4 +60,47 @@ app.get('/images', /*#__PURE__*/function () {
 }());
 app.listen(port, function () {
   console.log("Proxy server is running on http://localhost:".concat(port));
+});
+
+// Middleware for parsing JSON and URL-encoded form data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+// Route for handling form submissions
+app.post('/contact', function (req, res) {
+  var _req$body = req.body,
+    name = _req$body.name,
+    email = _req$body.email,
+    subject = _req$body.subject,
+    message = _req$body.message;
+
+  // Configure nodemailer to send email
+  var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'your_email@gmail.com',
+      pass: 'your_email_password'
+    }
+  });
+
+  // Email content
+  var mailOptions = {
+    from: email,
+    to: 'your_email@gmail.com',
+    subject: subject,
+    text: "Name: ".concat(name, "\nEmail: ").concat(email, "\nMessage: ").concat(message)
+  };
+
+  // Send email
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+      res.status(500).send('Error sending email');
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.status(200).send('Email sent successfully');
+    }
+  });
 });
