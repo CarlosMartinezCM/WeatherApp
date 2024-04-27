@@ -27,6 +27,7 @@ class contactMe extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     // You can perform any action with the form data here, such as sending it to a server
+    alert("Form submitted, feature in the works");
     console.log("Form submitted:", this.state.formData);
     // Clear the form after submission
     this.setState({

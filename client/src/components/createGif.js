@@ -68,6 +68,9 @@ class ImageUploader extends Component {
         const { modalVisible, gifDataUrl } = this.state;
         return (
             <div className='GifContainer'>
+                 <div className='gifHeader'>
+                    <h3>Create a video clip by uploading image files</h3>
+                </div>
                 <div className="file-input-container">
                     <label htmlFor="file-input" className="file-input-label">
                         <span>Choose Files</span>
@@ -90,7 +93,7 @@ class ImageUploader extends Component {
                     <div>
                         <div className="generated-gif">
                             {/* "Create GIF" button */}
-                            <button onClick={() => this.createGif(this.state.frameDuration)}>Create GIF</button>
+                            <button onClick={() => this.createGif(this.state.frameDuration)}>Create SlideShow/GIF</button>
                         </div>
                     </div>
                 </div>
@@ -110,7 +113,7 @@ class ImageUploader extends Component {
                 {this.state.gifDataUrl && (
                     <div>
                         <div className='expandGIFtext' onClick={() => this.handleImageClick(gifDataUrl)}>
-                            Click to expand Gif
+                            Click to expand slideShow/GIF
                         </div>
                         <img src={this.state.gifDataUrl} alt="Generated GIF" className="generated-gif" />
                         <a href={this.state.gifDataUrl} download="generated.gif"><br></br>Download GIF</a>

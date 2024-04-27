@@ -25,7 +25,7 @@ class NavBar extends React.Component {
                     <div div class='navOptionsTop-but' type="submit"
                         onClick={this.props.Space} >&nbsp;Space Weather</div>
                     <div className="navOptionsTop-but"
-                        onClick={this.props.gif} >&nbsp;Create a Gif</div>
+                        onClick={this.props.gif} >&nbsp;Create GIF</div>
                     <div div class='navOptionsTop-but' type="submit"
                         onClick={this.props.OtherSiteMode} >&nbsp;Other Sites</div>
                 </div>
