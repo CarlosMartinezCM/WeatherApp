@@ -10,6 +10,7 @@ class otherSites extends React.Component {
                 { name: 'Stars Chrome Expirements', url: 'https://stars.chromeexperiments.com/' },
                 { name: 'Zoom Earth Radar', url: 'https://zoom.earth/maps/satellite/#view=39.4,-119.4,6z/overlays=radar' },
                 { name: 'NWS Radar', url: 'https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOm51bGwsImNlbnRlciI6Wy05NSwzN10sImxvY2F0aW9uIjpudWxsLCJ6b29tIjo0fSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5IjpmYWxzZSwib3BhY2l0eSI6eyJhbGVydHMiOjAuOCwibG9jYWwiOjAuNiwibG9jYWxTdGF0aW9ucyI6MC44LCJuYXRpb25hbCI6MC42fX0%3D' },
+                {name: 'My 90s TV!', url: 'https://90s.myretrotvs.com/#mJSyXqBKVpY' },
             ],
             dataSites: [
                 { name: 'NOAA API', url: 'https://www.weather.gov/documentation/services-web-api' },

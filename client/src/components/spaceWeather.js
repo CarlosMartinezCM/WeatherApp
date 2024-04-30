@@ -51,7 +51,8 @@ class App extends Component {
             // Extract JSON data from each response
             const jsonDataArray = await Promise.all(responses.map(response => response.json()));
 
-            // Extract the first image URL from each JSON data
+
+            /************** Extract the FIRST image URL from each JSON data to show on the landing page****************/
             const imageUrlsArray = jsonDataArray.map(jsonData => {
                 const firstItem = jsonData[0]; // Use [0] to get the first item from the URL 
                 if (firstItem) {
