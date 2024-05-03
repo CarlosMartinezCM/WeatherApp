@@ -51,7 +51,6 @@ class App extends Component {
             // Extract JSON data from each response
             const jsonDataArray = await Promise.all(responses.map(response => response.json()));
 
-
             /************** Extract the FIRST image URL from each JSON data to show on the landing page****************/
             const imageUrlsArray = jsonDataArray.map(jsonData => {
                 const firstItem = jsonData[0]; // Use [0] to get the first item from the URL 
@@ -66,6 +65,8 @@ class App extends Component {
             const imageUrlsArrayAll = jsonDataArray.map(jsonData => jsonData.map(item => `https://services.swpc.noaa.gov${item.url}`));
 
             console.log('imageUrlsArrayAll:', imageUrlsArrayAll);
+
+
 
             // Filter out any null values (if any)
             const filteredImageUrlsArray = imageUrlsArray.filter(url => url !== null);
@@ -92,6 +93,8 @@ class App extends Component {
     handleCloseModal = () => {
         this.setState({ modalVisible: false });
     }
+
+
 
     //generate Gifs of the sun from the PNGs or jpg
     generateGIF = (imageUrls) => {
@@ -162,10 +165,12 @@ class App extends Component {
                         }
                     </div >
                 </div >
+
                 {/* Render the modal*/}
                 {modalVisible && selectedImageUrl &&
                     <ImageModal imageUrl={selectedImageUrl} onClose={this.handleCloseModal} />
                 }
+
                 {/*Code below was to generate the GIF upon landing on the page. This was very ineffiecient, had to change approach. */}
 
                 < div className='spaceWeatherHeader' >
