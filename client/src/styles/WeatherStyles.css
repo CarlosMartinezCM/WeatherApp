@@ -94,11 +94,10 @@
 
 .SearchContainer {
   margin: 20px auto; /* Center the container horizontally */
-  max-width: 75%;
+  max-width: 85%;
   display: flex;
   flex-wrap: wrap; /* Allow content to wrap to the next line */
   align-items: center;
-  width: 75%;
   border: 1px solid rgb(128, 128, 128); /* Border around the container */
   border-radius: 5px; /* Border radius */
   overflow: hidden; /* Clear floats */
@@ -206,7 +205,7 @@
 /* current city heading styles */
 .currentWeatherContainer {
   margin: 20px auto; /* Center the container horizontally */
-  max-width: 75%;
+  max-width: 85%;
   border: 1px solid rgb(128, 128, 128); /* Border around the container */
   border-radius: 5px; /* Border radius */
   overflow: hidden; /* Clear floats */
@@ -410,7 +409,7 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   filter: brightness(110%);
   margin: 20px auto; /* Center the container horizontally */
-  max-width: 75%;
+  max-width: 85%;
   border: 1px solid rgb(128, 128, 128);
   /* Border around the container */
   border-radius: 5px;
@@ -464,7 +463,7 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   filter: brightness(110%);
   margin: 20px auto; /* Center the container horizontally */
-  max-width: 75%;
+  max-width: 85%;
   border: 1px solid rgb(128, 128, 128);
   /* Border around the container */
   border-radius: 5px;
@@ -580,8 +579,6 @@ This keeps the mode bar at the bottom*/
   }
 }
 
-
-
 /* Styling for the About header*/
 .modal-header {
   padding: 2px 16px;
@@ -602,6 +599,12 @@ This keeps the mode bar at the bottom*/
   display: flex;
   justify-content: center; /* Center content horizontally */
   align-items: center; /* Center content vertically */
+  margin: auto;
+  margin-bottom: 20px; /* Adjust the value as needed */
+}
+.expanded-image {
+  width: 75%; /* Set the width to 100% to make the image expand to the full width of the modal */
+  height: auto; /* Maintain aspect ratio */
 }
 
 .close {
@@ -676,7 +679,7 @@ This keeps the mode bar at the bottom*/
   padding: 20px;
   border: 1px solid #ccc;
   margin: 20px;
-  max-width: 75%;
+  max-width: 85%;
   margin: 0 auto;  /* Center the card horizontally */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -710,7 +713,7 @@ This keeps the mode bar at the bottom*/
   padding: 20px;
   border: 1px solid #ccc;
   margin: 20px;
-  max-width: 75%;
+  max-width: 85%;
   margin: 0 auto;
   /* Center the card horizontally */
   border-radius: 8px;
@@ -725,7 +728,7 @@ This keeps the mode bar at the bottom*/
   cursor: pointer; /* Change cursor to pointer */
   border: 1px solid #ccc;
   margin: 20px;
-  max-width: 75%;
+  max-width: 85%;
   margin: 0 auto;
   /* Center the card horizontally */
   border-radius: 8px;
@@ -738,11 +741,12 @@ This keeps the mode bar at the bottom*/
   /* Adjust the margin as needed */
 }
 
-
-.sites:hover {
-  background-color: lightgray; /* Change background color on hover */
+header {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
 }
-
 
 /* ImageAnimation.css */
 .image-animation-container {
@@ -790,7 +794,7 @@ This keeps the mode bar at the bottom*/
 /*Styling for navigation options forecast*/
 .ForecastOptions {
   margin: 20px auto; /* Center the container horizontally */
-  max-width: 75%;
+  max-width: 85%;
   border: 1px solid rgb(128, 128, 128); /* Border around the container */
   border-radius: 5px; /* Border radius */
   overflow: hidden; /* Clear floats */
@@ -854,7 +858,7 @@ This keeps the mode bar at the bottom*/
   padding: 20px;
   border: 1px solid #ccc;
   margin: 20px;
-  max-width: 75%;
+  max-width: 85%;
   margin: 0 auto;
   /* Center the card horizontally */
   border-radius: 8px;
@@ -870,20 +874,7 @@ This keeps the mode bar at the bottom*/
   align-items: center; /* Center items vertically within each row */
   border: 1px solid #ccc;
   margin: 20px auto; /* Center the container horizontally */
-  max-width: 75%;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Aurora Styling */
-.aurora {
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to a new row */
-  justify-content: space-between; /* Distribute items evenly along the main axis */
-  padding: 20px;
-  border: 1px solid #ccc;
-  margin: 20px auto; /* Center the container horizontally */
-  max-width: 75%;
+  max-width: 85%;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -939,7 +930,7 @@ This keeps the mode bar at the bottom*/
   justify-content: center;
   /* Center items horizontally */
   margin: 20px;
-  max-width: 75%;
+  max-width: 85%;
   margin: 0 auto;
   /* Center the card horizontally */
   border-radius: 8px;
@@ -963,7 +954,7 @@ This keeps the mode bar at the bottom*/
   padding: 20px;
   border: 1px solid #ccc;
   margin: 20px;
-  max-width: 75%;
+  max-width: 85%;
   margin: 0 auto;
   /* Center the card horizontally */
   border-radius: 8px;
@@ -998,7 +989,7 @@ This keeps the mode bar at the bottom*/
 
 .radarHeader h4 {
   margin: 0 auto;
-  max-width: 75%;
+  max-width: 85%;
   font-size: 20px;
   /* Change font size */
   font-weight: bold;
@@ -1030,8 +1021,6 @@ This keeps the mode bar at the bottom*/
     max-width: 100%; /* Adjust maximum width for smaller screens */
   }
 }
-
-
 
 .custom-input {
   width: 100%; /* Make the input field full-width */
@@ -1066,7 +1055,7 @@ button {
   padding: 20px;
   border: 1px solid #ccc;
   margin: 20px auto; /* Center the container horizontally */
-  max-width: 75%;
+  max-width: 85%;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

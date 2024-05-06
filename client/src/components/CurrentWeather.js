@@ -383,7 +383,7 @@ class WeatherForecast extends React.Component {
                     />
                     </div>
                 </div>
-                {/* Render the modal */}
+                {/***************************Render radar the modal ***************************/}
                 {modalVisible && gifRadar &&
                     <ImageModal imageUrl={gifRadar} onClose={this.handleCloseImageModal} />
                 }

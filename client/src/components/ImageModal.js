@@ -11,7 +11,9 @@ class ImageModal extends React.Component {
                             <p className='modal-title'></p>
                             <button className="close" onClick={onClose}>&times;</button>
                         </div>
-                        <img src={imageUrl} alt="Image" />
+                        <img 
+                                className='expanded-image'
+                                src={imageUrl} alt="Image" />
                     </div>
                     <div className='modal-footer'>
                         <button className='modal-submit-btn' onClick={onClose}>close</button>

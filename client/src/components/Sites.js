@@ -27,7 +27,7 @@ class otherSites extends React.Component {
                     <h1>More Information</h1>
                 </div>
                 <div className="sites">
-                    <div>
+                    <div >
                         <h3>Cool Websites</h3>
                         <div>
                             <ul>
@@ -42,7 +42,7 @@ class otherSites extends React.Component {
                             </ul>
                         </div>
                     </div>
-                    <div>
+                    <div >
                         <h3>Data site</h3>
                         <div>
                             <ul>

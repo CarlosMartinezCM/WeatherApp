@@ -61,12 +61,10 @@ class App extends Component {
                 }
             });
 
-            // Extract image URLs from the JSON data and store them in an array to access later.
+            // Extract image URLs from the JSON data and store them in imageUrlsArrayAll array to create the GIFs
             const imageUrlsArrayAll = jsonDataArray.map(jsonData => jsonData.map(item => `https://services.swpc.noaa.gov${item.url}`));
 
             console.log('imageUrlsArrayAll:', imageUrlsArrayAll);
-
-
 
             // Filter out any null values (if any)
             const filteredImageUrlsArray = imageUrlsArray.filter(url => url !== null);
@@ -195,7 +193,7 @@ class App extends Component {
                             </div>
                         )
                     }
-                    <div class="gif-container">
+                    {/* <div class="gif-container">
                         {progress !== 0 && <label>Loading... {progress}%</label>}
                         <div className="gif-container">
                             {gifArray.map((gif, index) => (
@@ -206,7 +204,7 @@ class App extends Component {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </div> */}
                 </div >
                 <div class="spaceFooter">
                     <h6><i>Last Updated on </i></h6>
