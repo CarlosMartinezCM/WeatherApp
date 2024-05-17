@@ -10,7 +10,6 @@ import SPACEURLS from './videos.js';
 import OTHERSITE from './Sites.js';
 import GIF from './createGif.js';
 import CONTACTME from './contactMe.js';
-//import DailyWeather from './DailyWeather.js'; 
 
 const modeTitle = {};
 modeTitle[AppMode.WEATHER] = "Current Weather!!";
@@ -41,25 +40,24 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        window.addEventListener('beforeunload', this.saveModeToLocalStorage); // Save mode to localStorage before refresh
-       // window.addEventListener('unload', this.clearLocalStorage); // Clear mode from localStorage on browser close
+        window.addEventListener('beforeunload', this.saveModeToLocalStorage);
+        window.addEventListener('unload', this.clearLocalStorage);
     }
 
     componentWillUnmount() {
         window.removeEventListener('beforeunload', this.saveModeToLocalStorage);
-       // window.removeEventListener('unload', this.clearLocalStorage);
+        window.removeEventListener('unload', this.clearLocalStorage);
     }
 
+    //this function saves the current mode to Local Storage
     saveModeToLocalStorage = () => {
-        localStorage.setItem('mode', this.state.mode); // Save current mode to localStorage
+        localStorage.setItem('mode', this.state.mode);
     }
 
+    // Clear mode from localStorage on browser close or unload
     clearLocalStorage = () => {
-        if (localStorage.getItem('mode')) {
-            localStorage.removeItem('mode'); // Clear mode from localStorage on browser close
-        }
+        localStorage.removeItem('mode');
     }
-
     toggleAbout = () => {
         this.setState(prevState => ({ showAbout: !prevState.showAbout }));
     }

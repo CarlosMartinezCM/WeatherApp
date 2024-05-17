@@ -12,6 +12,3 @@ You can check out the site using the link below.
 caecspace.com
 
 
-
-ADD cool site!
-https://90s.myretrotvs.com/#mJSyXqBKVpY

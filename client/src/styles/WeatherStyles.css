@@ -155,7 +155,8 @@
 }
 
 .weatherAlerts {
-  margin: 20px;
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 85%;
   border: 1px solid rgb(128, 128, 128); /* Border around the container */
   border-radius: 5px; /* Border radius */
   overflow: hidden; /* Clear floats */
@@ -176,7 +177,8 @@
 }
 
 .warnZone {
-  margin: 10px;
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 85%;
   font-size: 16px;
   line-height: 1;
   /* line spacing after each line*/
@@ -184,7 +186,8 @@
 }
 
 .alertText {
-  margin: 10px;
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 85%;
   font-size: 16px;
   line-height: 1;
   /* line spacing after each line*/
@@ -201,6 +204,8 @@
   line-height: 1;
   /* line spacing after each line*/
   color: rgb(0, 0, 0);
+  margin: 20px auto; /* Center the container horizontally */
+  max-width: 85%;
 }
 /* current city heading styles */
 .currentWeatherContainer {
@@ -1134,4 +1139,37 @@ button {
 /* Optionally, you can hide the input element */
 #file-input {
   display: none;
+}
+
+/* Define CSS rules for your component */
+
+/* Style for the container of image groups */
+.image-group-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow images to wrap to the next line if there's not enough space */
+  justify-content: space-between; /* Distribute images evenly across the container */
+}
+
+/* Style for each group of images */
+.image-group {
+  margin-bottom: 20px; /* Add some margin at the bottom of each group */
+}
+
+/* Style for each individual image */
+.gif-item {
+  margin-right: 10px; /* Add some space between each image */
+}
+
+.gif-item img {
+  width: 250px; /* Set the width of each image */
+  height: auto; /* Maintain aspect ratio */
+  cursor: pointer; /* Change cursor to pointer when hovering over the image */
+}
+
+/* Style for the information list */
+.infoList {
+  cursor: pointer; /* Change cursor to pointer when hovering over the list */
+  color: blue; /* Set text color to blue */
+  font-weight: bold; /* Make the text bold */
+  margin-top: 5px; /* Add some space at the top */
 }

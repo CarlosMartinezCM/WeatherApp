@@ -375,12 +375,12 @@ class WeatherForecast extends React.Component {
                         <h4>Current Weather Radar</h4>
                     </div>
                     <div className='radar'>
-                    <img
-                        src={this.state.gifRadar} // Assuming the image is at index 0
-                        alt="Weather Radar"
-                        // Add cursor style for indicating clickability
-                        onClick={() => this.handleImageClick(this.state.gifRadar)} // Attach onClick event handler
-                    />
+                        <img
+                            src={this.state.gifRadar} // Assuming the image is at index 0
+                            alt="Weather Radar"
+                            // Add cursor style for indicating clickability
+                            onClick={() => this.handleImageClick(this.state.gifRadar)} // Attach onClick event handler
+                        />
                     </div>
                 </div>
                 {/***************************Render radar the modal ***************************/}
@@ -431,7 +431,6 @@ class CurrentWeather extends React.Component {
     }
     //If the user allows to get location, the weather is set to the users current GeoLocation position. 
     getLocSuccess = (position) => {
-
         this.setState({ station: { lat: position.coords.latitude, lon: position.coords.longitude } });
     }
     //This fucntion is called if the user denies to give their current Geolocation and initializes the default location. 

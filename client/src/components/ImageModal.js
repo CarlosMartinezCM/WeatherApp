@@ -6,17 +6,15 @@ class ImageModal extends React.Component {
         return (
             <div className="modal" role="dialog">
                 <div className="modal-content">
-                    <div>
-                        <div className='modal-header'>
-                            <p className='modal-title'></p>
-                            <button className="close" onClick={onClose}>&times;</button>
-                        </div>
-                        <img 
-                                className='expanded-image'
-                                src={imageUrl} alt="Image" />
+                    <div className='modal-header'>
+                        <p className='modal-title'></p>
+                        <button className="close" onClick={onClose}>&times;</button>
                     </div>
+                    <img 
+                        className='expanded-image'
+                        src={imageUrl} alt="Generated GIF" />
                     <div className='modal-footer'>
-                        <button className='modal-submit-btn' onClick={onClose}>close</button>
+                        <button className='modal-submit-btn' onClick={onClose}>Close</button>
                     </div>
                 </div>
             </div>

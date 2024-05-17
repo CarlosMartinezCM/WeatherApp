@@ -63,7 +63,7 @@ class App extends Component {
 
             // Extract image URLs from the JSON data and store them in imageUrlsArrayAll array to create the GIFs
             const imageUrlsArrayAll = jsonDataArray.map(jsonData => jsonData.map(item => `https://services.swpc.noaa.gov${item.url}`));
-
+           
             console.log('imageUrlsArrayAll:', imageUrlsArrayAll);
 
             // Filter out any null values (if any)
@@ -85,6 +85,7 @@ class App extends Component {
     }
 
     handleImageClick = (imageUrls) => {
+
         this.setState({ selectedImageUrl: imageUrls, modalVisible: true });
     }
 
@@ -92,7 +93,23 @@ class App extends Component {
         this.setState({ modalVisible: false });
     }
 
-
+    // Generate GIFs with the extracted image URLs
+    /* const gifArray = [];
+     for (const imageUrls of imageUrlsArray) {
+         const gif = await this.generateGIF(imageUrls);
+         gifArray.push(gif);
+         //This will call the handledownload to automatically download the gif to downloads folder. 
+         //this.handleDownload(gif);
+     }
+    
+    // Now, gifArray contains all the generated GIFs
+    const gifArray = [];
+    const numberOfGIFs = gifArray.length;
+    console.log(`Number of GIFs: ${numberOfGIFs}`);
+    this.setState({ gifArray, progress: 0 });
+    } catch (error) {
+    console.error('Error fetching image filenames:', error);
+    }*/
 
     //generate Gifs of the sun from the PNGs or jpg
     generateGIF = (imageUrls) => {
@@ -131,7 +148,7 @@ class App extends Component {
     };
 
     render() {
-        const { progress, gifArray, selectedGifIndex, imageUrlsArray, imageUrls, modalVisible, selectedImageUrl } = this.state;
+        const { progress, gifArray, selectedGifIndex, imageUrlsArray, imageUrls, modalVisible, selectedImageUrl, imageUrlsArrayAll } = this.state;
         return (
             <div>
                 <div className='spaceWeatherHeader'>
@@ -193,7 +210,8 @@ class App extends Component {
                             </div>
                         )
                     }
-                    {/* <div class="gif-container">
+                      <div className='aurora'>
+                    { <div class="gif-container">
                         {progress !== 0 && <label>Loading... {progress}%</label>}
                         <div className="gif-container">
                             {gifArray.map((gif, index) => (
@@ -204,8 +222,9 @@ class App extends Component {
                                 </div>
                             ))}
                         </div>
-                    </div> */}
+                    </div> }</div>
                 </div >
+                
                 <div class="spaceFooter">
                     <h6><i>Last Updated on </i></h6>
                     <p>{this.state.now.toString()}</p>
@@ -222,20 +241,3 @@ export default App;
 
 
 
-// Generate GIFs with the extracted image URLs
-/* const gifArray = [];
- for (const imageUrls of imageUrlsArray) {
-     const gif = await this.generateGIF(imageUrls);
-     gifArray.push(gif);
-     //This will call the handledownload to automatically download the gif to downloads folder. 
-     //this.handleDownload(gif);
- }
-
-// Now, gifArray contains all the generated GIFs
-const gifArray = [];
-const numberOfGIFs = gifArray.length;
-console.log(`Number of GIFs: ${numberOfGIFs}`);
-this.setState({ gifArray, progress: 0 });
-} catch (error) {
-console.error('Error fetching image filenames:', error);
-}*/
