@@ -20,7 +20,7 @@ class WeatherForecast extends React.Component {
             now: new Date(),
             forecastPeriods: [],
             station: null,
-            icon: null,
+            icon: ' ',
             modalOpen: false,
             hourlyModalOpen: false,
             alertDescription: '',
@@ -105,6 +105,7 @@ class WeatherForecast extends React.Component {
         try {
             const response = await fetch(`https://api.weather.gov/stations/${this.state.stationIdentifier}/observations/latest`);
             const data = await response.json();
+            console.log('API Response:', data );
 
             this.setState({
                 textDescription: data.properties.textDescription,
@@ -130,7 +131,7 @@ class WeatherForecast extends React.Component {
         try {
             const response = await fetch(`https://api.weather.gov/alerts/active/zone/${this.state.warnzone}`);
             const data = await response.json();
-
+           
             this.setState({
                 area: data.features[0].properties.areaDesc,
                 event: data.features[0].properties.event,
@@ -271,7 +272,7 @@ class WeatherForecast extends React.Component {
                                 {this.state.forecastPeriods.map((period, index) => (
                                     <div key={period.number} className="periodItem">
                                         <p>{period.name}</p>
-                                        <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
+                                        <p>  {period.icon && <img src={`https://api.weather.gov/${period.icon}`} alt="Weather Icon" />}</p>
                                         <p>{period.shortForecast}</p>
                                         {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
                                         {period.isDaytime ? (
@@ -354,7 +355,7 @@ class WeatherForecast extends React.Component {
                             {this.state.forecastPeriods.slice(0, 8).map((period, index) => (
                                 <div key={period.number} className="periodItem">
                                     <p>{period.name}</p>
-                                    <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
+                                    <p>  {period.icon && <img src={`https://api.weather.gov/${period.icon}`}  alt="Weather Icon" />}</p>
                                     <div class="shortForecastText">
                                         <p>{period.shortForecast}</p>
                                     </div>

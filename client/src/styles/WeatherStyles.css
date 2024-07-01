@@ -1,4 +1,5 @@
 
+
 /*Styling ordered from top to bottom of web page.*/
 .navTitle {
   align-items: center;
@@ -502,7 +503,8 @@ This keeps the mode bar at the bottom*/
 .modebar a {
   display: block;
   float: left;
-  width: 33%;
+    /* This allows for me to add 4 footer options */
+  width: 25%;
   color: rgb(0, 0, 0);
   text-align: center;
   padding: 2px 2px;
@@ -608,8 +610,14 @@ This keeps the mode bar at the bottom*/
   margin-bottom: 20px; /* Adjust the value as needed */
 }
 .expanded-image {
-  width: 75%; /* Set the width to 100% to make the image expand to the full width of the modal */
+  width: 60%; /* Set the width to 100% to make the image expand to the full width of the modal */
   height: auto; /* Maintain aspect ratio */
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  margin: auto;
+  max-height:fit-content; /* Set a maximum height */
+  white-space: nowrap; /* Prevent wrapping of items */
 }
 
 .close {
@@ -1172,4 +1180,30 @@ button {
   color: blue; /* Set text color to blue */
   font-weight: bold; /* Make the text bold */
   margin-top: 5px; /* Add some space at the top */
+}
+
+.top-button {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.top-button:hover {
+  background-color: #555;
+}
+
+.top-button.show {
+  display: block;
+}
+
+.top-button.hide {
+  display: none;
 }

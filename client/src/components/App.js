@@ -10,6 +10,7 @@ import SPACEURLS from './videos.js';
 import OTHERSITE from './Sites.js';
 import GIF from './createGif.js';
 import CONTACTME from './contactMe.js';
+import TopButton from './topButton.js';
 
 const modeTitle = {};
 modeTitle[AppMode.WEATHER] = "Current Weather!!";
@@ -111,6 +112,7 @@ class App extends React.Component {
                     contactMe={() => this.handleChangeMode(AppMode.CONTACTME)}
                     showAbout={this.toggleAbout}
                 />
+                <TopButton />
             </div>
         );
     }
