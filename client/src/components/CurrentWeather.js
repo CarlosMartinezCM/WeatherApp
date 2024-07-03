@@ -5,6 +5,8 @@ import React from 'react';
 import AppMode from "./../AppMode";
 import Modal from 'react-modal';
 import ImageModal from './ImageModal.js';
+import Button from 'react-bootstrap';
+
 require('dotenv').config();
 
 
@@ -23,18 +25,36 @@ class WeatherForecast extends React.Component {
             icon: ' ',
             modalOpen: false,
             hourlyModalOpen: false,
-            alertDescription: '',
-            alertInstruction: '',
-            alertArea: '',
+            showAlertModal: false,
+            modalData: {
+                description: '',
+                instruction: '',
+                area: ''
+            },
+            modalIsOpen: false,
             baseImageUrl: 'https://radar.weather.gov/ridge/standard/',
             gifRadar: '',
             errorMessage: '',
             modalVisible: false, // Initialize modal visibility to false
         };
         // Set the app element in the constructor
-        Modal.setAppElement('#root'); // Assuming '#root' is the root element of your React app  
+        Modal.setAppElement('#root'); // This is required for accessibility, to hide other content when the modal is open
     }
 
+    showAlertModal = (description, instruction, area) => {
+        this.setState({
+            showModal: true,
+            modalData: {
+                description,
+                instruction,
+                area
+            }
+        });
+    };
+
+    handleCloseModal = () => {
+        this.setState({ showModal: false });
+    };
     componentDidMount = () => {
         this.getWeatherForecast();
 
@@ -105,7 +125,7 @@ class WeatherForecast extends React.Component {
         try {
             const response = await fetch(`https://api.weather.gov/stations/${this.state.stationIdentifier}/observations/latest`);
             const data = await response.json();
-            console.log('API Response:', data );
+            console.log('API Response:', data);
 
             this.setState({
                 textDescription: data.properties.textDescription,
@@ -131,7 +151,7 @@ class WeatherForecast extends React.Component {
         try {
             const response = await fetch(`https://api.weather.gov/alerts/active/zone/${this.state.warnzone}`);
             const data = await response.json();
-           
+
             this.setState({
                 area: data.features[0].properties.areaDesc,
                 event: data.features[0].properties.event,
@@ -188,14 +208,14 @@ class WeatherForecast extends React.Component {
         this.getWeatherForecast();
         // alert("updating weather");
     }
-    handleAlertClick = (description, instruction, area) => {
-        this.setState({
-            alertDescription: description,
-            alertInstruction: instruction,
-            alertArea: area,
-            modalIsOpen: true,
-        });
-    };
+    // handleAlertClick = (description, instruction, area) => {
+    //     this.setState({
+    //         alertDescription: description,
+    //         alertInstruction: instruction,
+    //         alertArea: area,
+    //         modalIsOpen: true,
+    //     });
+    // };
     handleForecastClick = (tempF, tempU, unitF, shortF) => {
         this.setState({
             forecastTemp: tempF,
@@ -207,10 +227,12 @@ class WeatherForecast extends React.Component {
     };
 
     closeModal = () => {
-        this.setState({
-            modalIsOpen: false,
-        });
-    };
+        this.setState({ 
+            showModal: false,
+            modalIsOpen: false
+         });
+
+      };
 
     handleCloseImageModal = () => {
         this.setState({ modalVisible: false });
@@ -227,32 +249,58 @@ class WeatherForecast extends React.Component {
             return <div>{this.state.errorMessage && <p>{this.state.errorMessage}</p>}</div>
         }
         const formattedTimestamp = this.formatTimestamp(this.state.timestamp);
+
+        // Function to split description into sentences
+        const splitDescriptionIntoSentences = (description) => {
+            return description.split(/[.!?]+/).filter(Boolean);
+        };
         return (
             <div className="globalMedia">
-                <div /*className="weatherAlerts"*/>
+                <div className="weatherAlerts">
                     <h3>{this.state.event}</h3>
                     <div className="warnZone">
                         <p> {this.state.errorMessage && <p>{this.state.errorMessage}</p>} </p>
                     </div>
                     <div>
-                        <div className="alertText" onClick={() => this.handleAlertClick(this.state.description, this.state.instruction, this.state.area)}>
+                        <div className="alertText" onClick={() => this.showAlertModal(this.state.description, this.state.instruction, this.state.area)}>
                             <p> {this.state.headline}</p>
                         </div>
-                        {/* Modal component for the Alerts */}
-                        <Modal
-                            isOpen={this.state.modalIsOpen}
-                            onRequestClose={this.closeModal}
-                            contentLabel="Weather Alerts Modal"
-                            className="customModalContent"
-                        >
-                            {/*Alert Modal Styles*/}
-                            <button onClick={this.closeModal}>Close Modal</button>
-                            <div className="alertModal">
-                                <p>{this.state.area}</p>
-                                <p>{this.state.description}</p>
-                                <p>{this.state.instruction}</p>
-                            </div>
-                        </Modal>
+                         {/* Modal component for the Alerts */}
+                <Modal
+                    isOpen={this.state.showModal}
+                    onRequestClose={this.closeModal}
+                    contentLabel="Weather Alerts Modal"
+                    className="customModalContent"
+                >
+                    {/* Modal Header */}
+                    <div className="modalHeader">
+                        <h2>Alert Details</h2>
+                        <button onClick={this.closeModal}>Close</button>
+                    </div>
+
+                    {/* Modal Body */}
+                    <div className="modalBody">
+                        <div className="alertModal">
+                            <p><strong>Area:</strong></p>
+                            <ul>
+                                {this.state.modalData.area.split(';').map((area, index) => (
+                                    <li key={index}>{area.trim()}</li>
+                                ))}
+                            </ul>
+                            <p><strong>Description:</strong></p>
+                            {splitDescriptionIntoSentences(this.state.modalData.description).map((sentence, index) => (
+                                <p key={index}>{sentence}</p>
+                            ))}
+                            <p><strong>Instruction:</strong></p>
+                            <p>{this.state.modalData.instruction}</p>
+                        </div>
+                    </div>
+
+                    {/* Modal Footer */}
+                    <div className="modalFooter">
+                        <button onClick={this.closeModal}>Close</button>
+                    </div>
+                </Modal>
                     </div>
                 </div>
                 <div className='ForecastOptions'>
@@ -263,7 +311,7 @@ class WeatherForecast extends React.Component {
                     <Modal
                         isOpen={this.state.modalIsOpen}
                         onRequestClose={this.closeModal}
-                        contentLabel="Weather Alerts Modal"
+                        contentLabel="7 Day forecast Modal"
                         className="customModalContent" >
                         {/* Forecast Modal Styles  */}
                         <button onClick={this.closeModal}>Close Modal</button>
@@ -355,7 +403,7 @@ class WeatherForecast extends React.Component {
                             {this.state.forecastPeriods.slice(0, 8).map((period, index) => (
                                 <div key={period.number} className="periodItem">
                                     <p>{period.name}</p>
-                                    <p>  {period.icon && <img src={`https://api.weather.gov/${period.icon}`}  alt="Weather Icon" />}</p>
+                                    <p>  {period.icon && <img src={`https://api.weather.gov/${period.icon}`} alt="Weather Icon" />}</p>
                                     <div class="shortForecastText">
                                         <p>{period.shortForecast}</p>
                                     </div>

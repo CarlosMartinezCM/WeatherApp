@@ -17,12 +17,17 @@
   background-color: #b7b7b7;
 }
 
+globalMedia {
+  align-items: center;
+  text-align: center;
+}
 /* Global Media query for smaller screens */
 @media screen and (max-width: 300px) {
   .globalMedia {
     flex-direction: column;
     /* Change to column layout for smaller screens */
     align-items: center;
+    
   }
 }
 
@@ -184,6 +189,8 @@
   line-height: 1;
   /* line spacing after each line*/
   color: rgb(255, 0, 0);
+  align-items: center;
+  text-align: center;
 }
 
 .alertText {
@@ -191,9 +198,10 @@
   max-width: 85%;
   font-size: 16px;
   line-height: 1;
+  align-items: center;
+  text-align: center;
   /* line spacing after each line*/
   color: rgb(255, 0, 0);
-  transition: color 0.3s, box-shadow 0.3s;
   /* Add a transition for smooth animation */
   cursor: pointer;
   /* Show pointer cursor on hover */
@@ -208,6 +216,8 @@
   margin: 20px auto; /* Center the container horizontally */
   max-width: 85%;
 }
+
+
 /* current city heading styles */
 .currentWeatherContainer {
   margin: 20px auto; /* Center the container horizontally */
@@ -1206,4 +1216,50 @@ button {
 
 .top-button.hide {
   display: none;
+}
+
+.customModalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80%; /* Adjust max-width as needed */
+  width: auto;
+  background: white;
+  border: 1px solid #ccc;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.modalBody {
+  margin-bottom: 20px;
+}
+
+.modalFooter {
+  text-align: right;
+}
+
+.modalFooter button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modalFooter button:hover {
+  background-color: #0056b3;
 }
