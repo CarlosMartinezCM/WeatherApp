@@ -8,7 +8,6 @@ import ImageModal from './ImageModal.js';
 
 require('dotenv').config();
 
-
 class WeatherForecast extends React.Component {
     constructor(props) {
         super(props);
@@ -488,15 +487,24 @@ class CurrentWeather extends React.Component {
     //This function is called when the user wants to search by city. Working on hiding the APIkey. 
     searchLocation = async (event) => {
         event.preventDefault(); // Prevent default form submission behavior
-        var data = this.citySearch.current.value;
-        if (data != null) {
+        const city = this.citySearch.current.value;
+    
+        if (city) {
             this.setState({ station: null });
-            const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=` +
-                data + `&appid=${process.env.REACT_APP_API_KEY}`);
-            const currentStation = await response.json();
-            if (currentStation != null && currentStation.hasOwnProperty('coord')) {
-                this.setState({ station: { lat: currentStation.coord.lat, lon: currentStation.coord.lon } });
-            } else { alert("no station for this loation"); }
+    
+            try {
+                const response = await fetch(`/api/searchLocation?city=${city}`);
+                const currentStation = await response.json();
+    
+                if (response.ok && currentStation.coord) {
+                    this.setState({ station: { lat: currentStation.coord.lat, lon: currentStation.coord.lon } });
+                } else {
+                    alert("No station for this location");
+                }
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                alert("Error fetching weather data");
+            }
         }
     }
     handleChange = (event) => {
