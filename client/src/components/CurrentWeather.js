@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import ImageModal from './ImageModal.js';
 
 require('dotenv').config();
-
+const apiKey = process.env.REACT_APP_API_KEY;
 
 class WeatherForecast extends React.Component {
     constructor(props) {
@@ -124,8 +124,6 @@ class WeatherForecast extends React.Component {
         try {
             const response = await fetch(`https://api.weather.gov/stations/${this.state.stationIdentifier}/observations/latest`);
             const data = await response.json();
-            console.log('API Response:', data);
-
             this.setState({
                 textDescription: data.properties.textDescription,
                 temp: data.properties.temperature.value,
@@ -160,7 +158,6 @@ class WeatherForecast extends React.Component {
             });
         } catch (error) {
         }
-        console.log(this.state.areaDesc);
     }
 
     getRadar = async () => {
@@ -177,7 +174,6 @@ class WeatherForecast extends React.Component {
             });
         } catch (error) {
         }
-        console.log(this.state.areaDesc);
     }
 
     //Toggle units from F to C, not yet implemented.    
@@ -226,12 +222,12 @@ class WeatherForecast extends React.Component {
     };
 
     closeModal = () => {
-        this.setState({ 
+        this.setState({
             showModal: false,
             modalIsOpen: false
-         });
+        });
 
-      };
+    };
 
     handleCloseImageModal = () => {
         this.setState({ modalVisible: false });
@@ -264,42 +260,42 @@ class WeatherForecast extends React.Component {
                         <div className="alertText" onClick={() => this.showAlertModal(this.state.description, this.state.instruction, this.state.area)}>
                             <p> {this.state.headline}</p>
                         </div>
-                         {/* Modal component for the Alerts */}
-                <Modal
-                    isOpen={this.state.showModal}
-                    onRequestClose={this.closeModal}
-                    contentLabel="Weather Alerts Modal"
-                    className="customModalContent"
-                >
-                    {/* Modal Header */}
-                    <div className="modalHeader">
-                        <h2>Alert Details</h2>
-                        <button onClick={this.closeModal}>Close</button>
-                    </div>
+                        {/* Modal component for the Alerts */}
+                        <Modal
+                            isOpen={this.state.showModal}
+                            onRequestClose={this.closeModal}
+                            contentLabel="Weather Alerts Modal"
+                            className="customModalContent"
+                        >
+                            {/* Modal Header */}
+                            <div className="modalHeader">
+                                <h2>Alert Details</h2>
+                                <button onClick={this.closeModal}>Close</button>
+                            </div>
 
-                    {/* Modal Body */}
-                    <div className="modalBody">
-                        <div className="alertModal">
-                            <p><strong>Area:</strong></p>
-                            <ul>
-                                {this.state.modalData.area.split(';').map((area, index) => (
-                                    <li key={index}>{area.trim()}</li>
-                                ))}
-                            </ul>
-                            <p><strong>Description:</strong></p>
-                            {splitDescriptionIntoSentences(this.state.modalData.description).map((sentence, index) => (
-                                <p key={index}>{sentence}</p>
-                            ))}
-                            <p><strong>Instruction:</strong></p>
-                            <p>{this.state.modalData.instruction}</p>
-                        </div>
-                    </div>
+                            {/* Modal Body */}
+                            <div className="modalBody">
+                                <div className="alertModal">
+                                    <p><strong>Area:</strong></p>
+                                    <ul>
+                                        {this.state.modalData.area.split(';').map((area, index) => (
+                                            <li key={index}>{area.trim()}</li>
+                                        ))}
+                                    </ul>
+                                    <p><strong>Description:</strong></p>
+                                    {splitDescriptionIntoSentences(this.state.modalData.description).map((sentence, index) => (
+                                        <p key={index}>{sentence}</p>
+                                    ))}
+                                    <p><strong>Instruction:</strong></p>
+                                    <p>{this.state.modalData.instruction}</p>
+                                </div>
+                            </div>
 
-                    {/* Modal Footer */}
-                    <div className="modalFooter">
-                        <button onClick={this.closeModal}>Close</button>
-                    </div>
-                </Modal>
+                            {/* Modal Footer */}
+                            <div className="modalFooter">
+                                <button onClick={this.closeModal}>Close</button>
+                            </div>
+                        </Modal>
                     </div>
                 </div>
                 <div className='ForecastOptions'>
@@ -311,26 +307,25 @@ class WeatherForecast extends React.Component {
                         isOpen={this.state.modalIsOpen}
                         onRequestClose={this.closeModal}
                         contentLabel="7 Day forecast Modal"
-                        className="customModalContent" >
+                        className="customModalContent"
+                    >
                         {/* Forecast Modal Styles  */}
                         <button onClick={this.closeModal}>Close Modal</button>
-                        <div overlayClassName="customModalOverlay">
-                            <div className="forecast-card-container">
-                                {this.state.forecastPeriods.map((period, index) => (
-                                    <div key={period.number} className="periodItem">
-                                        <p>{period.name}</p>
-                                        <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
-                                        <p>{period.shortForecast}</p>
-                                        {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
-                                        {period.isDaytime ? (
-                                            <div>
-                                                <p>High: {period.temperature} °{period.temperatureUnit}</p>
-                                            </div>) : (
-                                            <p>Low: {period.temperature} °{period.temperatureUnit}</p>)}
-                                        <p></p>
-                                    </div>
-                                ))}
-                            </div>
+                        <div className="forecast-card-container">
+                            {this.state.forecastPeriods.map((period, index) => (
+                                <div key={period.number} className="periodItem">
+                                    <p>{period.name}</p>
+                                    <p>  {period.icon && <img src={period.icon} alt="Weather Icon" />}</p>
+                                    <p>{period.shortForecast}</p>
+                                    {/* Conditionally check if it is daytime or night time to get the High or Low temperature*/}
+                                    {period.isDaytime ? (
+                                        <div>
+                                            <p>High: {period.temperature} °{period.temperatureUnit}</p>
+                                        </div>) : (
+                                        <p>Low: {period.temperature} °{period.temperatureUnit}</p>)}
+                                    <p></p>
+                                </div>
+                            ))}
                         </div>
                     </Modal>
                 </div>
@@ -469,10 +464,10 @@ class CurrentWeather extends React.Component {
         this.citySearch = React.createRef();
         this.state = {
             searchButton: "Seach",
-            station: null
+            station: null, 
+            result: null
         };
     }
-
     componentDidMount = () => {
         //Get users location if allowed
         navigator.geolocation.getCurrentPosition(this.getLocSuccess, this.getLocError);
@@ -487,18 +482,39 @@ class CurrentWeather extends React.Component {
     }
     //This function is called when the user wants to search by city. Working on hiding the APIkey. 
     searchLocation = async (event) => {
-        event.preventDefault(); // Prevent default form submission behavior
-        var data = this.citySearch.current.value;
-        if (data != null) {
-            this.setState({ station: null });
-            const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=` +
-                data + `&appid=${process.env.REACT_APP_API_KEY}`);
-            const currentStation = await response.json();
-            if (currentStation != null && currentStation.hasOwnProperty('coord')) {
-                this.setState({ station: { lat: currentStation.coord.lat, lon: currentStation.coord.lon } });
-            } else { alert("no station for this loation"); }
-        }
+  event.preventDefault();
+  const data = this.citySearch.current.value;
+
+  if (data) {
+    this.setState({ station: null });
+
+    const apiKey = process.env.REACT_APP_API_KEY;
+
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${data}&appid=${apiKey}&units=imperial`
+      );
+      const result = await response.json();
+
+      if (result.cod === 200) {
+        this.setState({
+          station: {
+            lat: result.coord.lat,
+            lon: result.coord.lon
+          }
+        });
+      } else {
+        alert("City not found: " + result.message);
+      }
+
+    } catch (error) {
+      console.error("Fetch error:", error);
+      alert("Error getting weather data.");
     }
+  }
+};
+
+
     handleChange = (event) => {
         event.preventDefault();
         this.props.changeMode(AppMode.SITEMAP);

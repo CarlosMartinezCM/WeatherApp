@@ -78,7 +78,7 @@ class App extends React.Component {
     render() {
         const ModePage = modeToPage[this.state.mode];
         return (
-            <div>
+            <div className='body'>
                 {this.state.showAbout ? <AboutPopUp hideAbout={this.toggleAbout} /> : null}
                 <NavBar
                     title={modeTitle[this.state.mode]}

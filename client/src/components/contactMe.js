@@ -1,49 +1,45 @@
-import React from "react";
-import AppMode from "./../AppMode";
+// src/components/ContactForm.js
+import React, { useState } from "react";
 
-class contactMe extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      formData: {
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      }
-    };
-  }
+const ContactForm = () => {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("");
 
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState(prevState => ({
-      formData: {
-        ...prevState.formData,
-        [name]: value
-      }
-    }));
-  }
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    // You can perform any action with the form data here, such as sending it to a server
-    alert("Form submitted, feature in the works");
-    console.log("Form submitted:", this.state.formData);
-    // Clear the form after submission
-    this.setState({
-      formData: {
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     });
-  }
 
-  render() {
-    const { formData } = this.state;
-    return (
-      <div>
+    if (res.ok) {
+      setStatus("Message sent!");
+      setFormData({ name: "", email: "", message: "" });
+    } else {
+      setStatus("Failed to send.");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
+      <input name="email" placeholder="Email" type="email" value={formData.email} onChange={handleChange} required />
+      <textarea name="message" placeholder="Your message..." value={formData.message} onChange={handleChange} required />
+      <button type="submit">Send</button>
+      <p>{status}</p>
+    </form>
+  );
+};
+
+export default ContactForm;
+
+
+{/* <div>
         <div className='spaceWeatherHeader'> 
         <h1>This Page is under construction!!</h1>
         </div>
@@ -91,9 +87,4 @@ class contactMe extends React.Component {
           <button type="submit">Send Message</button>
         </form>
       </div>
-      </div>
-    )
-  }
-}
-
-export default contactMe;
+      </div> */}

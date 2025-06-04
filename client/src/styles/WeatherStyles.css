@@ -17,6 +17,13 @@
   background-color: #b7b7b7;
 }
 
+body {
+  max-width: 970px;     /* Set Width for content*/
+  margin: 0 auto;         /* Centers the container horizontally */
+  padding: 0 1em;         /* Adds horizontal spacing on smaller screens */
+  box-sizing: border-box; /* Ensures padding doesn't break your layout */
+}
+
 globalMedia {
   align-items: center;
   text-align: center;
@@ -393,24 +400,15 @@ globalMedia {
   width: auto;
 }
 
-/* Container for the extended forecast */
-.forecast-card-container {
-  display: flex;
-  justify-content: space-between; /* Spread items evenly */
-  padding: 10px;
-  gap: 5px;
-  max-height:fit-content; /* Set a maximum height */
-  white-space: nowrap; /* Prevent wrapping of items */
-}
+
+
 
 /* Container for each period item */
 .periodItem {
-  flex: 0 0 auto; /* Allow items to shrink as needed */
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  min-width: 150px;
   text-align: center;
-  box-sizing: border-box;
-  padding: 5px;
-  font-size: 14px;
-  margin-bottom: 5px; /* Add some bottom margin for spacing */
 }
 
 .shortForecastText{
@@ -546,7 +544,7 @@ This keeps the mode bar at the bottom*/
   /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%;
+  width:100%;
   /* Full width */
   height: 100%;
   /* Full height */
@@ -559,14 +557,18 @@ This keeps the mode bar at the bottom*/
   
 }
 
+.modal-content,
 .about-modal-content {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
-  text-align: center; /* Center the image */
+  width: 100%;
+  max-width: 800px; /* 👈 This constrains the width */
+  box-sizing: border-box;
+  text-align: center;
 }
+
 
 /* CSS for modal container */
 .modal-container {
@@ -575,24 +577,9 @@ This keeps the mode bar at the bottom*/
   left: 50%;
 }
 
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  background-color: rgba(255, 255, 255, 0.5); /* White with 50% opacity */
-  text-align: center; /* Center the image */
-}
-
-/* Media query for smaller screens */
-@media (max-width: 800px) {
-  .modal-content  img {
-    width: 100%;
-    /* Set image width to 100% of container on smaller screens */
-    margin-right: 0;
-    /* Remove right margin on smaller screens */
-    margin-bottom: 20px;
-    /* Add margin below images */
+@media (min-width: 768px) {
+  .modal-content-box {
+    max-width: 600px;
   }
 }
 
@@ -852,15 +839,18 @@ header {
 }
 
 .customModalContent {
-  /* Your existing styles */
-  justify-content: center;
-  margin: 20px;
+  width: 100%;
+  max-width: 920px !important; /* Enforce width */
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
   overflow-y: auto;
-  max-height: fit-content; /* Set a maximum height */
-  white-space: nowrap; /* Prevent wrapping of items */
-  justify-content: space-between; /* Spread items evenly */
-  /* This allows for vertical scrolling for overflow content */
-  max-height: 60vh; /* Set a maximum height for the modal content */
+  max-height: 60vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Media query for smaller screens */
@@ -871,6 +861,21 @@ header {
   }
 }
 
+/* Container for the extended forecast */
+.forecast-card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  overflow-x: auto; /* ✅ Enable horizontal scrolling */
+  overflow-y: hidden; /* 🚫 Disable vertical scroll */
+  gap: 10px;
+  padding: 20px;
+  background-color: #fefefe;
+  border: 1px solid #888;
+  scroll-snap-type: x mandatory;
+  max-width: 100%;
+  box-sizing: border-box;
+}
 /******************************** Space Weather****************************************************/
 
 /*Card to go around the entire webpage*/

@@ -4,6 +4,7 @@ class ImageModal extends React.Component {
     render() {
         const { imageUrl, onClose } = this.props;
         return (
+            <div className='body' >
             <div className="modal" role="dialog">
                 <div className="modal-content">
                     <div className='modal-header'>
@@ -17,6 +18,7 @@ class ImageModal extends React.Component {
                         <button className='modal-submit-btn' onClick={onClose}>Close</button>
                     </div>
                 </div>
+            </div>
             </div>
         );
     }
