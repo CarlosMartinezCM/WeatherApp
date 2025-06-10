@@ -137,6 +137,29 @@ globalMedia {
   filter: brightness(120%);
 }
 
+.suggestions-list {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  background: white;
+  position: absolute;
+  z-index: 1000;
+  width: calc(100% - 40px);
+}
+
+.suggestions-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0;
+}
+
+
 /* More Information styles */
 .moreInfo {
   margin: 20px;

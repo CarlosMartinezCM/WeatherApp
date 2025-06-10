@@ -464,8 +464,9 @@ class CurrentWeather extends React.Component {
         this.citySearch = React.createRef();
         this.state = {
             searchButton: "Seach",
-            station: null, 
-            result: null
+            station: null,
+            result: null,
+            suggestions: []
         };
     }
     componentDidMount = () => {
@@ -482,37 +483,63 @@ class CurrentWeather extends React.Component {
     }
     //This function is called when the user wants to search by city. Working on hiding the APIkey. 
     searchLocation = async (event) => {
-  event.preventDefault();
-  const data = this.citySearch.current.value;
+        event.preventDefault();
+        const data = this.citySearch.current.value;
 
-  if (data) {
-    this.setState({ station: null });
+        if (data) {
+            this.setState({ station: null });
 
-    const apiKey = process.env.REACT_APP_API_KEY;
+            const apiKey = process.env.REACT_APP_API_KEY;
 
-    try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${data}&appid=${apiKey}&units=imperial`
-      );
-      const result = await response.json();
+            try {
+                const response = await fetch(
+                    `https://api.openweathermap.org/data/2.5/weather?q=${data}&appid=${apiKey}&units=imperial`
+                );
+                const result = await response.json();
 
-      if (result.cod === 200) {
-        this.setState({
-          station: {
-            lat: result.coord.lat,
-            lon: result.coord.lon
-          }
+                if (result.cod === 200) {
+                    this.setState({
+                        station: {
+                            lat: result.coord.lat,
+                            lon: result.coord.lon
+                        }
+                    });
+                } else {
+                    alert("City not found: " + result.message);
+                }
+
+            } catch (error) {
+                console.error("Fetch error:", error);
+                alert("Error getting weather data.");
+            }
+        }
+    };
+    handleInputChange = async (e) => {
+        const query = e.target.value;
+        const apiKey = process.env.REACT_APP_API_KEY;
+
+        if (query.length > 2) {
+            try {
+                const response = await fetch(
+                    `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`
+                );
+                const cities = await response.json();
+                this.setState({ suggestions: cities });
+            } catch (err) {
+                console.error("Error fetching suggestions", err);
+            }
+        } else {
+            this.setState({ suggestions: [] });
+        }
+    };
+
+    handleSuggestionClick = (city) => {
+        this.citySearch.current.value = `${city.name}, ${city.country}`;
+        this.setState({ suggestions: [] }, () => {
+            this.searchLocation({ preventDefault: () => { } });
         });
-      } else {
-        alert("City not found: " + result.message);
-      }
+    };
 
-    } catch (error) {
-      console.error("Fetch error:", error);
-      alert("Error getting weather data.");
-    }
-  }
-};
 
 
     handleChange = (event) => {
@@ -534,13 +561,25 @@ class CurrentWeather extends React.Component {
                                     type="text"
                                     id="cName"
                                     name="cName"
-                                    placeholder="Enter City Name" />
+                                    placeholder="Enter City Name"
+                                    onChange={this.handleInputChange}
+                                />
                                 <button
                                     type="submit"
                                     class="btn-color-theme" onClick={this.searchLocation} >
                                     <span id="login-btn-icon" className={this.state.searchButton} />&nbsp;{this.state.searchButton}
                                 </button>
                             </form>
+                            {this.state.suggestions.length > 0 && (
+  <ul className="suggestions-list">
+    {this.state.suggestions.map((city, index) => (
+      <li key={index} onClick={() => this.handleSuggestionClick(city)}>
+        {city.name}{city.state ? `, ${city.state}` : ''}, {city.country}
+      </li>
+    ))}
+  </ul>
+)}
+
                         </div>
                         <div className="moreInfo">
                             <p>More Information:</p>
