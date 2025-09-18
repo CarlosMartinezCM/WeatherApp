@@ -16,6 +16,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "body-parser": "^2.2.0",
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -26,7 +27,7 @@
     "jspdf": "^2.5.1",
     "leaflet": "^1.9.4",
     "node-fetch": "^3.3.2",
-    "nodemailer": "^7.0.3",
+    "nodemailer": "^7.0.6",
     "path": "^0.12.7",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
@@ -37,11 +38,11 @@
     "react-player": "^2.14.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.5",
-    "@babel/core": "^7.22.5",
+    "@babel/cli": "^7.28.3",
+    "@babel/core": "^7.28.4",
     "@babel/node": "^7.22.5",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-env": "^7.28.3",
     "nodemon": "^2.0.22"
   }
 }

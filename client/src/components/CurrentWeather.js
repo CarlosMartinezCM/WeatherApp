@@ -584,7 +584,7 @@ class CurrentWeather extends React.Component {
                         <div className="moreInfo">
                             <p>More Information:</p>
                             <div class="infoList"
-                                onClick={this.handleChange} >&nbsp;Site Map
+                                onClick={this.handleChange} >&nbsp; ***** Pick'ems Tracker  ******
                             </div>
                         </div>
                     </div>
