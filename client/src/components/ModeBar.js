@@ -21,10 +21,7 @@ class ModeBar extends React.Component {
             onClick={() => this.props.changeMode(AppMode.OTHERSITE)}>
             <span className="modebar-text">other sites</span>
           </a>
-          <a className="navOptionsTop"
-            onClick={this.props.showAbout}>
-            <span className="modebar-text">About</span>
-          </a>
+        
         </div>
       </div>
 

@@ -1,21 +1,19 @@
-// Use CommonJS style for Node v22
-const fetch = require('node-fetch'); 
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer');
 const path = require('path');
+// ✅ fetch is already built-in with Node v22
+
 
 const app = express();
 const PORT = process.env.HTTP_PORT || 8081;
 
-// Middleware
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'client', 'build')));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Route to fetch image filenames
 app.get('/images', async (req, res) => {
     try {
         const response = await fetch('https://services.swpc.noaa.gov/images/animations/suvi/primary/304/');
@@ -28,14 +26,13 @@ app.get('/images', async (req, res) => {
     }
 });
 
-// Route to handle contact form
 app.post('/contact', (req, res) => {
     const { name, email, subject, message } = req.body;
 
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: 'your_email@gmail.com',       // <-- replace with your credentials
+            user: 'your_email@gmail.com',
             pass: 'your_email_password'
         }
     });
@@ -49,7 +46,7 @@ app.post('/contact', (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.error(error);
+            console.log(error);
             res.status(500).send('Error sending email');
         } else {
             console.log('Email sent: ' + info.response);
@@ -58,7 +55,6 @@ app.post('/contact', (req, res) => {
     });
 });
 
-// Start server
 app.listen(PORT, () => {
     console.log(`Server listening at port ${PORT}.`);
 });
