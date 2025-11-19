@@ -1,11 +1,9 @@
 import fetch from 'node-fetch';
 const express = require('express');
 const cors = require('cors');
-var fetch = require('node-fetch');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const path = require('path'); // Import path module
-
 const app = express();
 const PORT = process.env.HTTP_PORT || 8081;
 
